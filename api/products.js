@@ -8,14 +8,13 @@ const {
 
 productsRouter.use((req, res, next) => {
     console.log('A request is being made to /products');
-    next;
+    next();
 });
 
 productsRouter.get('/', async (req, res, next) => {
     try {
-        console.log('test');
-        // const products = await Products.getAllProducts();
-        return res.send('products');
+        const products = await Products.getAllProducts();
+        return res.send(products);
     } catch (error) {
         throw error;
     }
