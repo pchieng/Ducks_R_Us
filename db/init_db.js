@@ -5,9 +5,8 @@ const {
 } = require('./');
 
 
-const {
-  createProduct
-} = require('./models/products')
+const {createProduct} = require('./models/products');
+const { createUser } = require('./models/user');
 
 
 
@@ -19,6 +18,7 @@ async function buildTables() {
     console.log("Dropping all tables...");
 
     await client.query(`
+    DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
     `)
 
@@ -34,7 +34,14 @@ async function buildTables() {
       description TEXT NOT NULL,
       quantity INTEGER NOT NULL,
       price FLOAT NOT NULL
-    );
+    )
+    CREATE TABLE users(
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      "isAdmin" BOOLEAN DEFAULT false
+    )
     `);
 
     console.log("Finished building all tables");
@@ -65,6 +72,24 @@ async function populateInitialData() {
     console.log(products);
 
     console.log('Finished creating products!')
+
+    // Creating dummy users
+    console.log('Starting to create users...')
+
+    const usersToCreate = [
+      {email: 'DonnyD@gmail.com', username: 'DonnyD', password: 'OGduck31', isAdmin: false},
+      {email: 'countduckula@gmail.com', username: 'TheCount', password: 'veggies1988', isAdmin: false},
+      {email: 'BigDaff@gmail.com', username: 'Daffy', password: 'ihateporky', isAdmin: false},
+      {email: 'admin@gmail.com', username: 'Admin', password: 'admin1', isAdmin: true},
+      
+    ]
+
+    const users = await Promise.all(usersToCreate.map(createUser));
+
+    console.log('users created:');
+    console.log(users);
+
+    console.log('Finished creating users!')
 
   } catch (error) {
     throw error;

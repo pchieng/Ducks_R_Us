@@ -4,7 +4,6 @@ import React from 'react';
 // } 
 // from '../axios-services';
 
-
 const ProductList = (props) => {
     const { products } = props;
     return (
@@ -24,8 +23,5 @@ const ProductList = (props) => {
     )
 
 }
-
-
-
 
 export default ProductList;

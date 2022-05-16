@@ -31,11 +31,6 @@ const App = () => {
     getProductList();
   }, []);
 
-
-
-
-
-
   return (
     <div className="app-container">
       <h1>Hello, World!</h1>

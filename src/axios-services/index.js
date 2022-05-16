@@ -31,6 +31,7 @@ export async function getAPIHealth() {
 export async function getAllProducts() {
   try {
     const { data } = await axios.get('/api/products');
+    console.log("displaying all products")
     return data;
   } catch (err) {
     console.error(err);
