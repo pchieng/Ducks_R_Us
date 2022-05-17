@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-
+import { getProductById } from '../axios-services';
 
 const ProductDetails = (props) => {
-    const { products } = props;
     const { productId } = useParams();
+    const [product, setProduct] = useState({});
+    
 
-    const [product] = products.filter(product => product.id === parseInt(productId));
+useEffect(() => {
+    const getProductDetails = async () => {
+        const product = await getProductById(productId);
+        setProduct(product);
+    }
+    getProductDetails();
+}, [])
+
+
 
     return (
-        <div className='productDetailsCard'>
+        <div className='productDetailsPage'>
             <h3>{`${product.name}`}</h3>
             <p>{`${product.description}`}</p>
             <p>{`$${product.price}`}</p>
