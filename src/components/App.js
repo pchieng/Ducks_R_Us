@@ -46,7 +46,7 @@ const App = () => {
           <ProductList products={products} />
         </Route>
         <Route path='/products/:productId'>
-          <ProductDetails products={products} />
+          <ProductDetails />
         </Route>
 
 
