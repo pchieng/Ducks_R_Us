@@ -37,3 +37,24 @@ export async function getAllProducts() {
     console.error(err);
   }
 }
+
+// still in progress
+export async function getAllUsers() {
+  try {
+    const { data: users } = await axios.get('/api/users');
+    console.log("displaying all users")
+    return users;
+  } catch (err) {
+    console.error(err);
+  }
+}
+// still in progress
+export async function getAllReviews() {
+  try {
+    const { data: reviews } = await axios.get('/api/reviews');
+    console.log("displaying all reviews")
+    return reviews;
+  } catch (err) {
+    console.error(err);
+  }
+}

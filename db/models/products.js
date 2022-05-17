@@ -1,9 +1,5 @@
 const client = require('../client');
 
-module.exports = {
-    createProduct,
-    getAllProducts
-}
 
 
 async function createProduct({ name, description, price, quantity }) {
@@ -29,4 +25,9 @@ async function getAllProducts() {
     } catch (error) {
         throw error;
     }
+}
+
+module.exports = {
+    createProduct,
+    getAllProducts
 }
