@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllProducts, getProductsByCategory } from '../axios-services';
+import { getAllActiveProducts, getActiveProductsByCategory } from '../axios-services';
 
 
 
@@ -8,11 +8,10 @@ const ProductList = () => {
 
     const [products, setProducts] = useState([]);
     const [productsToDisplay, setProductsToDisplay] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
 
     useEffect(() => {
         const getProductList = async () => {
-            const products = await getAllProducts();
+            const products = await getAllActiveProducts();
             setProducts(products);
             setProductsToDisplay(products)
         }
@@ -30,7 +29,7 @@ const ProductList = () => {
     }
 
     const displayProductHandler = async (category) => {
-        let displayedProducts = await getProductsByCategory(category);
+        let displayedProducts = await getActiveProductsByCategory(category);
         setProductsToDisplay(displayedProducts)
 
     } 
@@ -43,7 +42,6 @@ const ProductList = () => {
                 name='productCategory'
                 id='productCategory'
                 onChange={async (event) => {
-                    setSelectedCategory(event.target.value);
                     if (event.target.value === '') {
                         return;
                     } else if (event.target.value === 'all') {

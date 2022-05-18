@@ -61,7 +61,8 @@ async function populateInitialData() {
       {name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', category: 'toys', quantity: 100, price: 7.99, isActive: true},
       {name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', category: 'clothing', quantity: 100, price: 15.49, isActive: true},
       {name: 'Ducky Hat', description: 'White cap with ducky logo', category: 'clothing', quantity: 100, price: 19.99, isActive: true},
-      {name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', category: 'miscellaneous', quantity: 50, price: 23.99, isActive: true}
+      {name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', category: 'miscellaneous', quantity: 50, price: 23.99, isActive: true},
+      {name: 'Boomer Ducky', description: 'This old ducky is no longer active.', category: 'toys', quantity: 0, price: 9.99, isActive: false}
     ]
 
     const products = await Promise.all(productsToCreate.map(createProduct));

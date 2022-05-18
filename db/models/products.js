@@ -2,9 +2,9 @@ const client = require('../client');
 
 module.exports = {
     createProduct,
-    getAllProducts,
+    getAllActiveProducts,
     getProductById,
-    getProductsByCategory
+    getActiveProductsByCategory
 }
 
 
@@ -21,11 +21,12 @@ async function createProduct({ name, description, price, quantity, category, isA
     }
 }
 
-async function getAllProducts() {
+async function getAllActiveProducts() {
     try {
         const {rows: products} = await client.query(`
         SELECT *
         FROM products
+        WHERE "isActive"=true;
         `)
         return products;
     } catch (error) {
@@ -46,13 +47,14 @@ async function getProductById(productId) {
     }
 }
 
-async function getProductsByCategory(category) {
+async function getActiveProductsByCategory(category) {
     try {
         const {rows: products} = await client.query(`
         SELECT *
         FROM products
-        WHERE category=$1;
+        WHERE category=$1 AND "isActive"=true;
         `, [category])
+        console.log(products)
         return products;
     }catch (error){
         throw error;
