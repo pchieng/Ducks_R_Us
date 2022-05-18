@@ -95,7 +95,7 @@ async function populateInitialData() {
 
     const reviewsToCreate = [
         {writerId: 19, productId: 1, starRating: 5, body: 'This is literally the best duck ever made.'},
-        {writerId: 63, productId: 2, starRating: 5, body: 'My 25 year old loved it! Would buy again!'},
+        {writerId: 63, productId: 2, starRating: 5, body: 'My 57 month old loved it! Would buy again!'},
         {writerId: 202, productId: 3, starRating: 1, body: 'Honestly so trash do not waste your money on this.'},
         {writerId: 48, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.'}
     ]

@@ -1,8 +1,4 @@
 import React from 'react';
-// import {
-//     getAllProducts
-// } 
-// from '../axios-services';
 
 const ProductList = (props) => {
     const { products } = props;
@@ -13,7 +9,7 @@ const ProductList = (props) => {
                 <div className='productCard' key={product.id}>
                     <h3>{`${product.name}`}</h3>
                     <p>{`${product.description}`}</p>
-                    <p>{`$${product.price}`}</p>
+                    <p>{`${product.price}`}</p>
                 </div>
             )}
             </div>

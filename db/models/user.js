@@ -29,11 +29,11 @@ right now it thinks any address with @gmail.com is a duplicate even if before th
 
 async function getAllUsers() {
   try {
-    const {rows: user} = await client.query(`
+    const {rows: users} = await client.query(`
     SELECT * 
     FROM users
     `,[]) 
-    return user
+    return users
 }catch(error){
   throw error
 }
