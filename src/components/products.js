@@ -35,7 +35,6 @@ const ProductList = () => {
 
     } 
 
-    console.log(productsToDisplay)
 
     return (
         <>

@@ -53,7 +53,6 @@ async function getProductsByCategory(category) {
         FROM products
         WHERE category=$1;
         `, [category])
-        console.log(products)
         return products;
     }catch (error){
         throw error;

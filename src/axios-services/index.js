@@ -48,7 +48,6 @@ export async function getProductById(productId) {
 
 export async function getProductsByCategory(category) {
   try {
-    console.log('category',category)
     const {data} = await axios.get(`/api/products/category/${category}`);
     return data;
   } catch (err) {
