@@ -3,17 +3,18 @@ const client = require('../client');
 module.exports = {
     createProduct,
     getAllProducts,
-    getProductById
+    getProductById,
+    getProductsByCategory
 }
 
 
-async function createProduct({ name, description, price, quantity }) {
+async function createProduct({ name, description, price, quantity, category, isActive }) {
     try {
         const {rows: [product]} = await client.query(`
-        INSERT INTO products (name, description, price, quantity)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO products (name, description, price, quantity, category, "isActive")
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *;
-        `, [name, description, price, quantity]);
+        `, [name, description, price, quantity, category, isActive]);
         return product;
     } catch (error) {
         throw error;
@@ -41,6 +42,20 @@ async function getProductById(productId) {
         `, [productId])
         return product;
     } catch (error) {
+        throw error;
+    }
+}
+
+async function getProductsByCategory(category) {
+    try {
+        const {rows: products} = await client.query(`
+        SELECT *
+        FROM products
+        WHERE category=$1;
+        `, [category])
+        console.log(products)
+        return products;
+    }catch (error){
         throw error;
     }
 }

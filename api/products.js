@@ -30,4 +30,16 @@ productsRouter.get('/:productId', async (req, res, next) => {
     }
 })
 
+productsRouter.get('/category/:productCategory', async (req, res, next) => {
+    try {
+        const {productCategory} = req.params;
+        const products = await Products.getProductsByCategory(productCategory);
+        return res.send(products);
+    } catch (error) {
+        throw error;
+    }
+})
+
+
+
 module.exports = productsRouter;

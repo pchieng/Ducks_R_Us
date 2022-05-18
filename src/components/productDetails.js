@@ -13,7 +13,7 @@ useEffect(() => {
         setProduct(product);
     }
     getProductDetails();
-}, [])
+}, [productId])
 
 
 
