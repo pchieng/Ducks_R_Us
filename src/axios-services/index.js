@@ -45,7 +45,8 @@ export async function getAllUsers() {
   } catch (err) {
     console.error(err);
   }
-  
+}
+
 export async function getProductById(productId) {
   try {
     const { data } = await axios.get(`/api/products/${productId}`);
@@ -53,7 +54,7 @@ export async function getProductById(productId) {
   } catch (err) {
     console.error(err);
   }
-
+}
 
 export async function getAllReviews() {
   try {
