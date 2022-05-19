@@ -15,12 +15,15 @@
 .productPage {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .productCard {
   border-style: solid;
   border-radius: 15px;
   padding: 20px;
-  width: 30%;
+  width: 25%;
   margin: 20px;
 }
