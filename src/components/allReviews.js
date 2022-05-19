@@ -6,7 +6,7 @@ their respective products */
 
 
 const ReviewsList = (props) => {
-    const {reviews} = props
+    const { reviews } = props
     return(
         <>
             <h1>REVIEWS</h1>

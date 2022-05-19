@@ -4,7 +4,7 @@ import React from 'react';
 should be able to see it*/
 
 const UsersList = (props) => {
-    const {users} = props
+    const { users } = props
     return(
         <>
             <h1>USERS</h1>
