@@ -8,13 +8,13 @@ module.exports = {
 }
 
 
-async function createProduct({ name, description, price, quantity, category, isActive }) {
+async function createProduct({ name, description, price, quantity, category, isActive, picture }) {
     try {
         const {rows: [product]} = await client.query(`
-        INSERT INTO products (name, description, price, quantity, category, "isActive")
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO products (name, description, price, quantity, category, "isActive", picture)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
-        `, [name, description, price, quantity, category, isActive]);
+        `, [name, description, price, quantity, category, isActive, picture]);
         return product;
     } catch (error) {
         throw error;
