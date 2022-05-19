@@ -68,7 +68,7 @@ const ProductList = () => {
                         <h3>{`${product.name}`}</h3>
                     </Link>
                     <p>{`${product.description}`}</p>
-                    <p>{`${product.price}`}</p>
+                    <p>{`$${product.price}`}</p>
                 </div>
             )}
             </div>
