@@ -35,7 +35,8 @@ async function buildTables() {
       description TEXT NOT NULL,
       quantity INTEGER NOT NULL,
       price FLOAT NOT NULL,
-      "isActive" BOOLEAN NOT NULL
+      "isActive" BOOLEAN NOT NULL,
+      picture TEXT
     );
     `);
 
