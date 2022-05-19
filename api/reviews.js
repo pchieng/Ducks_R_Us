@@ -9,8 +9,8 @@ reviewsRouter.use((req, res, next) => {
 
 reviewsRouter.get('/', async (req, res, next) => {
     try {
-        // console.log('retrieving reviews')
-        const reviews = await Reviews.getAllreviews();
+        const reviews = await Reviews.getAllReviews();
+        console.log('displaying all reviews')
         return res.send(reviews);
     } catch (error) {
         throw error;

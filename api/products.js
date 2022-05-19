@@ -10,6 +10,7 @@ productsRouter.use((req, res, next) => {
 productsRouter.get('/', async (req, res, next) => {
     try {
         const products = await Products.getAllProducts();
+        console.log("displaying all products")
         return res.send(products);
     } catch (error) {
         throw error;

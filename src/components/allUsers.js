@@ -10,9 +10,9 @@ const UsersList = (props) => {
             <h1>USERS</h1>
             <div> {users.map(user =>
                 <div className='userCard' key={user.id}>
-                    <h3>Email:{`${user.email}`}</h3>
-                    <p>Username:{`${user.username}`}</p>
-                    <p>Admin:{`${user.isAdmin}`}</p>
+                    <h3>Username: {`${user.username}`}</h3>
+                    <p>Email: {`${user.email}`}</p>
+                    <p>Admin: {`${user.isAdmin}`}</p>
                 </div>
             )}
             </div>

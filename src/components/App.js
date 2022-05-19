@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ProductList from './products' 
-import UsersList from './user'
-import ReviewsList from './reviews'
+import UsersList from './allUsers'
+import ReviewsList from './allReviews'
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -52,10 +52,10 @@ const App = () => {
         <Route path="/products">
           <ProductList products={products} />
         </Route>
-        <Route path="/reviews">
+        <Route path="/allReviews">
           <ReviewsList reviews={reviews}/>
         </Route>
-        <Route path="/user">
+        <Route path="/allUsers">
           <UsersList users={users}/>
         </Route>
 
