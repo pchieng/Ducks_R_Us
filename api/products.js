@@ -1,10 +1,6 @@
 const express = require('express');
 const productsRouter = express.Router();
-const {
-    Products
-} = require('../db');
-
-
+const {Products} = require('../db');
 
 productsRouter.use((req, res, next) => {
     console.log('A request is being made to /products');
@@ -39,7 +35,5 @@ productsRouter.get('/category/:productCategory', async (req, res, next) => {
         throw error;
     }
 })
-
-
 
 module.exports = productsRouter;

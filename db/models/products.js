@@ -34,6 +34,7 @@ async function getAllActiveProducts() {
     }
 }
 
+
 async function getProductById(productId) {
     try {
         const {rows: [product]} = await client.query(`
