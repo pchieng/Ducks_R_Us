@@ -31,9 +31,9 @@ async function buildTables() {
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
       category VARCHAR(255) NOT NULL,
-      description TEXT NOT NULL,
-      quantity INTEGER NOT NULL,
-      price FLOAT NOT NULL,
+      description TEXT,
+      quantity INTEGER,
+      price FLOAT,
       "isActive" BOOLEAN NOT NULL
     );
     CREATE TABLE users(
