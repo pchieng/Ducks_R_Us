@@ -6,7 +6,8 @@ module.exports = {
     getAllActiveProducts,
     getProductById,
     getActiveProductsByCategory,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }
 
 
@@ -88,6 +89,19 @@ async function getActiveProductsByCategory(category) {
         console.log(products)
         return products;
     }catch (error){
+        throw error;
+    }
+}
+
+
+async function deleteProduct(productId) {
+    try {
+        const product = await client.query(`
+        DELETE FROM products
+        WHERE id=$1;
+        `, [productId]);
+        return (product)
+    } catch (error) {
         throw error;
     }
 }

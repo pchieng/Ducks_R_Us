@@ -1,4 +1,5 @@
 const express = require('express');
+const { reset } = require('nodemon');
 const productsRouter = express.Router();
 const {Products} = require('../db');
 
@@ -79,6 +80,26 @@ productsRouter.patch('/:productId', async (req, res, next) => {
     }
 
 })
+
+
+productsRouter.delete('/:productId', async (req, res, next) => {
+try {
+    const {productId} = req.params;
+    const product = await Products.getProductById(productId);
+    const deletedProduct = await Products.deleteProduct(productId);
+    if (!deletedProduct.rowCount) {
+        console.error({
+            name: 'DeletionError',
+            message: 'This product does not exist and cannot be deleted'
+        })
+    }
+    return res.send(`${product.name} has been deleted`)
+} catch (error) {
+    throw error;
+}
+})
+
+
 
 
 module.exports = productsRouter;
