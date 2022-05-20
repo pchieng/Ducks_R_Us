@@ -28,9 +28,19 @@ export async function getAPIHealth() {
   }
 }
 
-export async function getAllActiveProducts() {
+export async function getAllProducts() {
   try {
     const { data } = await axios.get('/api/products');
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+export async function getAllActiveProducts() {
+  try {
+    const { data } = await axios.get('/api/products/active');
     return data;
   } catch (err) {
     console.error(err);

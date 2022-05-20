@@ -11,6 +11,15 @@ productsRouter.use((req, res, next) => {
 
 productsRouter.get('/', async (req, res, next) => {
     try {
+        const products = await Products.getAllProducts();
+        return res.send(products);
+    } catch (error) {
+        throw error;
+    }
+})
+
+productsRouter.get('/active', async (req, res, next) => {
+    try {
         const products = await Products.getAllActiveProducts();
         return res.send(products);
     } catch (error) {
@@ -58,7 +67,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
     const originalProduct = await Products.getProductById(productId);
 
     if (!originalProduct) {
-        next({
+        console.error({
             name: 'NoProductError',
             message: 'There is no product to update'
         })
@@ -70,7 +79,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
         return res.send(updatedProduct)
     } else {
-        next({
+        console.error({
             name: 'InvalidUpdate',
             message: 'Product update could not be completed'
         });
