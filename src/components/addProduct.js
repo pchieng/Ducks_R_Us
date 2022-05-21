@@ -20,10 +20,6 @@ const AddProduct = () => {
         isActive: newProductActive
     }
 
-
-    console.log(typeof newProductActive)
-    console.log(newProductActive)
-
     return (
         <>
             <h1>Add A New Product</h1>
@@ -70,7 +66,7 @@ const AddProduct = () => {
                     id='newProductPrice'
                     name='newProductPrice'
                     required
-                    onChange={(event) => setNewProductPrice(event.target.value)}
+                    onChange={(event) => setNewProductPrice(event.target.value * 100)}
                 />
                 <br />
                 <label htmlFor='newProductActive'>Status: </label>
@@ -92,8 +88,9 @@ const AddProduct = () => {
                 <button>Back</button>
                 </Link>
                 <button
-                    onClick={async () => {
-                        await addNewProduct(productToAdd)
+                    onClick={async (event) => {
+                        event.preventDefault();
+                        await addNewProduct(productToAdd);
                     }}
                 >Add Product</button>
             </form>

@@ -1,13 +1,25 @@
 /* this will allow admins to add, edit, & delete products on the front end */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { getAllProducts } from '../axios-services';
 
 
 
-const AllProductsList = (props) => {
 
-    const { products } = props;
+
+
+const AllProductsList = () => {
+
+    const [products,setProducts] = useState([]);
+
+    useEffect(() => {
+        const getProductsList = async () => {
+            const products = await getAllProducts();
+            setProducts(products);
+          }
+          getProductsList();
+    }, [])
 
     return (
         <>

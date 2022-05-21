@@ -47,8 +47,9 @@ export async function getAllActiveProducts() {
   }
 }
 
-export async function addNewProduct({productToAdd}) {
+export async function addNewProduct(productToAdd) {
   try {
+    console.log(productToAdd)
     const { data } = await axios.post('/api/products', {
       name: productToAdd.name,
       description: productToAdd.description,
@@ -57,6 +58,7 @@ export async function addNewProduct({productToAdd}) {
       price: productToAdd.price,
       isActive: productToAdd.isActive
     });
+    console.log(data)
     return data;
   } catch (err) {
     console.error(err);
