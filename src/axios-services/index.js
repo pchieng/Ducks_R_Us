@@ -36,3 +36,36 @@ export async function getAllProducts() {
     console.error(err);
   }
 }
+
+export async function getProductById(productId) {
+  try {
+    const { data } = await axios.get(`/api/products/${productId}`);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+export async function getCartProducts() {
+  try {
+    const { data } = await axios.get(`/api/cart`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// export async function removeFromCart(userId, productId) {
+//   const dataToSend = {
+//     userId,
+//     productId,
+//   };
+
+//   try {
+//     if (dataToSend.userId && dataToSend.productId) {
+//       const { data } = await axios.patch(`/api/cart/remove`, dataToSend);
+//       return data;
+//     }
+//   } catch (error) {
+//     throw error;
+//   }
+// }

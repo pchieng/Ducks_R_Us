@@ -9,6 +9,9 @@ const {
   createProduct
 } = require('./models/products')
 
+const {
+  createCart
+} = require('./models/cart')
 
 
 async function buildTables() {
@@ -19,7 +22,9 @@ async function buildTables() {
     console.log("Dropping all tables...");
 
     await client.query(`
+    DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS products;
+    
     `)
 
     console.log("Finished dropping all tables");
@@ -35,7 +40,21 @@ async function buildTables() {
       quantity INTEGER NOT NULL,
       price FLOAT NOT NULL
     );
+
+    CREATE TABLE cart (
+      id SERIAL PRIMARY KEY,
+      "userId" INTEGER,
+      "productId" INTEGER,
+      status TEXT NOT NULL
+      );
     `);
+    //   CREATE TABLE orders (
+    //     id SERIAL PRIMARY KEY,
+    //     "userId" INTEGER REFERENCES users(id),
+    //     "cartId" INTEGER REFERENCES cart(id)
+    //   );
+    
+    // );
 
     console.log("Finished building all tables");
 
@@ -53,6 +72,8 @@ async function populateInitialData() {
     // Creating dummy products
     console.log('Starting to create products...')
 
+   
+
     const productsToCreate = [
       {name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', quantity: 100, price: 9.99},
       {name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', quantity: 100, price: 9.99},
@@ -65,7 +86,15 @@ async function populateInitialData() {
     console.log(products);
 
     console.log('Finished creating products!')
-
+ 
+    const cartToCreate = [
+    {userId: 1, productId:2, status: "completed"},
+    {userId: 1, productId:1, status: "completed"}
+ ]
+    const cart = await Promise.all(cartToCreate.map(createCart))
+ 
+  console.log("created Cart", cart);  
+    
   } catch (error) {
     throw error;
   }
