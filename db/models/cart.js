@@ -6,12 +6,12 @@ module.exports = {
     // removeFromCart,
     getCart
 }
-async function createCart({ userId, productId, status = "created" }) {
+async function createCart({ userId, productId }) {
     try {
       const {rows: [cart],} = await client.query(`
-        INSERT INTO cart("userId", "productId", status)
-        VALUES ($1, $2, $3)
-        RETURNING *;`,[userId, productId, status]
+        INSERT INTO cart("userId", "productId")
+        VALUES ($1, $2)
+        RETURNING *;`,[userId, productId]
       );
   
       return cart;
@@ -87,27 +87,26 @@ async function createCart({ userId, productId, status = "created" }) {
       const { rows } = await client.query(
         `
         SELECT * FROM cart
-        WHERE "userId" = $1 AND NOT status = 'completed'`,[userId]
+        WHERE "userId" = $1 AND paid = false`,[userId]
       );
   
       const cart = [];
-      for (let i = 0; i < rows.length; i++) {
-        rows[i].status === "processing" ? cart.push(rows[i]) : null;
-      }
-    
+      // for (let i = 0; i < rows.length; i++) {
+      //   rows[i].status === "processing" ? cart.push(rows[i]) : null;
+      // }
+    console.log(rows)
 
 
       if (rows.length > 0) {
         const productArr = [];
-        if (cart.length > 0) {
+        // if (cart.length > 0) {
         //   const products = cart[0].productId;
-          for (i = 0; i < cart.length; i++) {
+          for (i = 0; i < rows.length; i++) {
             const {rows: [product],} = await client.query(`
               SELECT * FROM products
-              WHERE id = ${cart[i].productId}
+              WHERE id = ${rows[i].productId}
             `);
             productArr.push(product);
-          }
 
         }
   
@@ -120,7 +119,7 @@ async function createCart({ userId, productId, status = "created" }) {
         //   productArr.push(product);
         // }
   
-        return { products: productArr };
+        return productArr;
       } else {
         return [];
       }

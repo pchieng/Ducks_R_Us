@@ -45,7 +45,7 @@ async function buildTables() {
       id SERIAL PRIMARY KEY,
       "userId" INTEGER,
       "productId" INTEGER,
-      status TEXT NOT NULL
+      paid BOOLEAN DEFAULT false
       );
     `);
     //   CREATE TABLE orders (
@@ -88,8 +88,8 @@ async function populateInitialData() {
     console.log('Finished creating products!')
  
     const cartToCreate = [
-    {userId: 1, productId:2, status: "completed"},
-    {userId: 1, productId:1, status: "completed"}
+    {userId: 1, productId:2},
+    {userId: 1, productId:1}
  ]
     const cart = await Promise.all(cartToCreate.map(createCart))
  

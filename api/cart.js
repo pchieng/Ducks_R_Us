@@ -22,7 +22,7 @@ cartRouter.use((req, res, next) => {
 
 cartRouter.get('/', async (req, res, next) => {
     try {
-        const cart = await Cart.getCart({ userId: authData.user.id })
+        const cart = await Cart.getCart({ userId: 1})
         console.log(cart);
         res.send(cart)
       } catch (error) {
