@@ -49,14 +49,23 @@ async function getAllProducts() {
     }
 }
 
-async function updateProduct({productId, name, description, price, quantity, category, isActive }) {
+async function updateProduct(productId, fields = {}) {
+
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${ key }"=$${ index + 1 }`
+      ).join(', ');
+    
+      if (setString.length === 0) {
+        return;
+      }
+
     try {
         const { rows: [product] } = await client.query(`
         UPDATE products
-        SET name=$1, description=$2, price=$3, quantity=$4, category=$5, "isActive"=$6
-        WHERE id=$7
+        SET ${setString}
+        WHERE id=${productId}
         RETURNING *;
-        `, [name, description, price, quantity, category, isActive, productId])
+        `, Object.values(fields))
         return product;
     } catch (error) {
         throw error;

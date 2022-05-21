@@ -1,7 +1,7 @@
 const express = require('express');
 const { reset } = require('nodemon');
 const productsRouter = express.Router();
-const {Products} = require('../db');
+const { Products } = require('../db');
 
 
 productsRouter.use((req, res, next) => {
@@ -29,7 +29,7 @@ productsRouter.get('/active', async (req, res, next) => {
 
 productsRouter.get('/:productId', async (req, res, next) => {
     try {
-        const {productId} = req.params;
+        const { productId } = req.params;
         const product = await Products.getProductById(productId);
         return res.send(product);
     } catch (error) {
@@ -39,7 +39,7 @@ productsRouter.get('/:productId', async (req, res, next) => {
 
 productsRouter.get('/category/:productCategory', async (req, res, next) => {
     try {
-        const {productCategory} = req.params;
+        const { productCategory } = req.params;
         const products = await Products.getActiveProductsByCategory(productCategory);
         return res.send(products);
     } catch (error) {
@@ -62,38 +62,36 @@ productsRouter.post('/', async (req, res, next) => {
 productsRouter.patch('/:productId', async (req, res, next) => {
 
     try {
-    const {productId} = req.params;
-    const { name, description, price, quantity, category, isActive} = req.body;
-    const originalProduct = await Products.getProductById(productId);
+        const { productId } = req.params;
+        const { name, description, price, quantity, category, isActive } = req.body;
+        const originalProduct = await Products.getProductById(productId);
 
-const updatedProductValues = {
-    productId,
-    name,
-    description,
-    price,
-    quantity,
-    category,
-    isActive
-}
+        const updatedProductValues = {};
 
-    if (!originalProduct) {
-        console.error({
-            name: 'NoProductError',
-            message: 'There is no product to update'
-        })
-    }
+        if(name) updatedProductValues.name = name;
+        if(description) updatedProductValues.description = description;
+        if(price) updatedProductValues.price = price;
+        if(quantity) updatedProductValues.quantity = quantity;
+        if(category) updatedProductValues.category = category;
+        if(isActive) updatedProductValues.isActive = isActive;
+
+        if (!originalProduct) {
+            console.error({
+                name: 'NoProductError',
+                message: 'There is no product to update'
+            })
+        }
 
 
-    if (parseInt(originalProduct.id) === parseInt(productId)) {
-        const updatedProduct = await Products.updateProduct(productId, updatedProductValues);
-
-        return res.send(updatedProduct)
-    } else {
-        console.error({
-            name: 'InvalidUpdate',
-            message: 'Product update could not be completed'
-        });
-    }
+        if (parseInt(originalProduct.id) === parseInt(productId)) {
+            const updatedProduct = await Products.updateProduct(productId, updatedProductValues);
+            return res.send(updatedProduct)
+        } else {
+            console.error({
+                name: 'InvalidUpdate',
+                message: 'Product update could not be completed'
+            });
+        }
     } catch (error) {
         throw error;
     }
@@ -102,20 +100,20 @@ const updatedProductValues = {
 
 
 productsRouter.delete('/:productId', async (req, res, next) => {
-try {
-    const {productId} = req.params;
-    const product = await Products.getProductById(productId);
-    const deletedProduct = await Products.deleteProduct(productId);
-    if (!deletedProduct.rowCount) {
-        console.error({
-            name: 'DeletionError',
-            message: 'This product does not exist and cannot be deleted'
-        })
+    try {
+        const { productId } = req.params;
+        const product = await Products.getProductById(productId);
+        const deletedProduct = await Products.deleteProduct(productId);
+        if (!deletedProduct.rowCount) {
+            console.error({
+                name: 'DeletionError',
+                message: 'This product does not exist and cannot be deleted'
+            })
+        }
+        return res.send(`${product.name} has been deleted`)
+    } catch (error) {
+        throw error;
     }
-    return res.send(`${product.name} has been deleted`)
-} catch (error) {
-    throw error;
-}
 })
 
 
