@@ -2,35 +2,38 @@ const client = require('../client');
 
 module.exports = {
     createProduct,
-    getAllProducts,
-    getProductById
+    getAllActiveProducts,
+    getProductById,
+    getActiveProductsByCategory
 }
 
 
-async function createProduct({ name, description, price, quantity }) {
+async function createProduct({ name, description, price, quantity, category, isActive, picture }) {
     try {
         const {rows: [product]} = await client.query(`
-        INSERT INTO products (name, description, price, quantity)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO products (name, description, price, quantity, category, "isActive", picture)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
-        `, [name, description, price, quantity]);
+        `, [name, description, price, quantity, category, isActive, picture]);
         return product;
     } catch (error) {
         throw error;
     }
 }
 
-async function getAllProducts() {
+async function getAllActiveProducts() {
     try {
         const {rows: products} = await client.query(`
         SELECT *
         FROM products
+        WHERE "isActive"=true;
         `)
         return products;
     } catch (error) {
         throw error;
     }
 }
+
 
 async function getProductById(productId) {
     try {
@@ -41,6 +44,20 @@ async function getProductById(productId) {
         `, [productId])
         return product;
     } catch (error) {
+        throw error;
+    }
+}
+
+async function getActiveProductsByCategory(category) {
+    try {
+        const {rows: products} = await client.query(`
+        SELECT *
+        FROM products
+        WHERE category=$1 AND "isActive"=true;
+        `, [category])
+        console.log(products)
+        return products;
+    }catch (error){
         throw error;
     }
 }

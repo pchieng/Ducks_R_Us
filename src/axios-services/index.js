@@ -28,10 +28,20 @@ export async function getAPIHealth() {
   }
 }
 
-export async function getAllProducts() {
+export async function getAllActiveProducts() {
   try {
     const { data } = await axios.get('/api/products');
     return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+export async function getAllUsers() {
+  try {
+    const { data: users } = await axios.get('/api/users');
+    return users;
   } catch (err) {
     console.error(err);
   }
@@ -45,6 +55,7 @@ export async function getProductById(productId) {
     console.error(err);
   }
 }
+
 export async function getCartProducts() {
   try {
     const { data } = await axios.get(`/api/cart`);
@@ -69,3 +80,23 @@ export async function getCartProducts() {
 //     throw error;
 //   }
 // }
+
+
+export async function getAllReviews() {
+  try {
+    const { data: reviews } = await axios.get('/api/reviews');
+    return reviews;
+      } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getActiveProductsByCategory(category) {
+  try {
+    const {data} = await axios.get(`/api/products/category/${category}`);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
