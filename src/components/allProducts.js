@@ -30,12 +30,14 @@ const AllProductsList = () => {
             <br />
             <div> {products.map(product =>
                 <div key={product.id}>
+                    <Link to={`/allProducts/edit/${product.id}`}>
                     <button>Edit</button>
+                    </Link>
                     <h3>{`Name: ${product.name}`}</h3>
                     <p>{`Description: ${product.description}`}</p>
                     <p>{`Category: ${product.category}`}</p>
                     <p>{`Quantity: ${product.quantity}`}</p>
-                    <p>{`Price: $${product.price}`}</p>
+                    <p>{`Price: $${product.price/100}`}</p>
                     {product.isActive ?
                         <p style={{ color: "green" }}>ACTIVE</p>
                         :

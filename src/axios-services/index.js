@@ -49,7 +49,6 @@ export async function getAllActiveProducts() {
 
 export async function addNewProduct(productToAdd) {
   try {
-    console.log(productToAdd)
     const { data } = await axios.post('/api/products', {
       name: productToAdd.name,
       description: productToAdd.description,
@@ -65,7 +64,24 @@ export async function addNewProduct(productToAdd) {
   }
 }
 
+export async function updateProduct(productId, updatedProductValues) {
+  try {
+    const {data} = await axios.patch(`/api/products/${productId}`, updatedProductValues);
+    return data;
+  } catch (err) {
+    console.error(err)
+  }
+}
 
+
+export async function deleteProduct(productId) {
+  try {
+    const { data } = await axios.delete(`/api/products/${productId}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export async function getAllUsers() {
   try {

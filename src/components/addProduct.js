@@ -7,8 +7,8 @@ const AddProduct = () => {
     const [newProductName, setNewProductName] = useState('');
     const [newProductDescription, setNewProductDescription] = useState('');
     const [newProductCategory, setNewProductCategory] = useState('');
-    const [newProductQuantity, setNewProductQuantity] = useState(0);
-    const [newProductPrice, setNewProductPrice] = useState(99999);
+    const [newProductQuantity, setNewProductQuantity] = useState(-1);
+    const [newProductPrice, setNewProductPrice] = useState(-1);
     const [newProductActive, setNewProductActive] = useState(false);
 
     const productToAdd = {
@@ -19,6 +19,8 @@ const AddProduct = () => {
         price: newProductPrice,
         isActive: newProductActive
     }
+
+
 
     return (
         <>
@@ -51,7 +53,7 @@ const AddProduct = () => {
                     onChange={(event) => setNewProductCategory(event.target.value)}
                 />
                 <br />
-                <label htmlFor='newProductQuantity'>Quantity: </label>
+                <label htmlFor='newProductQuantity'>Quantity (required): </label>
                 <input
                     type='number'
                     id='newProductQuantity'
@@ -60,7 +62,7 @@ const AddProduct = () => {
                     onChange={(event) => setNewProductQuantity(event.target.value)}
                 />
                 <br />
-                <label htmlFor='newProductPrice'>Price: </label>
+                <label htmlFor='newProductPrice'>Price (required): </label>
                 <input
                     type='float'
                     id='newProductPrice'
@@ -74,7 +76,7 @@ const AddProduct = () => {
                     id='newProductActive'
                     name='newProductActive'
                     required
-                    onChange={(event) => 
+                    onChange={(event) =>
                         setNewProductActive(event.target.value === "Active")
                     }
                 >
@@ -82,15 +84,27 @@ const AddProduct = () => {
                     <option>Active</option>
 
                 </select>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <Link to='/allProducts'>
-                <button>Back</button>
+                    <button>Back</button>
                 </Link>
                 <button
                     onClick={async (event) => {
                         event.preventDefault();
-                        await addNewProduct(productToAdd);
+                        if (productToAdd.name === '' || productToAdd.category === '' || productToAdd.quantity === -1 || productToAdd.price === -1) {
+                            alert('Please fill out all required fields')
+                            return;
+                        }
+                        const result = await addNewProduct(productToAdd);
+
+                        if (!result) {
+                            alert(`Error adding new product. Please try again.`)
+                            return;
+                        }
+
+                        alert(`${productToAdd.name} has been added`)
+
                     }}
                 >Add Product</button>
             </form>
