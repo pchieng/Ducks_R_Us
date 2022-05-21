@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import { getAllProducts } from '../axios-services';
+import { getAllProducts, deleteProduct } from '../axios-services';
 
 
 
@@ -33,6 +33,15 @@ const AllProductsList = () => {
                     <Link to={`/allProducts/edit/${product.id}`}>
                     <button>Edit</button>
                     </Link>
+                    <button
+                        onClick={async () => {
+                            if (window.confirm("Are you sure you want to delete this product?") == true) {
+                                await deleteProduct(product.id);
+                                alert('Product has been deleted')
+                                setProducts(products.filter((filteredProduct) => filteredProduct.id !== product.id))
+                            }
+                        }}
+                    >Delete</button>
                     <h3>{`Name: ${product.name}`}</h3>
                     <p>{`Description: ${product.description}`}</p>
                     <p>{`Category: ${product.category}`}</p>
