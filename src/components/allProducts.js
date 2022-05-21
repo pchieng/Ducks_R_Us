@@ -1,18 +1,20 @@
 /* this will allow admins to add, edit, & delete products on the front end */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 
 const AllProductsList = (props) => {
 
     const { products } = props;
-    console.log(products)
 
     return (
         <>
             <h1>PRODUCTS</h1>
-            <button>Create New Product</button>
+            <Link to='/allProducts/add'>
+                <button>Add New Product</button>
+            </Link>
             <br />
             <div> {products.map(product =>
                 <div key={product.id}>

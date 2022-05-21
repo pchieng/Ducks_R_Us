@@ -57,7 +57,6 @@ async function updateProduct({productId, name, description, price, quantity, cat
         WHERE id=$7
         RETURNING *;
         `, [name, description, price, quantity, category, isActive, productId])
-        console.log(productId)
         return product;
     } catch (error) {
         throw error;
