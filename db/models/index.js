@@ -5,7 +5,11 @@ module.exports = {
   // and User: require('./user') here
     User: require('./user'),
     Products: require('./products'),
+
+    Cart: require('./cart'),
+
     Reviews: require('./reviews')
+
 
 
 

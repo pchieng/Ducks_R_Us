@@ -8,6 +8,17 @@ const {
 } = require('./');
 
 
+
+const {
+  createProduct
+} = require('./models/products')
+
+const {
+  createCart
+} = require('./models/cart')
+
+
+
 async function buildTables() {
   try {
     client.connect();
@@ -16,6 +27,8 @@ async function buildTables() {
     console.log("Dropping all tables...");
 
     await client.query(`
+
+    DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS reviews;
@@ -37,13 +50,23 @@ async function buildTables() {
       "isActive" BOOLEAN NOT NULL,
       picture TEXT
     );
+
+
+  
+
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
       "isAdmin" BOOLEAN DEFAULT false
-    );
+    ); 
+      CREATE TABLE cart (
+      id SERIAL PRIMARY KEY,
+      "userId" INTEGER,
+      "productId" INTEGER,
+      paid BOOLEAN DEFAULT false
+      );
     CREATE TABLE reviews(
       id SERIAL PRIMARY KEY,
       "writerId" INTEGER NOT NULL,
@@ -51,7 +74,15 @@ async function buildTables() {
       "starRating" INTEGER NOT NULL,
       body TEXT NOT NULL
     )
+
     `);
+    //   CREATE TABLE orders (
+    //     id SERIAL PRIMARY KEY,
+    //     "userId" INTEGER REFERENCES users(id),
+    //     "cartId" INTEGER REFERENCES cart(id)
+    //   );
+    
+    // );
 
     console.log("Finished building all tables");
 
@@ -68,6 +99,7 @@ async function populateInitialData() {
     
     // Creating dummy products
     console.log('Starting to create products...')
+
 
     const productPicturesToCreate = {
       AlphaDucky: 'https://cdn11.bigcommerce.com/s-jnapaiw/images/stencil/1280x1280/products/2945/4049/Sunny_duck__52036.1400093435.jpg?c=2',
@@ -121,8 +153,17 @@ async function populateInitialData() {
         {writerId: 48, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.'}
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
+console.log('reviews created:', reviews);
 
-    console.log('reviews created:', reviews);
+    console.log('Finished creating products!')
+ 
+    const cartToCreate = [
+    {userId: 1, productId:2},
+    {userId: 1, productId:1}
+ ]
+    const cart = await Promise.all(cartToCreate.map(createCart))
+ 
+  console.log("created Cart", cart);  
 
   } catch (error) {
     throw error;
