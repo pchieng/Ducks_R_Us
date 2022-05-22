@@ -2,7 +2,8 @@ const {
   client,
   User,
   Products,
-  Reviews
+  Reviews,
+  Payments,
   // declare your model imports here
   // for example, User
 } = require('./');
@@ -17,30 +18,28 @@ const {
   createCart
 } = require('./models/cart')
 
-
-
 async function buildTables() {
   try {
     client.connect();
 
-    // drop tables in correct order
+    // drop tables in reverse of build order 
     console.log("Dropping all tables...");
 
     await client.query(`
-
+    DROP TABLE IF EXISTS payment;
+    DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
-    DROP TABLE IF EXISTS reviews;
     `)
 
     console.log("Finished dropping all tables");
 
-    // build tables in correct order
+    // build tables 
     console.log("Starting to build tables...");
 
     await client.query(`
-    CREATE TABLE products (
+    CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
       category VARCHAR(255) NOT NULL,
@@ -50,31 +49,35 @@ async function buildTables() {
       "isActive" BOOLEAN NOT NULL,
       picture TEXT
     );
-
-
-  
-
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      "isAdmin" BOOLEAN DEFAULT false
+      "deliveryAddress" TEXT NOT NULL,
+      "isAdmin" BOOLEAN DEFAULT false,
     ); 
-      CREATE TABLE cart (
+      CREATE TABLE cart(
       id SERIAL PRIMARY KEY,
-      "userId" INTEGER,
-      "productId" INTEGER,
+      "userId" INTEGER REFERENCES users(id),
+      "productId" INTEGER REFERENCES products(id),
       paid BOOLEAN DEFAULT false
-      );
+    );
     CREATE TABLE reviews(
       id SERIAL PRIMARY KEY,
-      "writerId" INTEGER NOT NULL,
-      "productId" INTEGER NOT NULL,
+      "writerId" INTEGER REFERENCES users(id),
+      "productId" INTEGER REFERENCES products(id),
       "starRating" INTEGER NOT NULL,
       body TEXT NOT NULL
-    )
-
+    );
+    CREATE TABLE payments(
+      id SERIAL PRIMARY KEY,
+      "cardNum" INTEGER NOT NULL,
+      "expDate" DATE NOT NULL,
+      cvv INTEGER NOT NULL,
+      "billingAddress" TEXT NOT NULL,
+      "cardName" VARCHAR(255) NOT NULL
+    );
     `);
     //   CREATE TABLE orders (
     //     id SERIAL PRIMARY KEY,
@@ -164,6 +167,17 @@ async function populateInitialData() {
     const cart = await Promise.all(cartToCreate.map(createCart))
  
   console.log("cart created:", cart);  
+
+  // creating dummy payments
+  console.log("creating payments...")
+  const paymentsToCreate = [
+    {cardNum: 12345678, expDate: 2025-05-22, cvv: 123, billingAddress: '1234 Main St', cardName: 'John Appleseed'},
+    {cardNum: 87654321, expDate: 2025-06-23, cvv: 321, billingAddress: '4321 Church St', cardName: 'Ducky McDuckface'},
+    {cardNum: 00000001, expDate: 2025-07-24, cvv: 987, billingAddress: '1337 Cherokee Blvd', cardName: 'Bean'},
+  ]
+
+  const payments = await Promise.all(paymentsToCreate.map(createPayments))
+  console.log("payments created:", payments)
 
   } catch (error) {
     throw error;
