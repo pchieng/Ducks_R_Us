@@ -153,17 +153,17 @@ async function populateInitialData() {
         {writerId: 48, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.'}
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
-console.log('reviews created:', reviews);
+  console.log('reviews created:', reviews);
 
-    console.log('Finished creating products!')
- 
+//  creating cart
+  console.log("creating cart...")
     const cartToCreate = [
     {userId: 1, productId:2},
     {userId: 1, productId:1}
  ]
     const cart = await Promise.all(cartToCreate.map(createCart))
  
-  console.log("created Cart", cart);  
+  console.log("cart created:", cart);  
 
   } catch (error) {
     throw error;

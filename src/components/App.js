@@ -33,26 +33,14 @@ const App = () => {
       const { healthy } = await getAPIHealth();
       setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
     };
-
     const getProductList = async () => {
       const products = await getAllActiveProducts();
-    
       setProducts(products);
     };
     const getCart = async () => {
       const currentCartProducts = await getCartProducts();
-      console.log(cartProducts)
       setCartProducts(currentCartProducts)
     };
-    
-    
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
-    
-    getProductList();
-    getCart();
-
-
     const getUsersList = async () => {
       const users = await getAllUsers()
       setUsers(users)
@@ -61,8 +49,11 @@ const App = () => {
       const reviews = await getAllReviews()
       setReviews(reviews)
     }
+  
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
+    getProductList();
+    getCart();
     getAPIStatus();
     getUsersList()
     getReviewsList()
