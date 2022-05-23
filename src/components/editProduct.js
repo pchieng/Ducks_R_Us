@@ -37,6 +37,7 @@ const EditProduct = () => {
     if (updatedProductCategory) updatedProductValues.category = updatedProductCategory;
     if (updatedProductActive !== null) updatedProductValues.isActive = updatedProductActive;
 
+console.log(updatedProductValues)
 
     return (
         <>
@@ -73,7 +74,7 @@ const EditProduct = () => {
                 <br />
                 <label htmlFor='updateProductQuantity'>Quantity: </label>
                 <input
-                    type='text'
+                    type='number'
                     id='updateProductQuantity'
                     name='updateProductQuantity'
                     defaultValue={originalProduct.quantity}
@@ -82,7 +83,7 @@ const EditProduct = () => {
                 <br />
                 <label htmlFor='updateProductPrice'>Price (in cents): </label>
                 <input
-                    type='text'
+                    type='number'
                     id='updateProductPrice'
                     name='updateProductPrice'
                     defaultValue={originalProduct.price}

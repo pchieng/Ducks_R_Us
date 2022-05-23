@@ -66,6 +66,7 @@ export async function addNewProduct(productToAdd) {
 export async function updateProduct(productId, updatedProductValues) {
   try {
     const {data} = await axios.patch(`/api/products/${productId}`, updatedProductValues);
+    console.log(data)
     return data;
   } catch (err) {
     console.error(err)
