@@ -5,7 +5,9 @@ module.exports = {
   // and User: require('./user') here
     User: require('./user'),
     Products: require('./products'),
-    Reviews: require('./reviews')
+    Cart: require('./cart'),
+    Reviews: require('./reviews'),
+    Payments: require('./payments')
 
 
 

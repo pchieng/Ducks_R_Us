@@ -32,7 +32,7 @@ const ProductList = () => {
         let displayedProducts = await getActiveProductsByCategory(category);
         setProductsToDisplay(displayedProducts)
 
-    } 
+    }
 
 
     return (
@@ -65,6 +65,9 @@ const ProductList = () => {
             <div className='productPage'> {productsToDisplay.map(product =>
                 <div className='productCard' key={product.id}>
                     <Link to={`/products/${product.id}`}>
+                    <div className='productPictureDiv'>
+                        <img src={`${product.picture}`} className='productPicture'/>
+                    </div>
                         <h3>{`${product.name}`}</h3>
                     </Link>
                     <p>{`${product.description}`}</p>

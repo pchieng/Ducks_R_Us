@@ -101,6 +101,32 @@ export async function getProductById(productId) {
   }
 }
 
+export async function getCartProducts() {
+  try {
+    const { data } = await axios.get(`/api/cart`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// export async function removeFromCart(userId, productId) {
+//   const dataToSend = {
+//     userId,
+//     productId,
+//   };
+
+//   try {
+//     if (dataToSend.userId && dataToSend.productId) {
+//       const { data } = await axios.patch(`/api/cart/remove`, dataToSend);
+//       return data;
+//     }
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
+
 export async function getAllReviews() {
   try {
     const { data: reviews } = await axios.get('/api/reviews');
@@ -118,3 +144,4 @@ export async function getActiveProductsByCategory(category) {
     console.error(err);
   }
 }
+

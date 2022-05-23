@@ -19,12 +19,17 @@ useEffect(() => {
 
     return (
         <div className='productDetailsPage'>
+            <div>
+            <img src={`${product.picture}`} />
+            </div>
+            <div>
             <h3>{`${product.name}`}</h3>
             <p>{`${product.description}`}</p>
             <p>{`$${product.price}`}</p>
             <Link to='/products'>
                 <button>Back</button>
             </Link>
+            </div>
         </div>
 
     )
