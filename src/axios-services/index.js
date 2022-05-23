@@ -55,7 +55,8 @@ export async function addNewProduct(productToAdd) {
       category: productToAdd.category,
       quantity: productToAdd.quantity,
       price: productToAdd.price,
-      isActive: productToAdd.isActive
+      isActive: productToAdd.isActive,
+      picture: productToAdd.picture
     });
     return data;
   } catch (err) {

@@ -10,6 +10,7 @@ const AddProduct = () => {
     const [newProductQuantity, setNewProductQuantity] = useState(-1);
     const [newProductPrice, setNewProductPrice] = useState(-1);
     const [newProductActive, setNewProductActive] = useState(false);
+    const [newProductPicture, setNewProductPicture] = useState('');
 
     const productToAdd = {
         name: newProductName,
@@ -17,7 +18,8 @@ const AddProduct = () => {
         category: newProductCategory,
         quantity: newProductQuantity,
         price: newProductPrice,
-        isActive: newProductActive
+        isActive: newProductActive,
+        picture: newProductPicture
     }
 
 
@@ -69,6 +71,14 @@ const AddProduct = () => {
                     name='newProductPrice'
                     required
                     onChange={(event) => setNewProductPrice(event.target.value * 100)}
+                />
+                <br />
+                <label htmlFor='newProductPicture'>Picture: </label>
+                <input
+                    type='text'
+                    id='newProductPicture'
+                    name='newProductPicture'
+                    onChange={(event) => setNewProductPicture(event.target.value)}
                 />
                 <br />
                 <label htmlFor='newProductActive'>Status: </label>

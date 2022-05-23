@@ -48,8 +48,8 @@ productsRouter.get('/category/:productCategory', async (req, res, next) => {
 
 productsRouter.post('/', async (req, res, next) => {
     try {
-        const { name, description, price, quantity, category, isActive } = req.body;
-        const product = await Products.createProduct({ name, description, price, quantity, category, isActive });
+        const { name, description, price, quantity, category, isActive, picture } = req.body;
+        const product = await Products.createProduct({ name, description, price, quantity, category, isActive, picture });
         res.send(product);
     } catch (error) {
         throw error;
@@ -62,7 +62,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
     try {
         const { productId } = req.params;
-        const { name, description, price, quantity, category, isActive } = req.body;
+        const { name, description, price, quantity, category, isActive, picture } = req.body;
         const originalProduct = await Products.getProductById(productId);
 
         const updatedProductValues = {};
@@ -73,6 +73,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
         if(quantity) updatedProductValues.quantity = quantity;
         if(category) updatedProductValues.category = category;
         if(isActive !== null) updatedProductValues.isActive = isActive;
+        if(picture) updatedProductValues.picture = picture;
 
         if (!originalProduct) {
             console.error({
