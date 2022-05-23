@@ -8,7 +8,7 @@ module.exports = {
     Cart: require('./cart'),
     Reviews: require('./reviews'),
     Payments: require('./payments')
-
+    
 
 
 };

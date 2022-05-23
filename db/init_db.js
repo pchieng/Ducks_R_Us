@@ -4,19 +4,10 @@ const {
   Products,
   Reviews,
   Payments,
+  Cart,
   // declare your model imports here
   // for example, User
 } = require('./');
-
-
-
-const {
-  createProduct
-} = require('./models/products')
-
-const {
-  createCart
-} = require('./models/cart')
 
 async function buildTables() {
   try {
@@ -171,13 +162,13 @@ async function populateInitialData() {
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
   console.log('reviews created:', reviews);
 
-//  creating cart
+  // creating cart
   console.log("creating cart...")
     const cartToCreate = [
     {userId: 1, productId:2},
     {userId: 1, productId:1}
  ]
-    const cart = await Promise.all(cartToCreate.map(createCart))
+    const cart = await Promise.all(cartToCreate.map(Cart.createCart))
  
   console.log("cart created:", cart);  
 
