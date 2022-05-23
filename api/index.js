@@ -14,17 +14,20 @@ apiRouter.get('/health', (req, res, next) => {
 });
 
 // place your routers here
-const productsRouter = require('./products');
-
 const cartRouter = require('./cart');
-
 apiRouter.use('/cart', cartRouter);
 
-const usersRouter = require('./user');
-const reviewsRouter = require('./reviews')
+const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
+
+const usersRouter = require('./user');
 apiRouter.use('/users', usersRouter);
+
+const reviewsRouter = require('./reviews')
 apiRouter.use('/reviews', reviewsRouter)
+
+const categoriesRouter = require('./categories');
+apiRouter.use('/categories', categoriesRouter)
 
 
 module.exports = apiRouter;
