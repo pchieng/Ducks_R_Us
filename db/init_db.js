@@ -2,7 +2,8 @@ const {
   client,
   User,
   Products,
-  Reviews
+  Reviews,
+  Payments,
   // declare your model imports here
   // for example, User
 } = require('./');
@@ -17,30 +18,29 @@ const {
   createCart
 } = require('./models/cart')
 
-
-
 async function buildTables() {
   try {
     client.connect();
 
-    // drop tables in correct order
+    // drop tables in reverse of build order 
     console.log("Dropping all tables...");
 
     await client.query(`
-
+    DROP TABLE IF EXISTS payments;
+    DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
-    DROP TABLE IF EXISTS reviews;
     `)
 
     console.log("Finished dropping all tables");
 
-    // build tables in correct order
+    // build tables
+    // split these into separate queries since one of them was breaking
     console.log("Starting to build tables...");
 
     await client.query(`
-    CREATE TABLE products (
+    CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
       category VARCHAR(255) NOT NULL,
@@ -50,32 +50,48 @@ async function buildTables() {
       "isActive" BOOLEAN NOT NULL,
       picture TEXT
     );
+    `); console.log("products")
 
-
-  
-
+    await client.query(`
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
+      "deliveryAddress" TEXT NOT NULL,
       "isAdmin" BOOLEAN DEFAULT false
-    ); 
-      CREATE TABLE cart (
+    ) 
+    `); console.log("users")
+
+    await client.query(`
+      CREATE TABLE cart(
       id SERIAL PRIMARY KEY,
-      "userId" INTEGER,
-      "productId" INTEGER,
+      "userId" INTEGER REFERENCES users(id),
+      "productId" INTEGER REFERENCES products(id),
       paid BOOLEAN DEFAULT false
-      );
+    );
+    `); console.log("cart")
+
+    await client.query(`
     CREATE TABLE reviews(
       id SERIAL PRIMARY KEY,
-      "writerId" INTEGER NOT NULL,
-      "productId" INTEGER NOT NULL,
+      "writerId" INTEGER REFERENCES users(id),
+      "productId" INTEGER REFERENCES products(id),
       "starRating" INTEGER NOT NULL,
       body TEXT NOT NULL
-    )
+    );
+    `); console.log("reviews")
 
-    `);
+    await client.query(`
+    CREATE TABLE payments(
+      id SERIAL PRIMARY KEY,
+      "cardNum" INTEGER NOT NULL,
+      "expDate" DATE NOT NULL,
+      cvv INTEGER NOT NULL,
+      "billingAddress" TEXT NOT NULL,
+      "cardName" VARCHAR(255) NOT NULL
+    );
+    `); console.log("payments")
     //   CREATE TABLE orders (
     //     id SERIAL PRIMARY KEY,
     //     "userId" INTEGER REFERENCES users(id),
@@ -133,10 +149,10 @@ async function populateInitialData() {
     console.log('Starting to create users...')
 
     const usersToCreate = [
-      {email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', isAdmin: false},
-      {email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', isAdmin: false},
-      {email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', isAdmin: false},
-      {email: 'admin@gmail.com', username: 'Admin', password: 'admin1', isAdmin: true},
+      {email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', deliveryAddress: '1234 Main St', isAdmin: false},
+      {email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', deliveryAddress: '4321 Church St', isAdmin: false},
+      {email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', deliveryAddress: '1337 Cherokee Blvd', isAdmin: false},
+      {email: 'admin@gmail.com', username: 'Admin', password: 'admin1', deliveryAddress: '1010101 Administrator Dr.', isAdmin: true},
       
     ]
     const users = await Promise.all(usersToCreate.map(User.createUser));
@@ -147,23 +163,34 @@ async function populateInitialData() {
     console.log('Starting to create reviews...')
 
     const reviewsToCreate = [
-        {writerId: 19, productId: 1, starRating: 5, body: 'This is literally the best duck ever made.'},
-        {writerId: 63, productId: 2, starRating: 5, body: 'My 57 month old loved it! Would buy again!'},
-        {writerId: 202, productId: 3, starRating: 1, body: 'Honestly so trash do not waste your money on this.'},
-        {writerId: 48, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.'}
+        {writerId: 1, productId: 1, starRating: 5, body: 'This is literally the best duck ever made.'},
+        {writerId: 2, productId: 2, starRating: 5, body: 'My 57 month old loved it! Would buy again!'},
+        {writerId: 3, productId: 3, starRating: 1, body: 'Honestly so trash do not waste your money on this.'},
+        {writerId: 4, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.'}
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
-console.log('reviews created:', reviews);
+  console.log('reviews created:', reviews);
 
-    console.log('Finished creating products!')
- 
+//  creating cart
+  console.log("creating cart...")
     const cartToCreate = [
     {userId: 1, productId:2},
     {userId: 1, productId:1}
  ]
     const cart = await Promise.all(cartToCreate.map(createCart))
  
-  console.log("created Cart", cart);  
+  console.log("cart created:", cart);  
+
+  // creating dummy payments
+  console.log("creating payments...")
+  const paymentsToCreate = [
+    {cardNum: 12345678, expDate: 20250522, cvv: 123, billingAddress: '1234 Main St', cardName: 'Donald Duck'},
+    {cardNum: 87654321, expDate: 20250623, cvv: 321, billingAddress: '4321 Church St', cardName: 'Count Duckula'},
+    {cardNum: 10100101, expDate: 20250724, cvv: 987, billingAddress: '1337 Cherokee Blvd', cardName: 'Daffy Duck'},
+  ]
+
+  const payments = await Promise.all(paymentsToCreate.map(Payments.createPayments))
+  console.log("payments created:", payments)
 
   } catch (error) {
     throw error;

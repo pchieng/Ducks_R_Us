@@ -2,21 +2,21 @@
 const client = require('../client');
 const bcrypt = require("bcrypt");
 
-async function createUser({ email, username, password, isAdmin }) {
+async function createUser({ email, username, password, deliveryAddress, isAdmin }) {
   try {
     const saltRounds = 10;
     const hashedPwd = await bcrypt.hash(password, saltRounds);
-/* need to add something to prvent duplicate emails, 
-right now it thinks any address with @gmail.com is a duplicate even if before the @ is not */
+
     const {rows: [user]} = await client.query(`
         INSERT INTO users(
             email,
             username,
             password,
+            "deliveryAddress",
             "isAdmin" 
-        ) VALUES ($1, $2, $3, $4)
+        ) VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
-        `, [email, username, hashedPwd, isAdmin]
+        `, [email, username, hashedPwd, deliveryAddress, isAdmin]
     );
     delete user.password;
     // console.log("createUser test:",user)
