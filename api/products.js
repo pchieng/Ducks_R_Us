@@ -73,7 +73,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
         if(price) updatedProductValues.price = price;
         if(quantity) updatedProductValues.quantity = quantity;
         if(category) updatedProductValues.category = category;
-        if(isActive) updatedProductValues.isActive = isActive;
+        if(isActive !== null) updatedProductValues.isActive = isActive;
 
         if (!originalProduct) {
             console.error({

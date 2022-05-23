@@ -51,7 +51,7 @@ const AllProductsList = () => {
                     </Link>
                     <button
                         onClick={async () => {
-                            if (window.confirm("Are you sure you want to delete this product?") == true) {
+                            if (window.confirm("Are you sure you want to delete this product?") === true) {
                                 await deleteProduct(product.id);
                                 alert('Product has been deleted')
                                 setProducts(products.filter((filteredProduct) => filteredProduct.id !== product.id))

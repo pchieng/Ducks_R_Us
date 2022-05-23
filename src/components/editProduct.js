@@ -27,7 +27,8 @@ const EditProduct = () => {
         getProductToEdit();
     }, [productId]);
 
-    const updatedProductValues = {}
+    let updatedProductValues = {}
+
 
     if (updatedProductName) updatedProductValues.name = updatedProductName;
     if (updatedProductDescription) updatedProductValues.description = updatedProductDescription;
@@ -56,7 +57,7 @@ const EditProduct = () => {
                     type="text"
                     id="updateProductDescription"
                     name="updateProductDescription"
-                    style={{ height: "4rem", width: "400px" }}
+                    style={{ height: "4rem", width: "400px", overflowWrap: "break-word"}}
                     defaultValue={originalProduct.description}
                     onChange={(event) => setUpdatedProductDescription(event.target.value)}
                 />
@@ -119,7 +120,7 @@ const EditProduct = () => {
                     onClick={async (event) => {
                         event.preventDefault();
                         const result = await updateProduct(productId, updatedProductValues);
-                        if (result) alert('Product has been updated')
+                        if (result) alert('Product has been updated');
                     }}
                 >Submit Changes</button>
 

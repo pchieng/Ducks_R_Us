@@ -57,7 +57,6 @@ export async function addNewProduct(productToAdd) {
       price: productToAdd.price,
       isActive: productToAdd.isActive
     });
-    console.log(data)
     return data;
   } catch (err) {
     console.error(err);

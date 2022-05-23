@@ -40,7 +40,7 @@ const AddProduct = () => {
                     type='text'
                     id='newProductDescription'
                     name='newProductDescription'
-                    style={{ height: "3rem", width: "300px" }}
+                    style={{ height: "3rem", width: "300px", overflowWrap: "break-word" }}
                     onChange={(event) => setNewProductDescription(event.target.value)}
                 />
                 <br />
