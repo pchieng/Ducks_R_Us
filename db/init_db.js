@@ -131,14 +131,14 @@ async function populateInitialData() {
 
 
     const productsToCreate = [
-      {name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', category: 'toys', quantity: 100, price: 9.99, isActive: true, picture: productPicturesToCreate.AlphaDucky},
-      {name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', category: 'toys', quantity: 100, price: 9.99, isActive: true, picture: productPicturesToCreate.SisterDucky},
-      {name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', category: 'toys', quantity: 100, price: 7.99, isActive: true, picture: productPicturesToCreate.BabyDucky},
-      {name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', category: 'clothing', quantity: 100, price: 15.49, isActive: true, picture: productPicturesToCreate.DuckyShirt},
-      {name: 'Ducky Hat', description: 'White cap with ducky logo', category: 'clothing', quantity: 100, price: 19.99, isActive: true, picture: productPicturesToCreate.DuckyHat},
-      {name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', category: 'miscellaneous', quantity: 50, price: 23.99, isActive: true, picture: productPicturesToCreate.DuckyUmbrella},
-      {name: 'Boomer Ducky', description: 'This old ducky is no longer active.', category: 'toys', quantity: 0, price: 9.99, isActive: false, picture: productPicturesToCreate.BoomerDucky},
-      {name: 'Duck', description: 'Bucephala albeola', category: 'miscellaneous', quantity: 20, price: 49.99, isActive: true, picture: productPicturesToCreate.Duck}
+      {name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', category: 'toys', quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.AlphaDucky},
+      {name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', category: 'toys', quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.SisterDucky},
+      {name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', category: 'toys', quantity: 100, price: 799, isActive: true, picture: productPicturesToCreate.BabyDucky},
+      {name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', category: 'clothing', quantity: 100, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt},
+      {name: 'Ducky Hat', description: 'White cap with ducky logo', category: 'clothing', quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat},
+      {name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', category: 'miscellaneous', quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella},
+      {name: 'Boomer Ducky', description: 'This old ducky is no longer active.', category: 'toys', quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky},
+      {name: 'Duck', description: 'Bucephala albeola', category: 'miscellaneous', quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck}
     ]
 
     const products = await Promise.all(productsToCreate.map(Products.createProduct));
