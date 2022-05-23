@@ -7,10 +7,14 @@ import ProductDetails from './productDetails';
 import ShoppingCart from  './cart';
 import UsersList from './allUsers'
 import ReviewsList from './allReviews'
+import AllProductsList from './allProducts';
+import AddProduct from './addProduct';
+import EditProduct from './editProduct';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, getAllUsers, getAllReviews, getAllActiveProducts, getCartProducts  } from '../axios-services';
+
+import { getAPIHealth, getAllUsers, getAllReviews, getAllActiveProducts, getAllProducts, getCartProducts  } from '../axios-services';
 
 import '../style/App.css';
 
@@ -19,9 +23,9 @@ const App = () => {
 
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
-  const [users, setUsers] = useState([])
-  const [reviews, setReviews] = useState([])
 
 
 
@@ -45,6 +49,12 @@ const App = () => {
       const users = await getAllUsers()
       setUsers(users)
     }
+
+    const getProductsList = async () => {
+      const products = await getAllProducts();
+      setProducts(products);
+    }
+
     const getReviewsList = async () => {
       const reviews = await getAllReviews()
       setReviews(reviews)
@@ -55,9 +65,9 @@ const App = () => {
     getProductList();
     getCart();
     getAPIStatus();
-    getUsersList()
-    getReviewsList()
-
+    getUsersList();
+    getProductsList();
+    getReviewsList();
   }, []);
 
   return (
@@ -77,10 +87,19 @@ const App = () => {
         </Route>
 
         <Route path="/allReviews">
-          <ReviewsList reviews={reviews}/>
+          <ReviewsList reviews={reviews} />
         </Route>
         <Route path="/allUsers">
-          <UsersList users={users}/>
+          <UsersList users={users} />
+        </Route>
+        <Route exact path='/allProducts'>
+          <AllProductsList products={products} />
+        </Route>
+        <Route path='/allProducts/add'>
+          <AddProduct />
+        </Route>
+        <Route path='/allProducts/edit/:productId'>
+          <EditProduct />
         </Route>
       </Router>
     </div>
