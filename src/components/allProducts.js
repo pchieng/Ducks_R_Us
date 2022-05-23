@@ -29,46 +29,66 @@ const AllProductsList = () => {
             </Link>
             <br />
             <div> {products.map(product =>
-                <div 
+                <div
                     key={product.id}
                     style={{
                         borderStyle: "solid",
                         borderWidth: "2px",
                         borderRadius: "5px",
-                        lineHeight: "0.3",
                         padding: "10px",
-                        margin: "10px"
+                        margin: "10px",
+                        maxWidth: "40vw"
                     }}
-                    >
+                >
                     <div
                         style={{
                             display: "flex",
                             flexDirection: "row",
                             justifyContent: "space-evenly"
                         }}>
-                    <Link to={`/allProducts/edit/${product.id}`}>
-                        <button>Edit</button>
-                    </Link>
-                    <button
-                        onClick={async () => {
-                            if (window.confirm("Are you sure you want to delete this product?") === true) {
-                                await deleteProduct(product.id);
-                                alert('Product has been deleted')
-                                setProducts(products.filter((filteredProduct) => filteredProduct.id !== product.id))
-                            }
-                        }}
-                    >Delete</button>
+                        <Link to={`/allProducts/edit/${product.id}`}>
+                            <button>Edit</button>
+                        </Link>
+                        <button
+                            onClick={async () => {
+                                if (window.confirm("Are you sure you want to delete this product?") === true) {
+                                    await deleteProduct(product.id);
+                                    alert('Product has been deleted')
+                                    setProducts(products.filter((filteredProduct) => filteredProduct.id !== product.id))
+                                }
+                            }}
+                        >Delete</button>
                     </div>
-                    <h3>{`Name: ${product.name}`}</h3>
-                    <p>{`Description: ${product.description}`}</p>
-                    <p>{`Category: ${product.category}`}</p>
-                    <p>{`Quantity: ${product.quantity}`}</p>
-                    <p>{`Price: $${product.price / 100}`}</p>
-                    {product.isActive ?
-                        <p style={{ color: "green", fontWeight: "bold" }}>ACTIVE</p>
-                        :
-                        <p style={{ color: "red", fontWeight: "bold" }}>NOT ACTIVE</p>
-                    }
+                    <div 
+                        className="productInfo"
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            flexBasis: "auto"
+                        }}
+                        >
+                        <img 
+                            src={`${product.picture}`}
+                            alt={`${product.name}`}
+                            style = {{
+                                maxWidth: "150px",
+                                maxHeight: "150px",
+                                marginRight: "20px"
+                            }}
+                            />
+                        <div>
+                            <h3 style={{margin: "10px 0px 5px"}}>{`Name: ${product.name}`}</h3>
+                            <p style={{margin: "5px 0px", wordWrap: "break-word"}}>{`Description: ${product.description}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Category: ${product.category}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Quantity: ${product.quantity}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Price: $${product.price / 100}`}</p>
+                            {product.isActive ?
+                                <p style={{ color: "green", fontWeight: "bold", margin: "5px 0px" }}>ACTIVE</p>
+                                :
+                                <p style={{ color: "red", fontWeight: "bold", margin: "5px 0px" }}>NOT ACTIVE</p>
+                            }
+                        </div>
+                    </div>
                 </div>
             )}
             </div>

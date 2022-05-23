@@ -17,6 +17,7 @@ const EditProduct = () => {
     const [updatedProductQuantity, setUpdatedProductQuantity] = useState(null);
     const [updatedProductPrice, setUpdatedProductPrice] = useState(null);
     const [updatedProductActive, setUpdatedProductActive] = useState(null);
+    const [updatedProductPicture, setUpdatedProductPicture] = useState(null);
 
 
     useEffect(() => {
@@ -36,13 +37,21 @@ const EditProduct = () => {
     if (updatedProductQuantity) updatedProductValues.quantity = updatedProductQuantity;
     if (updatedProductCategory) updatedProductValues.category = updatedProductCategory;
     if (updatedProductActive !== null) updatedProductValues.isActive = updatedProductActive;
+    if (updatedProductPicture) updatedProductValues.picture = updatedProductPicture;
 
-console.log(updatedProductValues)
 
     return (
         <>
 
             <h1>Update Product Information</h1>
+            <img 
+                src={`${originalProduct.picture}`}
+                alt={`${originalProduct.name}`}
+                style={{
+                    maxWidth: "15%",
+                    marginBottom: "30px"
+                }}
+                />
             <form>
                 <label htmlFor="updateProductName">Name: </label>
                 <input
@@ -58,7 +67,7 @@ console.log(updatedProductValues)
                     type="text"
                     id="updateProductDescription"
                     name="updateProductDescription"
-                    style={{ height: "4rem", width: "400px", overflowWrap: "break-word"}}
+                    style={{ height: "4rem", maxWidth: "400px", wordWrap: "break-word"}}
                     defaultValue={originalProduct.description}
                     onChange={(event) => setUpdatedProductDescription(event.target.value)}
                 />
@@ -88,6 +97,15 @@ console.log(updatedProductValues)
                     name='updateProductPrice'
                     defaultValue={originalProduct.price}
                     onChange={(event) => setUpdatedProductPrice(event.target.value)}
+                />
+                <br />
+                <label htmlFor='updateProductPicture'>Picture URL: </label>
+                <input
+                    type='text'
+                    id='updateProductPicture'
+                    name='updateProductPicture'
+                    defaultValue={originalProduct.picture}
+                    onChange={(event) => setUpdatedProductPicture(event.target.value)}
                 />
                 <br />
                 <label htmlFor='updateProductActive'>Status: </label>

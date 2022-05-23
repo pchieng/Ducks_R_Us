@@ -20,7 +20,7 @@ useEffect(() => {
     return (
         <div className='productDetailsPage'>
             <div>
-            <img src={`${product.picture}`} />
+            <img src={`${product.picture}`} alt={`${product.name}`}/>
             </div>
             <div>
             <h3>{`${product.name}`}</h3>

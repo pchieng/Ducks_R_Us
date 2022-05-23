@@ -73,7 +73,7 @@ const AddProduct = () => {
                     onChange={(event) => setNewProductPrice(event.target.value * 100)}
                 />
                 <br />
-                <label htmlFor='newProductPicture'>Picture: </label>
+                <label htmlFor='newProductPicture'>Picture URL: </label>
                 <input
                     type='text'
                     id='newProductPicture'
