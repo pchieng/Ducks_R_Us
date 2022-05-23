@@ -1,5 +1,4 @@
 const express = require('express');
-const { reset } = require('nodemon');
 const productsRouter = express.Router();
 const { Products } = require('../db');
 
