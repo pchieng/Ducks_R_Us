@@ -2,7 +2,9 @@ const client = require('../client');
 
 module.exports = {
     createCategory,
-    getAllCategories
+    getAllCategories,
+    getCategoryById,
+    deleteCategory
 };
 
 async function createCategory ({name}) {
@@ -25,6 +27,32 @@ async function getAllCategories() {
         FROM categories
         `)
         return categories;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function getCategoryById(categoryId) {
+    try {
+        const {rows: [category]} = await client.query(`
+        SELECT *
+        FROM categories
+        WHERE id=$1
+        `, [categoryId])
+        return category;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+async function deleteCategory(categoryId) {
+    try {
+        const category = await client.query(`
+        DELETE FROM categories
+        WHERE id=$1
+        `, [categoryId]);
+        return category;
     } catch (error) {
         throw error;
     }

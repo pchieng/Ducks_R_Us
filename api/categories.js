@@ -16,5 +16,24 @@ categoriesRouter.get('/', async (req, res, next) => {
     }
 })
 
+categoriesRouter.delete('/:categoryId', async (req, res, next) => {
+
+    try {
+        const {categoryId} = req.params;
+        const category = await Categories.getCategoryById(categoryId);
+        const deletedCategory = await Categories.deleteCategory(categoryId);
+    
+        if (!deletedCategory.rowCount) {
+            console.error({
+                name: 'DeletionError',
+                message: 'This category does not exist and cannot be deleted'
+            })
+        }
+        return res.send(`Category ${category.name} has been deleted`)
+    } catch (error) {
+        throw error;
+    }
+})
+
 
 module.exports = categoriesRouter;

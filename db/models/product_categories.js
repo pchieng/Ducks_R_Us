@@ -19,3 +19,16 @@ async function createProduct_category ({productId, categoryId}) {
     }
 
 }
+
+async function getProduct_categoriesByProduct (productId) {
+    try {
+        const { rows: [product_categories]} = await client.query(`
+        SELECT *
+        FROM product_categories
+        WHERE "productId"=$1
+        `, [productId])
+        return product_categories;
+    } catch (error) {
+        throw error;
+    }
+}

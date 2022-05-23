@@ -94,7 +94,6 @@ async function getActiveProductsByCategory(category) {
         FROM products
         WHERE category=$1 AND "isActive"=true;
         `, [category])
-        console.log(products)
         return products;
     }catch (error){
         throw error;
