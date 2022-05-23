@@ -1,6 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
-const { Products } = require('../db');
+const { Products, Product_Categories } = require('../db');
+const { getCategoryById } = require('../db/models/categories');
 
 
 productsRouter.use((req, res, next) => {
@@ -91,6 +92,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
                 name: 'InvalidUpdate',
                 message: 'Product update could not be completed'
             });
+            return;
         }
     } catch (error) {
         throw error;
@@ -109,6 +111,7 @@ productsRouter.delete('/:productId', async (req, res, next) => {
                 name: 'DeletionError',
                 message: 'This product does not exist and cannot be deleted'
             })
+            return res.send({Error: 'This product does not exist and cannot be deleted'})
         }
         return res.send(`${product.name} has been deleted`)
     } catch (error) {
@@ -116,7 +119,24 @@ productsRouter.delete('/:productId', async (req, res, next) => {
     }
 })
 
+productsRouter.delete('/category/:productId/:categoryId', async (req, res, next) => {
+    try {
+        const {productId, categoryId} = req.params;
+        const category = await getCategoryById(categoryId);
+        const deletedProduct_category = await Product_Categories.deleteProduct_category(productId, categoryId);
+        if(!deletedProduct_category.rowCount) {
+            console.error({
+                name: 'DeletionError',
+                message: 'This category does not exist for this product and cannot be deleted'
+            })
+            return res.send({Error: 'This category does not exist for this product and cannot be deleted'})
+        }
+        return res.send(`Category ${category.name} has been removed from this product`)
 
+    } catch (error) {
+        throw error;
+    }
+})
 
 
 module.exports = productsRouter;
