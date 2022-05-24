@@ -4,8 +4,7 @@ const {
   Products,
   Reviews,
   Payments,
-  Categories,
-  Product_Categories
+  Categories
   // declare your model imports here
   // for example, User
 } = require('./');
@@ -23,12 +22,12 @@ async function buildTables() {
 
     await client.query(`
     DROP TABLE IF EXISTS product_categories;
-    DROP TABLE IF EXISTS categories;
     DROP TABLE IF EXISTS payments;
     DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS categories;
     `)
 
     console.log("Finished dropping all tables");
@@ -38,11 +37,18 @@ async function buildTables() {
     console.log("Starting to build tables...");
 
     await client.query(`
+      CREATE TABLE categories (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL
+      ); 
+      `); console.log("categories")
+
+    await client.query(`
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
-      category VARCHAR(255) NOT NULL,
       description TEXT,
+      "categoryId" INTEGER NOT NULL REFERENCES categories(id),
       quantity INTEGER NOT NULL,
       price INTEGER NOT NULL,
       "isActive" BOOLEAN DEFAULT false,
@@ -91,22 +97,6 @@ async function buildTables() {
     );
     `); console.log("payments")
 
-    await client.query(`
-      CREATE TABLE categories (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) UNIQUE NOT NULL
-      ); 
-      `); console.log("categories")
-
-    await client.query(`
-        CREATE TABLE product_categories (
-          "productId" INTEGER REFERENCES products(id),
-          "categoryId" INTEGER REFERENCES categories(id),
-          UNIQUE ("productId", "categoryId")
-        );
-        `); console.log("product_categories")
-
-
 
 
     //   CREATE TABLE orders (
@@ -130,6 +120,21 @@ async function populateInitialData() {
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
 
+    // Creating categories of products
+    console.log("Starting to create categories...");
+    const categoriesToCreate = [
+      { name: "toys" },
+      { name: "clothing" },
+      { name: "accessories" },
+      { name: "games" },
+      { name: "books" },
+      { name: "other" },
+      { name: "movies" }
+    ]
+    const categories = await Promise.all(categoriesToCreate.map(Categories.createCategory))
+    console.log("Categories created:", categories);
+
+
     // Creating dummy products
     console.log('Starting to create products...')
 
@@ -148,14 +153,14 @@ async function populateInitialData() {
 
 
     const productsToCreate = [
-      { name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', category: 'toys', quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.AlphaDucky },
-      { name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', category: 'toys', quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.SisterDucky },
-      { name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', category: 'toys', quantity: 100, price: 799, isActive: true, picture: productPicturesToCreate.BabyDucky },
-      { name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', category: 'clothing', quantity: 100, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt },
-      { name: 'Ducky Hat', description: 'White cap with ducky logo', category: 'clothing', quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
-      { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', category: 'miscellaneous', quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
-      { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', category: 'toys', quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
-      { name: 'Duck', description: 'Bucephala albeola', category: 'miscellaneous', quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck }
+      { name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', categoryId: 1, quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.AlphaDucky },
+      { name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', categoryId: 1, quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.SisterDucky },
+      { name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', categoryId: 1, quantity: 100, price: 799, isActive: true, picture: productPicturesToCreate.BabyDucky },
+      { name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', categoryId: 2, quantity: 100, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt },
+      { name: 'Ducky Hat', description: 'White cap with ducky logo', categoryId: 2, quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
+      { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', categoryId: 3, quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
+      { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', categoryId: 1, quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
+      { name: 'Duck', description: 'Bucephala albeola', categoryId: 6, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck }
     ]
 
     const products = await Promise.all(productsToCreate.map(Products.createProduct));
@@ -208,37 +213,6 @@ async function populateInitialData() {
 
     const payments = await Promise.all(paymentsToCreate.map(Payments.createPayments))
     console.log("Payments created:", payments)
-
-    // creating categories of products
-    console.log("Starting to create categories...");
-    const categoriesToCreate = [
-      { name: "toys" },
-      { name: "clothing" },
-      { name: "accessories" },
-      { name: "games" },
-      { name: "books" },
-      { name: "other" },
-      { name: "movies" }
-    ]
-    const categories = await Promise.all(categoriesToCreate.map(Categories.createCategory))
-    console.log("Categories created:", categories);
-
-    // creating product_categories to link categories to products
-    console.log("Starting to create product_categories")
-    const product_categoriesToCreate = [
-      {productId: 1, categoryId: 1},
-      {productId: 1, categoryId: 4},
-      {productId: 2, categoryId: 1},
-      {productId: 3, categoryId: 1},
-      {productId: 4, categoryId: 2},
-      {productId: 5, categoryId: 2},
-      {productId: 6, categoryId: 3},
-      {productId: 7, categoryId: 1},
-      {productId: 8, categoryId: 6}     
-    ]
-
-    const product_categories = await Promise.all(product_categoriesToCreate.map(Product_Categories.createProduct_category))
-    console.log("Product_categories created:", product_categories)
 
   } catch (error) {
     throw error;

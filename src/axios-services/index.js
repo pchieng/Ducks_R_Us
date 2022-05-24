@@ -47,6 +47,27 @@ export async function getAllActiveProducts() {
   }
 }
 
+
+export async function getActiveProductsByCategory(category) {
+  try {
+    const {data} = await axios.get(`/api/products/category/${category}`);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+export async function getProductById(productId) {
+  try {
+    const { data } = await axios.get(`/api/products/${productId}`);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
 export async function addNewProduct(productToAdd) {
   try {
     const { data } = await axios.post('/api/products', {
@@ -84,6 +105,29 @@ export async function deleteProduct(productId) {
   }
 }
 
+
+export async function getAllCategories() {
+  try {
+    const { data } = await axios.get(`/api/categories/`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export async function getCategoryById(categoryId) {
+  try  {
+    const { data } = await axios.get(`/api/categories/${categoryId}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
+
 export async function getAllUsers() {
   try {
     const { data: users } = await axios.get('/api/users');
@@ -93,14 +137,7 @@ export async function getAllUsers() {
   }
 }
 
-export async function getProductById(productId) {
-  try {
-    const { data } = await axios.get(`/api/products/${productId}`);
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-}
+
 
 export async function getCartProducts() {
   try {
@@ -137,12 +174,4 @@ export async function getAllReviews() {
   }
 }
 
-export async function getActiveProductsByCategory(category) {
-  try {
-    const {data} = await axios.get(`/api/products/category/${category}`);
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-}
 

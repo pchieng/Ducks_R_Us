@@ -28,17 +28,16 @@ const ProductList = () => {
         return self.indexOf(value) === index;
     }
 
-    const displayProductHandler = async (category) => {
-        let displayedProducts = await getActiveProductsByCategory(category);
-        setProductsToDisplay(displayedProducts)
-
-    }
+    // const displayProductHandler = async (category) => {
+    //     let displayedProducts = await getActiveProductsByCategory(category);
+    //     setProductsToDisplay(displayedProducts)
+    // }
 
 
     return (
         <>
             <h1>PRODUCTS</h1>
-            <select
+            {/* <select
                 name='productCategory'
                 id='productCategory'
                 onChange={async (event) => {
@@ -61,7 +60,7 @@ const ProductList = () => {
                         {`${category.charAt(0).toUpperCase() + category.slice(1)}`}
                     </option>
                 )}
-            </select>
+            </select> */}
             <div className='productPage'> {productsToDisplay.map(product =>
                 <div className='productCard' key={product.id}>
                     <Link to={`/products/${product.id}`}>

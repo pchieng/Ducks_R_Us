@@ -21,6 +21,8 @@ const AllProductsList = () => {
         getProductsList();
     }, [])
 
+
+
     return (
         <>
             <h1>PRODUCTS (Administrator View)</h1>
@@ -79,7 +81,7 @@ const AllProductsList = () => {
                         <div>
                             <h3 style={{margin: "10px 0px 5px"}}>{`Name: ${product.name}`}</h3>
                             <p style={{margin: "5px 0px", wordWrap: "break-word"}}>{`Description: ${product.description}`}</p>
-                            <p style={{margin: "5px 0px"}}>{`Category: ${product.category}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Category: ${product.category_name.charAt(0).toUpperCase() + product.category_name.slice(1)}`}</p>
                             <p style={{margin: "5px 0px"}}>{`Quantity: ${product.quantity}`}</p>
                             <p style={{margin: "5px 0px"}}>{`Price: $${product.price / 100}`}</p>
                             {product.isActive ?

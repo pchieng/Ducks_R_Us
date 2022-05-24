@@ -11,13 +11,13 @@ module.exports = {
 }
 
 
-async function createProduct({ name, description, price, quantity, category, isActive, picture }) {
+async function createProduct({ name, description, price, quantity, isActive, picture, categoryId }) {
     try {
         const {rows: [product]} = await client.query(`
-        INSERT INTO products (name, description, price, quantity, category, "isActive", picture)
+        INSERT INTO products (name, description, price, quantity, "isActive", picture, "categoryId")
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
-        `, [name, description, price, quantity, category, isActive, picture]);
+        `, [name, description, price, quantity, isActive, picture, categoryId]);
         return product;
     } catch (error) {
         throw error;
@@ -40,8 +40,17 @@ async function getAllActiveProducts() {
 async function getAllProducts() {
     try {
         const {rows: products} = await client.query(`
-        SELECT *
-        FROM products;
+        SELECT
+            products.id,
+            products.name,
+            products.description,
+            products.price,
+            products.quantity,
+            products."isActive",
+            products.picture,
+            categories.name AS category_name
+        FROM products
+        JOIN categories ON products."categoryId" = categories.id;
         `)
         return products;
     } catch (error) {

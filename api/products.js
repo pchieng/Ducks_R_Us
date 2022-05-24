@@ -1,6 +1,6 @@
 const express = require('express');
 const productsRouter = express.Router();
-const { Products, Product_Categories } = require('../db');
+const { Products } = require('../db');
 const { getCategoryById } = require('../db/models/categories');
 
 
@@ -37,20 +37,11 @@ productsRouter.get('/:productId', async (req, res, next) => {
     }
 })
 
-productsRouter.get('/category/:productCategory', async (req, res, next) => {
-    try {
-        const { productCategory } = req.params;
-        const products = await Products.getActiveProductsByCategory(productCategory);
-        return res.send(products);
-    } catch (error) {
-        throw error;
-    }
-})
 
 productsRouter.post('/', async (req, res, next) => {
     try {
-        const { name, description, price, quantity, category, isActive, picture } = req.body;
-        const product = await Products.createProduct({ name, description, price, quantity, category, isActive, picture });
+        const { name, description, price, quantity, isActive, picture } = req.body;
+        const product = await Products.createProduct({ name, description, price, quantity, isActive, picture });
         res.send(product);
     } catch (error) {
         throw error;
@@ -63,7 +54,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
     try {
         const { productId } = req.params;
-        const { name, description, price, quantity, category, isActive, picture } = req.body;
+        const { name, description, price, quantity, isActive, picture } = req.body;
         const originalProduct = await Products.getProductById(productId);
 
         const updatedProductValues = {};
@@ -72,7 +63,6 @@ productsRouter.patch('/:productId', async (req, res, next) => {
         if(description) updatedProductValues.description = description;
         if(price) updatedProductValues.price = price;
         if(quantity) updatedProductValues.quantity = quantity;
-        if(category) updatedProductValues.category = category;
         if(isActive !== null) updatedProductValues.isActive = isActive;
         if(picture) updatedProductValues.picture = picture;
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const categoriesRouter = express.Router();
-const { Categories, Product_Categories } = require('../db');
+const { Categories } = require('../db');
 
 categoriesRouter.use((req, res, next) => {
     console.log('A request is being made to /categories');
@@ -16,15 +16,31 @@ categoriesRouter.get('/', async (req, res, next) => {
     }
 })
 
+categoriesRouter.get('/:categoryId', async (req, res, next) => {
+    try {
+        const {categoryId} = req.params;
+        const category = await Categories.getCategoryById(categoryId);
+        if (!category) {
+            console.error({
+                name: 'CategoryMissing',
+                message: 'This category does not exist'
+            })
+            return res.send({Error: 'This category does not exist'})
+        }
+        return res.send(category.name);
+    } catch (error) {
+        throw error;
+    }
+
+})
+
+
+
 categoriesRouter.delete('/:categoryId', async (req, res, next) => {
 
     try {
         const {categoryId} = req.params;
         const category = await Categories.getCategoryById(categoryId);
-        const product_categories = await Product_Categories.getProduct_categoriesByCategory(categoryId);
-        if (product_categories) {
-            await Product_Categories.deleteProduct_categoriesByCategory(categoryId);
-        }
         const deletedCategory = await Categories.deleteCategory(categoryId);
     
         if (!deletedCategory.rowCount) {

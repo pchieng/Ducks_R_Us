@@ -8,8 +8,7 @@ module.exports = {
     Cart: require('./cart'),
     Reviews: require('./reviews'),
     Payments: require('./payments'),
-    Categories: require('./categories'),
-    Product_Categories: require('./product_categories')
+    Categories: require('./categories')
 
 
 

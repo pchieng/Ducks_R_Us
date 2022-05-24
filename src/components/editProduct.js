@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductById, updateProduct } from '../axios-services';
+import { getProductById, updateProduct, getAllCategories } from '../axios-services';
 import { Link } from 'react-router-dom';
 
 
@@ -9,8 +9,10 @@ import { Link } from 'react-router-dom';
 
 const EditProduct = () => {
 
+    
     const { productId } = useParams();
     const [originalProduct, setOriginalProduct] = useState({});
+    const [categoryList, setCategoryList] = useState([]);
     const [updatedProductName, setUpdatedProductName] = useState(null);
     const [updatedProductDescription, setUpdatedProductDescription] = useState(null);
     const [updatedProductCategory, setUpdatedProductCategory] = useState(null);
@@ -18,14 +20,25 @@ const EditProduct = () => {
     const [updatedProductPrice, setUpdatedProductPrice] = useState(null);
     const [updatedProductActive, setUpdatedProductActive] = useState(null);
     const [updatedProductPicture, setUpdatedProductPicture] = useState(null);
-
-
+    
+    
     useEffect(() => {
         const getProductToEdit = async () => {
             const originalProduct = await getProductById(productId);
+            console.log(originalProduct)
             setOriginalProduct(originalProduct);
         }
+
+        const getCategoryList = async () => {
+            const categoryList = await getAllCategories();
+            console.log(categoryList)
+            setCategoryList(categoryList);
+        }
+
+
+
         getProductToEdit();
+        getCategoryList();
     }, [productId]);
 
     let updatedProductValues = {}
@@ -48,7 +61,7 @@ const EditProduct = () => {
                 src={`${originalProduct.picture}`}
                 alt={`${originalProduct.name}`}
                 style={{
-                    maxWidth: "15%",
+                    maxWidth: "200px",
                     marginBottom: "30px"
                 }}
                 />
@@ -72,14 +85,15 @@ const EditProduct = () => {
                     onChange={(event) => setUpdatedProductDescription(event.target.value)}
                 />
                 <br />
-                <label htmlFor='updateProductCategory'>Category: </label>
-                <input
-                    type='text'
+                <label htmlFor='updateProductCategory'>Status: </label>
+                <select
                     id='updateProductCategory'
                     name='updateProductCategory'
-                    defaultValue={originalProduct.category}
-                    onChange={(event) => setUpdatedProductCategory(event.target.value)}
-                />
+                    onChange={(event) =>
+                        setUpdatedProductCategory(event.target.value)
+                    }
+                >
+                </select>
                 <br />
                 <label htmlFor='updateProductQuantity'>Quantity: </label>
                 <input
