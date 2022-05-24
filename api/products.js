@@ -54,7 +54,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
     try {
         const { productId } = req.params;
-        const { name, description, price, quantity, isActive, picture } = req.body;
+        const { name, description, price, quantity, isActive, picture, categoryId } = req.body;
         const originalProduct = await Products.getProductById(productId);
 
         const updatedProductValues = {};
@@ -63,8 +63,9 @@ productsRouter.patch('/:productId', async (req, res, next) => {
         if(description) updatedProductValues.description = description;
         if(price) updatedProductValues.price = price;
         if(quantity) updatedProductValues.quantity = quantity;
-        if(isActive !== null) updatedProductValues.isActive = isActive;
+        if(isActive !== undefined) updatedProductValues.isActive = isActive;
         if(picture) updatedProductValues.picture = picture;
+        if(categoryId) updatedProductValues.categoryId = categoryId;
 
         if (!originalProduct) {
             console.error({
@@ -76,6 +77,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
         if (parseInt(originalProduct.id) === parseInt(productId)) {
             const updatedProduct = await Products.updateProduct(productId, updatedProductValues);
+            console.log(updatedProduct)
             return res.send(updatedProduct)
         } else {
             console.error({

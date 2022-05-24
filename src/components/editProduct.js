@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const EditProduct = () => {
 
-    
+
     const { productId } = useParams();
     const [originalProduct, setOriginalProduct] = useState({});
     const [categoryList, setCategoryList] = useState([]);
@@ -20,22 +20,18 @@ const EditProduct = () => {
     const [updatedProductPrice, setUpdatedProductPrice] = useState(null);
     const [updatedProductActive, setUpdatedProductActive] = useState(null);
     const [updatedProductPicture, setUpdatedProductPicture] = useState(null);
-    
-    
+
+
     useEffect(() => {
         const getProductToEdit = async () => {
             const originalProduct = await getProductById(productId);
-            console.log(originalProduct)
             setOriginalProduct(originalProduct);
         }
 
         const getCategoryList = async () => {
             const categoryList = await getAllCategories();
-            console.log(categoryList)
             setCategoryList(categoryList);
         }
-
-
 
         getProductToEdit();
         getCategoryList();
@@ -48,7 +44,7 @@ const EditProduct = () => {
     if (updatedProductDescription) updatedProductValues.description = updatedProductDescription;
     if (updatedProductPrice) updatedProductValues.price = updatedProductPrice;
     if (updatedProductQuantity) updatedProductValues.quantity = updatedProductQuantity;
-    if (updatedProductCategory) updatedProductValues.category = updatedProductCategory;
+    if (updatedProductCategory) updatedProductValues.categoryId = parseInt(updatedProductCategory);
     if (updatedProductActive !== null) updatedProductValues.isActive = updatedProductActive;
     if (updatedProductPicture) updatedProductValues.picture = updatedProductPicture;
 
@@ -57,14 +53,14 @@ const EditProduct = () => {
         <>
 
             <h1>Update Product Information</h1>
-            <img 
+            <img
                 src={`${originalProduct.picture}`}
                 alt={`${originalProduct.name}`}
                 style={{
                     maxWidth: "200px",
                     marginBottom: "30px"
                 }}
-                />
+            />
             <form>
                 <label htmlFor="updateProductName">Name: </label>
                 <input
@@ -80,12 +76,12 @@ const EditProduct = () => {
                     type="text"
                     id="updateProductDescription"
                     name="updateProductDescription"
-                    style={{ height: "4rem", maxWidth: "400px", wordWrap: "break-word"}}
+                    style={{ height: "4rem", maxWidth: "400px", wordWrap: "break-word" }}
                     defaultValue={originalProduct.description}
                     onChange={(event) => setUpdatedProductDescription(event.target.value)}
                 />
                 <br />
-                <label htmlFor='updateProductCategory'>Status: </label>
+                <label htmlFor='updateProductCategory'>Category: </label>
                 <select
                     id='updateProductCategory'
                     name='updateProductCategory'
@@ -93,6 +89,24 @@ const EditProduct = () => {
                         setUpdatedProductCategory(event.target.value)
                     }
                 >
+                    {categoryList.map(category =>
+
+                    category.id === originalProduct.categoryId ?
+                        <option
+                            key={category.id}
+                            value={category.id}
+                            selected
+                        >
+                            {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
+                        </option>
+                        :
+                        <option
+                        key={category.id}
+                        value={category.id}
+                    >
+                        {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
+                    </option>
+                    )}
                 </select>
                 <br />
                 <label htmlFor='updateProductQuantity'>Quantity: </label>
