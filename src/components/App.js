@@ -10,7 +10,12 @@ import ReviewsList from './allReviews'
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, getAllUsers, getAllReviews, getAllActiveProducts, getCartProducts  } from '../axios-services';
+import { getAPIHealth } from '../axios-services';
+import { getAllUsers } from '../axios-services/user'
+import { getAllReviews } from '../axios-services/reviews'
+import { getAllActiveProducts, getActiveProductsByCategory } from '../axios-services/products'
+import { getCartProducts } from '../axios-services/cart'
+
 
 import '../style/App.css';
 
@@ -22,7 +27,6 @@ const App = () => {
 
   const [users, setUsers] = useState([])
   const [reviews, setReviews] = useState([])
-
 
 
   useEffect(() => {
