@@ -1,0 +1,102 @@
+/* this will allow admins to add, edit, & delete products on the front end */
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { getAllProducts, deleteProduct } from '../axios-services';
+
+
+
+
+
+
+const AllProductsList = () => {
+
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const getProductsList = async () => {
+            const products = await getAllProducts();
+            setProducts(products);
+        }
+        getProductsList();
+    }, [])
+
+    return (
+        <>
+            <h1>PRODUCTS (Administrator View)</h1>
+            <Link to='/allProducts/add'>
+                <button>Add New Product</button>
+            </Link>
+            <br />
+            <div> {products.map(product =>
+                <div
+                    key={product.id}
+                    style={{
+                        borderStyle: "solid",
+                        borderWidth: "2px",
+                        borderRadius: "5px",
+                        padding: "10px",
+                        margin: "10px",
+                        maxWidth: "40vw"
+                    }}
+                >
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-evenly"
+                        }}>
+                        <Link to={`/allProducts/edit/${product.id}`}>
+                            <button>Edit</button>
+                        </Link>
+                        <button
+                            onClick={async () => {
+                                if (window.confirm("Are you sure you want to delete this product?") === true) {
+                                    await deleteProduct(product.id);
+                                    alert('Product has been deleted')
+                                    setProducts(products.filter((filteredProduct) => filteredProduct.id !== product.id))
+                                }
+                            }}
+                        >Delete</button>
+                    </div>
+                    <div 
+                        className="productInfo"
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            flexBasis: "auto"
+                        }}
+                        >
+                        <img 
+                            src={`${product.picture}`}
+                            alt={`${product.name}`}
+                            style = {{
+                                maxWidth: "150px",
+                                maxHeight: "150px",
+                                marginRight: "20px"
+                            }}
+                            />
+                        <div>
+                            <h3 style={{margin: "10px 0px 5px"}}>{`Name: ${product.name}`}</h3>
+                            <p style={{margin: "5px 0px", wordWrap: "break-word"}}>{`Description: ${product.description}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Category: ${product.category}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Quantity: ${product.quantity}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Price: $${product.price / 100}`}</p>
+                            {product.isActive ?
+                                <p style={{ color: "green", fontWeight: "bold", margin: "5px 0px" }}>ACTIVE</p>
+                                :
+                                <p style={{ color: "red", fontWeight: "bold", margin: "5px 0px" }}>NOT ACTIVE</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            )}
+            </div>
+        </>
+
+    )
+
+}
+
+
+export default AllProductsList;

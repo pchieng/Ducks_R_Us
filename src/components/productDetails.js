@@ -20,12 +20,12 @@ useEffect(() => {
     return (
         <div className='productDetailsPage'>
             <div>
-            <img src={`${product.picture}`} />
+            <img src={`${product.picture}`} alt={`${product.name}`}/>
             </div>
             <div>
             <h3>{`${product.name}`}</h3>
             <p>{`${product.description}`}</p>
-            <p>{`$${product.price}`}</p>
+            <p>{`$${product.price/100}`}</p>
             <Link to='/products'>
                 <button>Back</button>
             </Link>

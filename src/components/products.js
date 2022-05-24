@@ -66,12 +66,12 @@ const ProductList = () => {
                 <div className='productCard' key={product.id}>
                     <Link to={`/products/${product.id}`}>
                     <div className='productPictureDiv'>
-                        <img src={`${product.picture}`} className='productPicture'/>
+                        <img src={`${product.picture}`} className='productPicture' alt={`${product.name}`}/>
                     </div>
                         <h3>{`${product.name}`}</h3>
                     </Link>
                     <p>{`${product.description}`}</p>
-                    <p>{`$${product.price}`}</p>
+                    <p>{`$${product.price/100}`}</p>
                 </div>
             )}
             </div>

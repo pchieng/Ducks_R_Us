@@ -2,9 +2,12 @@ const client = require('../client');
 
 module.exports = {
     createProduct,
+    getAllProducts,
     getAllActiveProducts,
     getProductById,
-    getActiveProductsByCategory
+    getActiveProductsByCategory,
+    updateProduct,
+    deleteProduct
 }
 
 
@@ -34,6 +37,42 @@ async function getAllActiveProducts() {
     }
 }
 
+async function getAllProducts() {
+    try {
+        const {rows: products} = await client.query(`
+        SELECT *
+        FROM products;
+        `)
+        return products;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateProduct(productId, fields = {}) {
+
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${ key }"=$${ index + 1 }`
+      ).join(', ');
+    
+      if (setString.length === 0) {
+        return;
+      }
+
+    try {
+        const { rows: [product] } = await client.query(`
+        UPDATE products
+        SET ${setString}
+        WHERE id=${productId}
+        RETURNING *;
+        `, Object.values(fields))
+        return product;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 
 async function getProductById(productId) {
     try {
@@ -58,6 +97,19 @@ async function getActiveProductsByCategory(category) {
         console.log(products)
         return products;
     }catch (error){
+        throw error;
+    }
+}
+
+
+async function deleteProduct(productId) {
+    try {
+        const product = await client.query(`
+        DELETE FROM products
+        WHERE id=$1;
+        `, [productId]);
+        return (product)
+    } catch (error) {
         throw error;
     }
 }
