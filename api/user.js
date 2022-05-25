@@ -12,7 +12,6 @@ usersRouter.use((req,res,next) => {
 usersRouter.get('/', async (req,res,next) => {
     try{
         const users = await User.getAllUsers()
-        console.log("displaying all users")
         return res.send(users)
     }catch(error){
         throw error
