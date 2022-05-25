@@ -1,6 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
 const { Products } = require('../db');
+const { getCategoryById } = require('../db/models/categories');
 
 
 productsRouter.use((req, res, next) => {
@@ -36,20 +37,11 @@ productsRouter.get('/:productId', async (req, res, next) => {
     }
 })
 
-productsRouter.get('/category/:productCategory', async (req, res, next) => {
-    try {
-        const { productCategory } = req.params;
-        const products = await Products.getActiveProductsByCategory(productCategory);
-        return res.send(products);
-    } catch (error) {
-        throw error;
-    }
-})
 
 productsRouter.post('/', async (req, res, next) => {
     try {
-        const { name, description, price, quantity, category, isActive, picture } = req.body;
-        const product = await Products.createProduct({ name, description, price, quantity, category, isActive, picture });
+        const { name, description, price, quantity, isActive, picture, categoryId } = req.body;
+        const product = await Products.createProduct({ name, description, price, quantity, isActive, picture, categoryId });
         res.send(product);
     } catch (error) {
         throw error;
@@ -62,7 +54,7 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
     try {
         const { productId } = req.params;
-        const { name, description, price, quantity, category, isActive, picture } = req.body;
+        const { name, description, price, quantity, isActive, picture, categoryId } = req.body;
         const originalProduct = await Products.getProductById(productId);
 
         const updatedProductValues = {};
@@ -71,9 +63,9 @@ productsRouter.patch('/:productId', async (req, res, next) => {
         if(description) updatedProductValues.description = description;
         if(price) updatedProductValues.price = price;
         if(quantity) updatedProductValues.quantity = quantity;
-        if(category) updatedProductValues.category = category;
-        if(isActive !== null) updatedProductValues.isActive = isActive;
+        if(isActive !== undefined) updatedProductValues.isActive = isActive;
         if(picture) updatedProductValues.picture = picture;
+        if(categoryId) updatedProductValues.categoryId = categoryId;
 
         if (!originalProduct) {
             console.error({
@@ -85,12 +77,14 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
         if (parseInt(originalProduct.id) === parseInt(productId)) {
             const updatedProduct = await Products.updateProduct(productId, updatedProductValues);
+            console.log(updatedProduct)
             return res.send(updatedProduct)
         } else {
             console.error({
                 name: 'InvalidUpdate',
                 message: 'Product update could not be completed'
             });
+            return;
         }
     } catch (error) {
         throw error;
@@ -109,6 +103,7 @@ productsRouter.delete('/:productId', async (req, res, next) => {
                 name: 'DeletionError',
                 message: 'This product does not exist and cannot be deleted'
             })
+            return res.send({Error: 'This product does not exist and cannot be deleted'})
         }
         return res.send(`${product.name} has been deleted`)
     } catch (error) {
@@ -116,7 +111,24 @@ productsRouter.delete('/:productId', async (req, res, next) => {
     }
 })
 
+productsRouter.delete('/category/:productId/:categoryId', async (req, res, next) => {
+    try {
+        const {productId, categoryId} = req.params;
+        const category = await getCategoryById(categoryId);
+        const deletedProduct_category = await Product_Categories.deleteProduct_category(productId, categoryId);
+        if(!deletedProduct_category.rowCount) {
+            console.error({
+                name: 'DeletionError',
+                message: 'This category does not exist for this product and cannot be deleted'
+            })
+            return res.send({Error: 'This category does not exist for this product and cannot be deleted'})
+        }
+        return res.send(`Category ${category.name} has been removed from this product`)
 
+    } catch (error) {
+        throw error;
+    }
+})
 
 
 module.exports = productsRouter;

@@ -12,6 +12,7 @@ import { getAllProducts, deleteProduct } from '../axios-services';
 const AllProductsList = () => {
 
     const [products, setProducts] = useState([]);
+    const noImageUrl = 'https://media.istockphoto.com/vectors/no-image-available-icon-vector-id1216251206?k=20&m=1216251206&s=170667a&w=0&h=A72dFkHkDdSfmT6iWl6eMN9t_JZmqGeMoAycP-LMAw4=';
 
     useEffect(() => {
         const getProductsList = async () => {
@@ -20,6 +21,8 @@ const AllProductsList = () => {
         }
         getProductsList();
     }, [])
+
+
 
     return (
         <>
@@ -59,6 +62,7 @@ const AllProductsList = () => {
                             }}
                         >Delete</button>
                     </div>
+                    <br />
                     <div 
                         className="productInfo"
                         style={{
@@ -67,19 +71,33 @@ const AllProductsList = () => {
                             flexBasis: "auto"
                         }}
                         >
-                        <img 
-                            src={`${product.picture}`}
-                            alt={`${product.name}`}
-                            style = {{
-                                maxWidth: "150px",
-                                maxHeight: "150px",
-                                marginRight: "20px"
-                            }}
-                            />
+                            {
+                                product.picture
+                                ?
+                                <img 
+                                    src={`${product.picture}`}
+                                    alt={`${product.name}`}
+                                    style = {{
+                                        maxWidth: "150px",
+                                        maxHeight: "150px",
+                                        marginRight: "20px"
+                                    }}
+                                    />
+                                    :
+                                    <img
+                                    src={noImageUrl}
+                                    alt='No Image Available'
+                                    style = {{
+                                        maxWidth: "100px",
+                                        maxHeight: "100px",
+                                        marginRight: "20px"
+                                    }}
+                                    />
+                            }
                         <div>
                             <h3 style={{margin: "10px 0px 5px"}}>{`Name: ${product.name}`}</h3>
                             <p style={{margin: "5px 0px", wordWrap: "break-word"}}>{`Description: ${product.description}`}</p>
-                            <p style={{margin: "5px 0px"}}>{`Category: ${product.category}`}</p>
+                            <p style={{margin: "5px 0px"}}>{`Category: ${product.category_name.charAt(0).toUpperCase() + product.category_name.slice(1)}`}</p>
                             <p style={{margin: "5px 0px"}}>{`Quantity: ${product.quantity}`}</p>
                             <p style={{margin: "5px 0px"}}>{`Price: $${product.price / 100}`}</p>
                             {product.isActive ?

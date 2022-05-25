@@ -4,19 +4,14 @@ const {
   Products,
   Reviews,
   Payments,
+  Categories
   // declare your model imports here
   // for example, User
 } = require('./');
 
-
-
-const {
-  createProduct
-} = require('./models/products')
-
 const {
   createCart
-} = require('./models/cart')
+} = require('./models/cart');
 
 async function buildTables() {
   try {
@@ -31,6 +26,7 @@ async function buildTables() {
     DROP TABLE IF EXISTS cart;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS categories;
     `)
 
     console.log("Finished dropping all tables");
@@ -40,11 +36,18 @@ async function buildTables() {
     console.log("Starting to build tables...");
 
     await client.query(`
+      CREATE TABLE categories (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL
+      ); 
+      `); console.log("categories")
+
+    await client.query(`
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) UNIQUE NOT NULL,
-      category VARCHAR(255) NOT NULL,
       description TEXT,
+      "categoryId" INTEGER NOT NULL REFERENCES categories(id),
       quantity INTEGER NOT NULL,
       price INTEGER NOT NULL,
       "isActive" BOOLEAN DEFAULT false,
@@ -92,12 +95,15 @@ async function buildTables() {
       "cardName" VARCHAR(255) NOT NULL
     );
     `); console.log("payments")
+
+
+
     //   CREATE TABLE orders (
     //     id SERIAL PRIMARY KEY,
     //     "userId" INTEGER REFERENCES users(id),
     //     "cartId" INTEGER REFERENCES cart(id)
     //   );
-    
+
     // );
 
     console.log("Finished building all tables");
@@ -112,7 +118,21 @@ async function populateInitialData() {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
-    
+
+    // Creating categories of products
+    console.log("Starting to create categories...");
+    const categoriesToCreate = [
+      { name: "toys" },
+      { name: "clothing" },
+      { name: "accessories" },
+      { name: "games" },
+      { name: "books" },
+      { name: "other" }
+    ]
+    const categories = await Promise.all(categoriesToCreate.map(Categories.createCategory))
+    console.log("Categories created:", categories);
+
+
     // Creating dummy products
     console.log('Starting to create products...')
 
@@ -125,20 +145,22 @@ async function populateInitialData() {
       DuckyHat: 'https://m.media-amazon.com/images/I/81ZmkBJewcL._AC_UL1500_.jpg',
       DuckyUmbrella: 'https://cdn.shopify.com/s/files/1/2280/6547/products/Rubber-Duck-Print-Pattern-Foldable-Umbrella_2d42b71f-050e-421e-b900-e5eef4ef336c_720x.jpg?v=1631332434',
       BoomerDucky: 'https://i.ebayimg.com/images/g/tCEAAOSwN~VeZDXh/s-l500.jpg',
-      Duck: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg'
+      Duck: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg',
+      LuckyDuck: 'https://basspro.scene7.com/is/image/BassPro/2439609_100039400_is'
     }
 
 
 
     const productsToCreate = [
-      {name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', category: 'toys', quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.AlphaDucky},
-      {name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', category: 'toys', quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.SisterDucky},
-      {name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', category: 'toys', quantity: 100, price: 799, isActive: true, picture: productPicturesToCreate.BabyDucky},
-      {name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', category: 'clothing', quantity: 100, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt},
-      {name: 'Ducky Hat', description: 'White cap with ducky logo', category: 'clothing', quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat},
-      {name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', category: 'miscellaneous', quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella},
-      {name: 'Boomer Ducky', description: 'This old ducky is no longer active.', category: 'toys', quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky},
-      {name: 'Duck', description: 'Bucephala albeola', category: 'miscellaneous', quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck}
+      { name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', categoryId: 1, quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.AlphaDucky },
+      { name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', categoryId: 1, quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.SisterDucky },
+      { name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', categoryId: 1, quantity: 100, price: 799, isActive: true, picture: productPicturesToCreate.BabyDucky },
+      { name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', categoryId: 2, quantity: 100, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt },
+      { name: 'Ducky Hat', description: 'White cap with ducky logo', categoryId: 2, quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
+      { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', categoryId: 3, quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
+      { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', categoryId: 1, quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
+      { name: 'Duck', description: 'Bucephala albeola', categoryId: 6, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck },
+      { name: 'Lucky Ducks Game', description: 'The Lucky Ducks Game is a fun and engaging activity for children and parents to play together', categoryId: 4, quantity: 40, price: 2499, isActive: true, picture: productPicturesToCreate.LuckyDuck }
     ]
 
     const products = await Promise.all(productsToCreate.map(Products.createProduct));
@@ -149,53 +171,59 @@ async function populateInitialData() {
     console.log('Starting to create users...')
 
     const usersToCreate = [
-      {email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', deliveryAddress: '1234 Main St', isAdmin: false},
-      {email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', deliveryAddress: '4321 Church St', isAdmin: false},
-      {email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', deliveryAddress: '1337 Cherokee Blvd', isAdmin: false},
-      {email: 'admin@gmail.com', username: 'Admin', password: 'admin1', deliveryAddress: '1010101 Administrator Dr.', isAdmin: true},
-      
+      { email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', deliveryAddress: '1234 Main St', isAdmin: false },
+      { email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', deliveryAddress: '4321 Church St', isAdmin: false },
+      { email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', deliveryAddress: '1337 Cherokee Blvd', isAdmin: false },
+      { email: 'admin@gmail.com', username: 'Admin', password: 'admin1', deliveryAddress: '1010101 Administrator Dr.', isAdmin: true },
+
     ]
     const users = await Promise.all(usersToCreate.map(User.createUser));
 
-    console.log('users created:', users);
+    console.log('Users created:', users);
 
     // Creating dummy reviews
     console.log('Starting to create reviews...')
 
     const reviewsToCreate = [
-        {writerId: 1, productId: 1, starRating: 5, body: 'This is literally the best duck ever made.'},
-        {writerId: 2, productId: 2, starRating: 5, body: 'My 57 month old loved it! Would buy again!'},
-        {writerId: 3, productId: 3, starRating: 1, body: 'Honestly so trash do not waste your money on this.'},
-        {writerId: 4, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.'}
+      { writerId: 1, productId: 1, starRating: 5, body: 'This is literally the best duck ever made.' },
+      { writerId: 2, productId: 2, starRating: 5, body: 'My 57 month old loved it! Would buy again!' },
+      { writerId: 3, productId: 3, starRating: 1, body: 'Honestly so trash do not waste your money on this.' },
+      { writerId: 4, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.' }
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
-  console.log('reviews created:', reviews);
+    console.log('Reviews created:', reviews);
 
-//  creating cart
-  console.log("creating cart...")
+    //  Creating cart
+    console.log("Starting to create cart...")
     const cartToCreate = [
-    {userId: 1, productId:2},
-    {userId: 1, productId:1}
- ]
+      { userId: 1, productId: 2 },
+      { userId: 1, productId: 1 }
+    ]
     const cart = await Promise.all(cartToCreate.map(createCart))
- 
-  console.log("cart created:", cart);  
 
-  // creating dummy payments
-  console.log("creating payments...")
-  const paymentsToCreate = [
-    {cardNum: 12345678, expDate: 20250522, cvv: 123, billingAddress: '1234 Main St', cardName: 'Donald Duck'},
-    {cardNum: 87654321, expDate: 20250623, cvv: 321, billingAddress: '4321 Church St', cardName: 'Count Duckula'},
-    {cardNum: 10100101, expDate: 20250724, cvv: 987, billingAddress: '1337 Cherokee Blvd', cardName: 'Daffy Duck'},
-  ]
+    console.log("Cart created:", cart);
 
-  const payments = await Promise.all(paymentsToCreate.map(Payments.createPayments))
-  console.log("payments created:", payments)
+    // Creating dummy payments
+    console.log("Starting to create payments...")
+    const paymentsToCreate = [
+      { cardNum: 12345678, expDate: 20250522, cvv: 123, billingAddress: '1234 Main St', cardName: 'Donald Duck' },
+      { cardNum: 87654321, expDate: 20250623, cvv: 321, billingAddress: '4321 Church St', cardName: 'Count Duckula' },
+      { cardNum: 10100101, expDate: 20250724, cvv: 987, billingAddress: '1337 Cherokee Blvd', cardName: 'Daffy Duck' },
+    ]
+
+    const payments = await Promise.all(paymentsToCreate.map(Payments.createPayments))
+    console.log("Payments created:", payments)
 
   } catch (error) {
     throw error;
   }
+
+
 }
+
+
+
+
 
 buildTables()
   .then(populateInitialData)
