@@ -34,8 +34,6 @@ const AddProduct = () => {
     }, []);
 
 
-    console.log(productToAdd)
-
     return (
         <>
             <h1>Add A New Product</h1>
