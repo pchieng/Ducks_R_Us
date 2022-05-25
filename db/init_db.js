@@ -200,8 +200,6 @@ async function populateInitialData() {
  
   console.log("cart created:", cart);  
 
-    console.log("Cart created:", cart);
-
     // Creating dummy payments
     console.log("Starting to create payments...")
     const paymentsToCreate = [

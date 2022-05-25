@@ -28,7 +28,7 @@ export async function register (userToRegister) {
 
 export async function login () {
     try{
-        const { data } = await axios.get('api/users')
+        const { data } = await axios.post('api/users')
     }catch(err){
         console.error(err)   
     }

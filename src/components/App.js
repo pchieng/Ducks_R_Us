@@ -21,7 +21,6 @@ import { getAllActiveProducts, getAllProducts, } from '../axios-services/product
 import { getAllReviews } from '../axios-services/reviews'
 import { getCartProducts } from '../axios-services/cart'
 
-
 import '../style/App.css';
 
 const App = () => {

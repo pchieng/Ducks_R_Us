@@ -1,5 +1,37 @@
 const apiRouter = require('express').Router();
 
+// token & login authorization stuff
+apiRouter.use(async (req, res, next) => {
+  const prefix = 'Bearer ';
+  const auth = req.header('Authorization');
+  // if the auth header wasnt set
+  if (!auth) { 
+    next();
+  //  if auth was set and begins with a Bearer followed by a space (prefix):
+} else if (auth.startsWith(prefix)) {
+  const token = auth.slice(prefix.length);
+  
+  try {
+      const { id } = jwt.verify(token, JWT_SECRET);
+      console.log(id)
+      
+      // if successful verification try to read the user from the database 
+      if (id) {
+          req.user = await getUserById(id);
+          next();
+      }
+      // if failed verify throws error (in the catch block)
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
+  //   user set a header but it wasnt formed correctly
+  } else {
+    next({
+      name: 'AuthorizationHeaderError',
+      message: `Authorization token must start with ${ prefix }`
+    });
+  }
+});
 
 apiRouter.get('/', (req, res, next) => {
   res.send({
