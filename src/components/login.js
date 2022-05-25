@@ -8,12 +8,12 @@ const Login = (props) => {
     
     const handleLogin = async (event) => {
         event.preventDefault()
-     const waitLogin = await login(loginUsername, loginPassword);
+        const waitLogin = await login(loginUsername, loginPassword);
     }
 
     useEffect(() => {
         const getToken = localStorage.getItem("token" ) ? true : false
-        console.log("is user logged in:", getToken)
+        // console.log("is user logged in:", getToken)
       setIsLoggedIn(getToken)
     }, []);
 

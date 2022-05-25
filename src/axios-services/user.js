@@ -26,31 +26,6 @@ export async function register (userToRegister) {
     }
 }
 
-/* need to change these over to axios 
-// REGISTER 
-export const register = async (username, password) => { 
-    try{ 
-      const response  = await fetch(`${url}/users/register`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-       username: username,
-       password: password
-     }
-   )})
-   const data = await response.json()
-   console.log("response: ", data);
-   localStorage.setItem("token", data.token)
- } catch (error){
-     console.error(error)
-     alert("Error registering: please supply a valid username & password")
- }
- } 
-
- */
-
 export async function login () {
     try{
         const { data } = await axios.get('api/users')
