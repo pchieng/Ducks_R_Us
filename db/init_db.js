@@ -128,8 +128,8 @@ async function populateInitialData() {
       { name: "accessories" },
       { name: "games" },
       { name: "books" },
-      { name: "other" },
-      { name: "movies" }
+      { name: "movies" },
+      { name: "other" }
     ]
     const categories = await Promise.all(categoriesToCreate.map(Categories.createCategory))
     console.log("Categories created:", categories);
