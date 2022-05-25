@@ -6,6 +6,14 @@ const Register = () => {
     const [regUsername, setRegUsername] = useState("");
     const [regPassword, setRegPassword] = useState("");
     
+    const userToRegister = {
+        email
+        username
+        password
+        deliveryAddress
+        isAdmin
+    }
+
     const handleRegister = async (event) => {
         event.preventDefault()
         const waitRegister = await register(regUsername, regPassword);

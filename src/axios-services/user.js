@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getUserByUsername } from '../../db/models/user';
 
 export async function getAllUsers() {
     try {
@@ -9,8 +10,23 @@ export async function getAllUsers() {
     }
   }
 
-/* need to change these over to axios 
 
+export async function register (userToRegister) {
+    try{
+        const { data } = await axios.post('/api/users',{
+            email: userToRegister.email,
+            username: userToRegister.username,
+            password: userToRegister.password,
+            deliveryAddress: userToRegister.deliveryAddress,
+            isAdmin: userToRegister.isAdmin
+        })
+        return data
+    }catch(err){
+        console.error(err)
+    }
+}
+
+/* need to change these over to axios 
 // REGISTER 
 export const register = async (username, password) => { 
     try{ 
@@ -35,8 +51,15 @@ export const register = async (username, password) => {
 
  */
 
- /*
+export async function login () {
+    try{
+        const { data } = await axios.get('api/users')
+    }catch(err){
+        console.error(err)   
+    }
+}
 
+ /*
 //  LOGIN
 export const login = async (username, password) => {  
   try{ const response  = await fetch(`${url}/users/login`, {
@@ -57,5 +80,4 @@ export const login = async (username, password) => {
    alert("Error logging in: incorrect username or password")
 }
 } 
-
  */

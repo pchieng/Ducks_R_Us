@@ -5,6 +5,7 @@ const {
   Reviews,
   Payments,
   Cart,
+  Categories,
   // declare your model imports here
   // for example, User
 } = require('./');
