@@ -40,8 +40,8 @@ productsRouter.get('/:productId', async (req, res, next) => {
 
 productsRouter.post('/', async (req, res, next) => {
     try {
-        const { name, description, price, quantity, isActive, picture } = req.body;
-        const product = await Products.createProduct({ name, description, price, quantity, isActive, picture });
+        const { name, description, price, quantity, isActive, picture, categoryId } = req.body;
+        const product = await Products.createProduct({ name, description, price, quantity, isActive, picture, categoryId });
         res.send(product);
     } catch (error) {
         throw error;

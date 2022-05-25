@@ -73,7 +73,7 @@ export async function addNewProduct(productToAdd) {
     const { data } = await axios.post('/api/products', {
       name: productToAdd.name,
       description: productToAdd.description,
-      category: productToAdd.category,
+      categoryId: productToAdd.categoryId,
       quantity: productToAdd.quantity,
       price: productToAdd.price,
       isActive: productToAdd.isActive,

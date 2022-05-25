@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { addNewProduct } from '../axios-services';
+import { addNewProduct, getAllCategories } from '../axios-services';
 
 const AddProduct = () => {
 
+    const [categoryList, setCategoryList] = useState([])
     const [newProductName, setNewProductName] = useState('');
     const [newProductDescription, setNewProductDescription] = useState('');
     const [newProductCategory, setNewProductCategory] = useState('');
@@ -15,7 +16,7 @@ const AddProduct = () => {
     const productToAdd = {
         name: newProductName,
         description: newProductDescription,
-        category: newProductCategory,
+        categoryId: newProductCategory,
         quantity: newProductQuantity,
         price: newProductPrice,
         isActive: newProductActive,
@@ -23,6 +24,17 @@ const AddProduct = () => {
     }
 
 
+    useEffect(() => {
+        const getCategoryList = async () => {
+            const categoryList = await getAllCategories();
+            setCategoryList(categoryList);
+        }
+
+        getCategoryList();
+    }, []);
+
+
+    console.log(productToAdd)
 
     return (
         <>
@@ -47,13 +59,25 @@ const AddProduct = () => {
                 />
                 <br />
                 <label htmlFor='newProductCategory'>Category (required): </label>
-                <input
-                    type='text'
+                <select
                     id='newProductCategory'
                     name='newProductCategory'
                     required
-                    onChange={(event) => setNewProductCategory(event.target.value)}
-                />
+                    onChange={(event) => {
+                        setNewProductCategory(parseInt(event.target.value))
+                    }
+                    }
+                    >
+                    <option value=''>-- Select Product Category --</option>
+                    {categoryList.map(category =>
+                        <option
+                            key={category.id}
+                            value={category.id}
+                        >
+                            {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
+                        </option>
+                    )}
+                </select>
                 <br />
                 <label htmlFor='newProductQuantity'>Quantity (required): </label>
                 <input
@@ -61,7 +85,7 @@ const AddProduct = () => {
                     id='newProductQuantity'
                     name='newProductQuantity'
                     required
-                    onChange={(event) => setNewProductQuantity(event.target.value)}
+                    onChange={(event) => setNewProductQuantity(parseInt(event.target.value))}
                 />
                 <br />
                 <label htmlFor='newProductPrice'>Price (required): </label>
@@ -70,7 +94,7 @@ const AddProduct = () => {
                     id='newProductPrice'
                     name='newProductPrice'
                     required
-                    onChange={(event) => setNewProductPrice(event.target.value * 100)}
+                    onChange={(event) => setNewProductPrice(parseInt(event.target.value * 100))}
                 />
                 <br />
                 <label htmlFor='newProductPicture'>Picture URL: </label>
@@ -102,7 +126,7 @@ const AddProduct = () => {
                 <button
                     onClick={async (event) => {
                         event.preventDefault();
-                        if (productToAdd.name === '' || productToAdd.category === '' || productToAdd.quantity === -1 || productToAdd.price === -1) {
+                        if (productToAdd.name === '' || productToAdd.categoryId === '' || productToAdd.quantity === -1 || productToAdd.price === -1) {
                             alert('Please fill out all required fields')
                             return;
                         }
