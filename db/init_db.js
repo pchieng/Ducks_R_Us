@@ -128,7 +128,6 @@ async function populateInitialData() {
       { name: "accessories" },
       { name: "games" },
       { name: "books" },
-      { name: "movies" },
       { name: "other" }
     ]
     const categories = await Promise.all(categoriesToCreate.map(Categories.createCategory))
@@ -147,7 +146,8 @@ async function populateInitialData() {
       DuckyHat: 'https://m.media-amazon.com/images/I/81ZmkBJewcL._AC_UL1500_.jpg',
       DuckyUmbrella: 'https://cdn.shopify.com/s/files/1/2280/6547/products/Rubber-Duck-Print-Pattern-Foldable-Umbrella_2d42b71f-050e-421e-b900-e5eef4ef336c_720x.jpg?v=1631332434',
       BoomerDucky: 'https://i.ebayimg.com/images/g/tCEAAOSwN~VeZDXh/s-l500.jpg',
-      Duck: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg'
+      Duck: 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Mallard2.jpg',
+      LuckyDuck: 'https://basspro.scene7.com/is/image/BassPro/2439609_100039400_is'
     }
 
 
@@ -160,7 +160,8 @@ async function populateInitialData() {
       { name: 'Ducky Hat', description: 'White cap with ducky logo', categoryId: 2, quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
       { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', categoryId: 3, quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
       { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', categoryId: 1, quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
-      { name: 'Duck', description: 'Bucephala albeola', categoryId: 6, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck }
+      { name: 'Duck', description: 'Bucephala albeola', categoryId: 6, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck },
+      { name: 'Lucky Ducks Game', description: 'The Lucky Ducks Game is a fun and engaging activity for children and parents to play together', categoryId: 4, quantity: 40, price: 2499, isActive: true, picture: productPicturesToCreate.LuckyDuck }
     ]
 
     const products = await Promise.all(productsToCreate.map(Products.createProduct));
