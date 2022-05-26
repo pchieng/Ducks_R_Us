@@ -1,5 +1,7 @@
 const apiRouter = require('express').Router();
 const {User} = require('../db');
+const { JWT_SECRET } = process.env;
+const jwt = require('jsonwebtoken');
 
 // token & login authorization stuff
 apiRouter.use(async (req, res, next) => {

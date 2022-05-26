@@ -20,9 +20,9 @@ usersRouter.get('/', async (req,res,next) => {
 
 // REGISTER
 usersRouter.post('/users/register', async (req, res, next) => {
-    const {username, password} = req.body;
+    const {email, username, password} = req.body;
     try {
-      const _user = await getUserByUserName(username);
+      const _user = await User.getUserByUserName(username);
   
       if (_user) {
         next({
@@ -30,7 +30,8 @@ usersRouter.post('/users/register', async (req, res, next) => {
           message: 'A user by that username already exists'
         });
       }
-      const user = await createUser({
+      const user = await User.createUser({
+        email,
         username,
         password,   
       });
@@ -63,7 +64,7 @@ usersRouter.post('/users/login', async (req, res, next) => {
     }
   
     try {
-      const user = await getUserByUserName(username);
+      const user = await User.getUserByUserName(username);
   
       if (user && user.password == password) {
         // create token & return to user
