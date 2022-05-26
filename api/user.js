@@ -18,7 +18,6 @@ usersRouter.get('/', async (req,res,next) => {
     }
 })
 
-/* 
 // REGISTER
 usersRouter.post('/users/register', async (req, res, next) => {
     const {username, password} = req.body;
@@ -49,9 +48,8 @@ usersRouter.post('/users/register', async (req, res, next) => {
       throw error
     } 
   });
-*/
 
-/* 
+
 // LOGIN 
 usersRouter.post('/users/login', async (req, res, next) => {
     const { username, password } = req.body;
@@ -89,6 +87,6 @@ usersRouter.post('/users/login', async (req, res, next) => {
       throw error
     }
   });
-*/
+
 
 module.exports = usersRouter

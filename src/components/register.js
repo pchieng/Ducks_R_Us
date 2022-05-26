@@ -6,15 +6,14 @@ const Register = () => {
     const [regEmail, setRegEmail] = useState("")
     const [regUsername, setRegUsername] = useState("");
     const [regPassword, setRegPassword] = useState("");
-    const [regDelAddress, setDelAddress] = useState("")
-    const [isAdmin, setIsAdmin] = useState(false)
+    
 
     const userToRegister = {
         email: regEmail,
         username: regUsername,
-        password: regPassword,
-        deliveryAddress: regDelAddress,
-        isAdmin: isAdmin
+        password: regPassword
+        
+        
     }
 
     const handleRegister = async (event) => {
@@ -22,20 +21,19 @@ const Register = () => {
         const waitRegister = await register(
             regEmail, 
             regUsername, 
-            regPassword,
-            regDelAddress,
-            isAdmin
+            regPassword
+            
+            
             );
         // console.log(waitRegister, "user registered")
     }
-/* not sure when/where to include stuff for isAdmin since regular users 
-should not see that as an option when registering */
+
 return (
     <form className="loginButtons"onSubmit={handleRegister}>
         
         <label>Email:</label>
         <input type={"text"} 
-            value={email} 
+            value={regEmail} 
             onChange={(event) => {
             setRegEmail(event.target.value)
                 }} 
@@ -43,7 +41,7 @@ return (
 
         <label>Username:</label>
         <input type={"text"} 
-            value={username} 
+            value={regUsername} 
             onChange={(event) => {
             setRegUsername(event.target.value)
                 }} 
@@ -52,19 +50,11 @@ return (
         <label>Password:</label>          
         <input type={"text"} 
             min={8} 
-            value={password} 
+            value={regPassword} 
             onChange={(event) => {
             setRegPassword(event.target.value)
                 }}
         placeholder={"Enter password"}/>
-
-        <label>Delivery Address:</label>          
-        <input type={"text"}  
-            value={deliveryAddress} 
-            onChange={(event) => {
-            setDelAddress(event.target.value)
-                }}
-        placeholder={"Enter delivery address"}/>
 
         <button>Register</button>
     </form>

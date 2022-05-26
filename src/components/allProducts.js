@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllProducts, deleteProduct } from '../axios-services';
+import { getAllProducts, deleteProduct } from '../axios-services/products';
 
 
 

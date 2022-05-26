@@ -2,7 +2,7 @@
 const client = require('../client');
 const bcrypt = require("bcrypt");
 
-async function createUser({ email, username, password, deliveryAddress, isAdmin }) {
+async function createUser({ email, username, password, isAdmin }) {
   try {
     const saltRounds = 10;
     const hashedPwd = await bcrypt.hash(password, saltRounds);
@@ -12,11 +12,10 @@ async function createUser({ email, username, password, deliveryAddress, isAdmin 
             email,
             username,
             password,
-            "deliveryAddress",
             "isAdmin" 
-        ) VALUES ($1, $2, $3, $4, $5)
+        ) VALUES ($1, $2, $3, $4)
         RETURNING *;
-        `, [email, username, hashedPwd, deliveryAddress, isAdmin]
+        `, [email, username, hashedPwd, isAdmin]
     );
     delete user.password;
     // console.log("createUser test:",user)

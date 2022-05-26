@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getUserByUsername } from '../../db/models/user';
 
 export async function getAllUsers() {
     try {
@@ -17,42 +16,29 @@ export async function register (userToRegister) {
             email: userToRegister.email,
             username: userToRegister.username,
             password: userToRegister.password,
-            deliveryAddress: userToRegister.deliveryAddress,
             isAdmin: userToRegister.isAdmin
         })
+        localStorage.setItem("token", data.token)
+        console.log(data)
         return data
     }catch(err){
         console.error(err)
     }
 }
 
-export async function login () {
+export async function login (userToLogin) {
     try{
-        const { data } = await axios.post('api/users')
+        const { data } = await axios.post('/api/users',{
+            username: userToLogin.username,
+            password: userToLogin.password
+        })
+
+        localStorage.setItem("token", data.token)
+        console.log(data)
+        return data
     }catch(err){
         console.error(err)   
     }
 }
 
- /*
-//  LOGIN
-export const login = async (username, password) => {  
-  try{ const response  = await fetch(`${url}/users/login`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-     username: username,
-     password: password
- })})
- const data = await response.json()
- console.log(data)
- localStorage.setItem("token", data.token);
- return data
-} catch (error){
-   console.error(error)
-   alert("Error logging in: incorrect username or password")
-}
-} 
- */
+ 

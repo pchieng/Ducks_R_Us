@@ -18,7 +18,7 @@ const Login = (props) => {
     }, []);
 
     return (
-        <form className="loginButtons"onSubmit={handleLogin}>
+    <form className="loginButtons"onSubmit={handleLogin}>
 
         <label>Username:</label>
         <input type={"text"} 

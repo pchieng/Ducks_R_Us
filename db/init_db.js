@@ -58,7 +58,6 @@ async function buildTables() {
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      "deliveryAddress" TEXT NOT NULL,
       "isAdmin" BOOLEAN DEFAULT false
     ) 
     `); console.log("users")
@@ -168,10 +167,10 @@ async function populateInitialData() {
     console.log('Starting to create users...')
 
     const usersToCreate = [
-      { email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', deliveryAddress: '1234 Main St', isAdmin: false },
-      { email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', deliveryAddress: '4321 Church St', isAdmin: false },
-      { email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', deliveryAddress: '1337 Cherokee Blvd', isAdmin: false },
-      { email: 'admin@gmail.com', username: 'Admin', password: 'admin1', deliveryAddress: '1010101 Administrator Dr.', isAdmin: true },
+      { email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', isAdmin: false },
+      { email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', isAdmin: false },
+      { email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', isAdmin: false },
+      { email: 'admin@gmail.com', username: 'Admin', password: 'admin1', isAdmin: true },
 
     ]
     const users = await Promise.all(usersToCreate.map(User.createUser));

@@ -1,4 +1,5 @@
 const apiRouter = require('express').Router();
+const {User} = require('../db');
 
 // token & login authorization stuff
 apiRouter.use(async (req, res, next) => {
@@ -17,7 +18,7 @@ apiRouter.use(async (req, res, next) => {
       
       // if successful verification try to read the user from the database 
       if (id) {
-          req.user = await getUserById(id);
+          req.user = await User.getUserById(id);
           next();
       }
       // if failed verify throws error (in the catch block)

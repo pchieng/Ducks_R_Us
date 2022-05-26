@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import ProductList from './products';
 import ProductDetails from './productDetails';
@@ -11,11 +11,11 @@ import ReviewsList from './allReviews'
 import AllProductsList from './allProducts';
 import AddProduct from './addProduct';
 import EditProduct from './editProduct';
+
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../axios-services'
-import { getAllUsers, getAllReviews, getAllActiveProducts, getAllProducts, getCartProducts } from '../axios-services';
 import { getAllUsers } from '../axios-services/user'
 import { getAllActiveProducts, getAllProducts, } from '../axios-services/products'
 import { getAllReviews } from '../axios-services/reviews'
@@ -79,13 +79,13 @@ const App = () => {
     <div className="app-container">
       <h1>Ducks 'R' Us</h1>
       <p>API Status: {APIHealth}</p>
+      <Router>
       <div className="navabr">
         <Link to="/login">Login</Link>
         <Link to="/register">Register</Link>
         <Link to="/products">Products</Link>
         {/* <Link to="/cart">My Cart </Link> */}
       </div>
-      <Router>
         <Route exact path="/products">
           <ProductList />
         </Route>
