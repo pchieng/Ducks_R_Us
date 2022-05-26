@@ -10,12 +10,12 @@ export const MenuItems = [
     className: "nav-links",
   },
   {
-    title: "Reviews",
+    title: "Contact Us",
     url: "#",
     className: "nav-links",
   },
   {
-    title: "Contact Us",
+    title: "Sign Up",
     url: "#",
     className: "nav-links",
   },
@@ -24,6 +24,7 @@ export const MenuItems = [
     url: "#",
     className: "nav-links",
   },
+
   // {
   //   title: "Sign up",
   //   url: "#",
