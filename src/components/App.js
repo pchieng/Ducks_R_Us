@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ProductList from './products';
 import ProductDetails from './productDetails';
 
+import Navbar from '/components/Navbar/Navbar.js';
 import ShoppingCart from  './cart';
-import UsersList from './allUsers'
-import ReviewsList from './allReviews'
+import UsersList from './allUsers';
+import ReviewsList from './allReviews';
 import AllProductsList from './allProducts';
 import AddProduct from './addProduct';
 import EditProduct from './editProduct';
@@ -25,6 +26,7 @@ const App = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [reviews, setReviews] = useState([]);
+  
 
 
 
@@ -59,6 +61,7 @@ const App = () => {
       const reviews = await getAllReviews()
       setReviews(reviews)
     }
+
   
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
@@ -73,6 +76,9 @@ const App = () => {
   return (
     <div className="app-container">
       <h1>Ducks 'R' Us</h1>
+      <div>
+        <Navbar />
+      </div>
       <p>API Status: {APIHealth}</p>
       <Router>
         <Route exact path="/products">
