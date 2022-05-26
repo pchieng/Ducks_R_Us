@@ -75,11 +75,10 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1>Ducks 'R' Us</h1>
       <div>
         <Navbar />
       </div>
-      <p>API Status: {APIHealth}</p>
+      <p>API Status: {APIHealth} ***We can take this off whenever.***</p>
       <Router>
         <Route exact path="/products">
           <ProductList />

@@ -2,12 +2,12 @@ export const MenuItems = [
   {
     title: "Home",
     url: "#",
-    cName: "nav-links",
+    className: "nav-links",
   },
   {
     title: "Products",
     url: "#",
-    cName: "nav-links",
+    className: "nav-links",
   },
   {
     title: "Reviews",
@@ -24,14 +24,9 @@ export const MenuItems = [
     url: "#",
     className: "nav-links",
   },
-  {
-    title: "Sign up",
-    url: "#",
-    className: "nav-links",
-  },
-  {
-    title: "Sign up",
-    url: "#",
-    className: "nav-links-mobile",
-  },
+  // {
+  //   title: "Sign up",
+  //   url: "#",
+  //   className: "nav-links-mobile",
+  // },
 ];
