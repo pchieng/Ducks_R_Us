@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import App from "../App";
 import { MenuItems } from "./MenuItems";
 import "./NavStyle.css";
 
 class Navbar extends Component {
     state = { clicked: false }
+
+    handleClick = () => {
+        this.setState({ clicked: !this.state.clicked })
+    }
 
     render() {
     return (
@@ -14,10 +17,10 @@ class Navbar extends Component {
         </h1>
 
         <div className="menu-icon" onClick={this.handleClick}>
-                {/* below is an icon. It will be one of two classes.  */}
                 <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
         </div>
-        <ul>
+            <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
+                
           {MenuItems.map((item, index) => {
             return (
               <li key={index}>
@@ -27,7 +30,6 @@ class Navbar extends Component {
               </li>
             );
           })}
-          {/* //The <a> tag defines a hyperlink, which is used to link from one page to another.  */}
         </ul>
       </nav>
     );
