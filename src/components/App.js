@@ -22,6 +22,7 @@ import { getAllReviews } from '../axios-services/reviews'
 import { getCartProducts } from '../axios-services/cart'
 
 import '../style/App.css';
+require("dotenv").config();
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
