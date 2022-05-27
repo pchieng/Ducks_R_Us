@@ -28,6 +28,15 @@ server.use((req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+// error handler
+server.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send({
+      name: err.name,
+      message: err.message
+  });
+});
+
 // bring in the DB connection
 const { client } = require('./db');
 
