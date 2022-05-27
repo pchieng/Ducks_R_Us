@@ -19,10 +19,11 @@ usersRouter.get('/', async (req,res,next) => {
 })
 
 // REGISTER
-usersRouter.post('/users/register', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
     const {email, username, password} = req.body;
+    console.log('TESTEST')
     try {
-      const _user = await User.getUserByUserName(username);
+      const _user = await User.getUserByUsername(username);
   
       if (_user) {
         next({
@@ -33,7 +34,7 @@ usersRouter.post('/users/register', async (req, res, next) => {
       const user = await User.createUser({
         email,
         username,
-        password,   
+        password   
       });
       const token = jwt.sign({ 
         id: user.id, 
@@ -52,7 +53,7 @@ usersRouter.post('/users/register', async (req, res, next) => {
 
 
 // LOGIN 
-usersRouter.post('/users/login', async (req, res, next) => {
+usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
   
     // the request must have both for it to work
