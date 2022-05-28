@@ -1,58 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { login } from "../axios-services/user";
 
-const Login = () => {
-  const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = (props) => {
+  const { isLoggedIn, setIsLoggedIn } = props;
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const userToLogin = {
+    username: loginUsername,
+    password: loginPassword,
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const waitLogin = await login(userToLogin);
+    if (!waitLogin) alert("Error logging in. Please try again");
+    setLoginUsername("");
+    setLoginPassword("");
+  };
+
+  useEffect(() => {
+    const getToken = localStorage.getItem("token") ? true : false;
+    // console.log("is user logged in:", getToken)
+    setIsLoggedIn(getToken);
+  }, []);
 
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        setErrors([]);
+    <form className="loginButtons" onSubmit={handleLogin}>
+      <label>Username:</label>
+      <input
+        type={"text"}
+        value={loginUsername}
+        onChange={(event) => {
+          setLoginUsername(event.target.value);
+        }}
+        placeholder={"Enter username"}
+      />
 
-        const response = await fetch("/api/login", {
-          method: "PUT",
-          credentials: "include",
-          body: JSON.stringify({ email: email, password: password }),
-        });
+      <label>Password:</label>
+      <input
+        type={"text"}
+        value={loginPassword}
+        onChange={(event) => {
+          setLoginPassword(event.target.value);
+        }}
+        placeholder={"Enter password"}
+      />
 
-        if (!response.ok) {
-          const data = await response.json();
-          setErrors([new Error(data.error)]);
-          return;
-        }
-
-        window.location.href = "/";
-      }}
-    >
-      <div>
-        {errors.map((error) => (
-          <div>{error.message}</div>
-        ))}
-      </div>
-      <label>
-        Email
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-      </label>
       <button>Login</button>
     </form>
   );

@@ -4,14 +4,11 @@ const {
   Products,
   Reviews,
   Payments,
-  Categories
+  Cart,
+  Categories,
   // declare your model imports here
   // for example, User
 } = require('./');
-
-const {
-  createCart
-} = require('./models/cart');
 
 async function buildTables() {
   try {
@@ -61,7 +58,6 @@ async function buildTables() {
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      "deliveryAddress" TEXT NOT NULL,
       "isAdmin" BOOLEAN DEFAULT false
     ) 
     `); console.log("users")
@@ -171,10 +167,10 @@ async function populateInitialData() {
     console.log('Starting to create users...')
 
     const usersToCreate = [
-      { email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', deliveryAddress: '1234 Main St', isAdmin: false },
-      { email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', deliveryAddress: '4321 Church St', isAdmin: false },
-      { email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', deliveryAddress: '1337 Cherokee Blvd', isAdmin: false },
-      { email: 'admin@gmail.com', username: 'Admin', password: 'admin1', deliveryAddress: '1010101 Administrator Dr.', isAdmin: true },
+      { email: 'DonnyD@hotmail.com', username: 'DonnyD', password: 'OGduck31', isAdmin: false },
+      { email: 'countduckula@yahoo.com', username: 'TheCount', password: 'veggies1988', isAdmin: false },
+      { email: 'BigDaff@utk.edu', username: 'Daffy', password: 'ihateporky', isAdmin: false },
+      { email: 'admin@gmail.com', username: 'Admin', password: 'admin1', isAdmin: true },
 
     ]
     const users = await Promise.all(usersToCreate.map(User.createUser));
@@ -193,15 +189,15 @@ async function populateInitialData() {
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
     console.log('Reviews created:', reviews);
 
-    //  Creating cart
-    console.log("Starting to create cart...")
+  // creating cart
+  console.log("creating cart...")
     const cartToCreate = [
-      { userId: 1, productId: 2 },
-      { userId: 1, productId: 1 }
-    ]
-    const cart = await Promise.all(cartToCreate.map(createCart))
-
-    console.log("Cart created:", cart);
+    {userId: 1, productId:2},
+    {userId: 1, productId:1}
+ ]
+    const cart = await Promise.all(cartToCreate.map(Cart.createCart))
+ 
+  console.log("cart created:", cart);  
 
     // Creating dummy payments
     console.log("Starting to create payments...")
