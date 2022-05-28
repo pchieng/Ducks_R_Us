@@ -23,7 +23,6 @@ usersRouter.post('/register', async (req, res, next) => {
     const _userByUsername = await User.getUserByUsername(username);
     const _userByEmail = await User.getUserByEmail(email);
 
-console.log('TEST',_userByUsername, _userByEmail)
     try {
       if (_userByUsername || _userByEmail) {
         next({
@@ -35,9 +34,9 @@ console.log('TEST',_userByUsername, _userByEmail)
       const newUser = await User.createUser({
         email,
         username,
-        password   
+        password,
+        isAdmin: false   
       });
-      console.log('TESTEST',newUser, process.env.JWT_SECRET); 
       const token = jwt.sign(newUser, process.env.JWT_SECRET);
       return res.send({ 
         user: newUser,
@@ -64,7 +63,6 @@ usersRouter.post('/login', async (req, res, next) => {
   
     try {
       const user = await User.getUser({ username, password });
-      console.log('TESTSETS',user)
       if (!user) {
         return next({ 
           name: 'IncorrectCredentialsError', 

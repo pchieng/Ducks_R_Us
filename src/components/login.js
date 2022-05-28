@@ -14,8 +14,10 @@ const Login = (props) => {
     
     const handleLogin = async (event) => {
         event.preventDefault()
-        console.log(userToLogin)
         const waitLogin = await login(userToLogin);
+        if (!waitLogin) alert('Error logging in. Please try again')
+        setLoginUsername('');
+        setLoginPassword('');
     }
 
     useEffect(() => {

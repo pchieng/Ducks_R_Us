@@ -32,7 +32,6 @@ export async function login (userToLogin) {
         })
 
         localStorage.setItem("token", data.token)
-        console.log(data)
         return data
     }catch(err){
         console.error(err)   
