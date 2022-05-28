@@ -5,10 +5,17 @@ const Login = (props) => {
     const { isLoggedIn, setIsLoggedIn } = props
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
+    const userToLogin = {
+        username: loginUsername,
+        password: loginPassword
+    }
+
     
     const handleLogin = async (event) => {
         event.preventDefault()
-        const waitLogin = await login(loginUsername, loginPassword);
+        console.log(userToLogin)
+        const waitLogin = await login(userToLogin);
     }
 
     useEffect(() => {
