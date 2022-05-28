@@ -86,7 +86,7 @@ const AllProductsList = () => {
                                     :
                                     <img
                                     src={noImageUrl}
-                                    alt='No Image Available'
+                                    alt='Not Available'
                                     style = {{
                                         maxWidth: "100px",
                                         maxHeight: "100px",

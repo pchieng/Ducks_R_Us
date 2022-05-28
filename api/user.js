@@ -20,15 +20,18 @@ usersRouter.get('/', async (req,res,next) => {
 // REGISTER
 usersRouter.post('/register', async (req, res, next) => {
     const {email, username, password} = req.body;
-    const _user = await User.getUserByUsername(username);
+    const _userByUsername = await User.getUserByUsername(username);
+    const _userByEmail = await User.getUserByEmail(email);
 
+console.log('TEST',_userByUsername, _userByEmail)
     try {
-      if (_user) {
+      if (_userByUsername || _userByEmail) {
         next({
           name: 'UserExistsError',
-          message: 'A user by that username already exists'
+          message: 'A user with that username/email already exists'
         });
       }
+      
       const newUser = await User.createUser({
         email,
         username,
@@ -60,26 +63,24 @@ usersRouter.post('/login', async (req, res, next) => {
     }
   
     try {
-      const user = await User.getUserByUserName(username);
-  
-      if (user && user.password == password) {
-        // create token & return to user
-        console.log("process.env.JWT_SECRET",process.env.JWT_SECRET)
-        const token = jwt.sign({ id: user.id, username: username }, process.env.JWT_SECRET,{
-            expiresIn: '1w'
-          } );
-        console.log("token",token)
-        const verifiedData = jwt.verify(token, process.env.JWT_SECRET)
-        console.log("verifiedData",verifiedData)
-        console.log("sending token...")
-        // res.send(token)
-        res.send({token, message: "you are logged in"});
-      } else {
-        next({ 
+      const user = await User.getUser({ username, password });
+      console.log('TESTSETS',user)
+      if (!user) {
+        return next({ 
           name: 'IncorrectCredentialsError', 
-          message: 'username or password is incorrect'
+          message: 'Username or password is incorrect'
         });
       }
+
+      const token = jwt.sign(user, process.env.JWT_SECRET);
+      process.env.token = token;
+
+      return res.send({
+        user: user,
+        message: "You're logged in!",
+        token: token
+    })
+
     } catch(error) {
       throw error
     }

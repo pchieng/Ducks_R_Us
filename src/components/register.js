@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { register } from '../axios-services/user'
 
 const Register = () => {
@@ -18,14 +18,11 @@ const Register = () => {
 
     const handleRegister = async (event) => {
         event.preventDefault()
-        const waitRegister = await register(
-            regEmail, 
-            regUsername, 
-            regPassword
-            
-            
-            );
-        // console.log(waitRegister, "user registered")
+        const waitRegister = await register(userToRegister)
+        if (waitRegister) alert(`Welcome, ${waitRegister.user.username}. ${waitRegister.message}`)
+        setRegEmail('');
+        setRegUsername('');
+        setRegPassword('');
     }
 
 return (
@@ -33,6 +30,7 @@ return (
         
         <label>Email:</label>
         <input type={"text"} 
+            id='regEmailInput'
             value={regEmail} 
             onChange={(event) => {
             setRegEmail(event.target.value)
@@ -40,7 +38,8 @@ return (
             placeholder={"Enter email"}/>
 
         <label>Username:</label>
-        <input type={"text"} 
+        <input type="text" 
+            id='regUsernameInput'
             value={regUsername} 
             onChange={(event) => {
             setRegUsername(event.target.value)
@@ -48,8 +47,9 @@ return (
             placeholder={"Enter username"}/>
         
         <label>Password:</label>          
-        <input type={"text"} 
-            min={8} 
+        <input type="text" 
+            id='regPasswordInput'
+            min="8" 
             value={regPassword} 
             onChange={(event) => {
             setRegPassword(event.target.value)
