@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllProducts, deleteProduct } from '../axios-services';
+import { getAllProducts, deleteProduct } from '../axios-services/products';
 
 
 
@@ -86,7 +86,7 @@ const AllProductsList = () => {
                                     :
                                     <img
                                     src={noImageUrl}
-                                    alt='No Image Available'
+                                    alt='Not Available'
                                     style = {{
                                         maxWidth: "100px",
                                         maxHeight: "100px",

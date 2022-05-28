@@ -1,32 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import ProductList from './products';
 import ProductDetails from './productDetails';
-
+import Login from './login'
+import Register from './register'
 import ShoppingCart from  './cart';
 import UsersList from './allUsers'
 import ReviewsList from './allReviews'
 import AllProductsList from './allProducts';
 import AddProduct from './addProduct';
 import EditProduct from './editProduct';
+
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-
-import { getAPIHealth, getAllUsers, getAllReviews, getAllActiveProducts, getAllProducts, getCartProducts  } from '../axios-services';
+import { getAPIHealth } from '../axios-services'
+import { getAllUsers } from '../axios-services/user'
+import { getAllActiveProducts, getAllProducts, } from '../axios-services/products'
+import { getAllReviews } from '../axios-services/reviews'
+import { getCartProducts } from '../axios-services/cart'
 
 import '../style/App.css';
+require("dotenv").config();
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
-
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [reviews, setReviews] = useState([]);
-
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [users, setUsers] = useState([])
+  const [reviews, setReviews] = useState([])
 
 
   useEffect(() => {
@@ -59,7 +63,9 @@ const App = () => {
       const reviews = await getAllReviews()
       setReviews(reviews)
     }
-  
+    const validToken = localStorage.getItem("token")
+    if(validToken) setIsLoggedIn(true)
+
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getProductList();
@@ -75,17 +81,27 @@ const App = () => {
       <h1>Ducks 'R' Us</h1>
       <p>API Status: {APIHealth}</p>
       <Router>
+      <div className="navabr">
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/products">Products</Link>
+        {/* <Link to="/cart">My Cart </Link> */}
+      </div>
         <Route exact path="/products">
           <ProductList />
         </Route>
         <Route path='/products/:productId'>
           <ProductDetails />
         </Route>
-
+        <Route exact path="/login">
+          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+        </Route>
+        <Route exact path='/register'>
+          <Register />
+        </Route>
         <Route exact path="/cart">
           <ShoppingCart cartProducts={cartProducts} />
         </Route>
-
         <Route path="/allReviews">
           <ReviewsList reviews={reviews} />
         </Route>

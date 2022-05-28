@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllActiveProducts, getAllCategories } from '../axios-services';
-
+import { getAllActiveProducts } from '../axios-services/products'
+import { getAllCategories } from '../axios-services/categories';
 
 
 const ProductList = () => {
