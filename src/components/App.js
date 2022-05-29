@@ -16,13 +16,13 @@ import EditProduct from './editProduct';
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../axios-services'
-import { getAllUsers } from '../axios-services/user'
+import { getAllUsers, getCurrUser } from '../axios-services/user'
 import { getAllActiveProducts, getAllProducts, } from '../axios-services/products'
 import { getAllReviews } from '../axios-services/reviews'
 import { getCartProducts } from '../axios-services/cart'
 
 import '../style/App.css';
-require("dotenv").config();
+// require("dotenv").config();
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
@@ -30,7 +30,9 @@ const App = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([])
+  const [currUser, setCurrUser] = useState([])
   const [reviews, setReviews] = useState([])
+  const [isAdmin, setAdmin] = useState(false)
 
 
   useEffect(() => {
@@ -66,6 +68,14 @@ const App = () => {
     const validToken = localStorage.getItem("token")
     if(validToken) setIsLoggedIn(true)
 
+    // still working on this for Admin front end rendering
+    const getUser = async () => {
+      const currUser = await getCurrUser()
+      setCurrUser(currUser)
+    }
+
+    if(currUser.isAdmin === true) setAdmin(true)
+
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getProductList();
@@ -74,6 +84,7 @@ const App = () => {
     getUsersList();
     getProductsList();
     getReviewsList();
+    getUser()
   }, []);
 
   return (
@@ -106,16 +117,34 @@ const App = () => {
           <ReviewsList reviews={reviews} />
         </Route>
         <Route path="/allUsers">
-          <UsersList users={users} />
+          <UsersList 
+              currUser={currUser}
+              setCurrUser={setCurrUser}
+              users={users} 
+              isAdmin={isAdmin} 
+              setAdmin={setAdmin}/>
         </Route>
         <Route exact path='/allProducts'>
-          <AllProductsList products={products} />
+          <AllProductsList 
+              products={products} 
+              currUser={currUser}
+              setCurrUser={setCurrUser}
+              isAdmin={isAdmin} 
+              setAdmin={setAdmin}/>
         </Route>
         <Route path='/allProducts/add'>
-          <AddProduct />
+          <AddProduct 
+              currUser={currUser}
+              setCurrUser={setCurrUser}
+              isAdmin={isAdmin} 
+              setAdmin={setAdmin}/>
         </Route>
         <Route path='/allProducts/edit/:productId'>
-          <EditProduct />
+          <EditProduct 
+              currUser={currUser}
+              setCurrUser={setCurrUser}
+              isAdmin={isAdmin} 
+              setAdmin={setAdmin}/>
         </Route>
       </Router>
     </div>

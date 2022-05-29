@@ -8,7 +8,16 @@ export async function getAllUsers() {
       console.error(err);
     }
   }
-
+// still working on this for Admin front end rendering
+export async function getCurrUser(username) {
+    try{
+        const { data: user} = await axios.get(`/api/users/${username}`);
+        console.log(user)
+        return user
+    }catch(err){
+        console.error(err)
+    }
+}
 
 export async function register (userToRegister) {
     try{
