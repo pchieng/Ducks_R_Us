@@ -13,27 +13,52 @@ const UsersList = (props) => {
         <>
             <h1>USERS</h1>
             <div> {users.map(user =>
-                <div className='userCard' key={user.id}>
-                    <button
-                        onClick={async () => {
-                            if (window.confirm("Are you sure you want to change this user's admin status?") === true) {
-                                await updateUser(user.id, { isAdmin: !user.isAdmin })
-                                alert('User admin status has been updated');
-                                window.location.reload(false);
-                            }
-                        }}
-                    >Change Admin Status
-                    </button>
+                <div
+                    className='userCard'
+                    key={user.id}
+                    style={{
+                        borderStyle: "solid",
+                        borderWidth: "2px",
+                        borderRadius: "5px",
+                        padding: "10px",
+                        margin: "10px",
+                        maxWidth: "40vw"
+                    }}
+                >
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            margin: "0px 10px",
+                            justifyContent: "space-evenly"
+                        }}>
+                        <button
+                            style={{
+                                margin: "0px 10px"
+                            }}
+                            onClick={async () => {
+                                if (window.confirm("Are you sure you want to change this user's admin status?") === true) {
+                                    await updateUser(user.id, { isAdmin: !user.isAdmin })
+                                    alert('User admin status has been updated');
+                                    window.location.reload(false);
+                                }
+                            }}
+                        >Change Admin Status
+                        </button>
 
-                    <button
-                        onClick={async () => {
-                            if (window.confirm("Are you sure you want to delete this user and all its data?") === true) {
-                                await deleteUser(user.id);
-                                alert('User has been deleted')
-                                setUsers(users.filter((filteredUser) => filteredUser.id !== user.id))
-                            }
+                        <button
+                        style={{
+                            margin: "0px 10px"
                         }}
-                    >Delete</button>
+                            onClick={async () => {
+                                if (window.confirm("Are you sure you want to delete this user and all its data?") === true) {
+                                    await deleteUser(user.id);
+                                    alert('User has been deleted')
+                                    setUsers(users.filter((filteredUser) => filteredUser.id !== user.id))
+                                }
+                            }}
+                        >Delete User</button>
+                    </div>
                     <h3>Username: {`${user.username}`}</h3>
                     <p>Email: {`${user.email}`}</p>
                     <p>Admin: {`${user.isAdmin}`}</p>
