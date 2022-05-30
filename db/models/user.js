@@ -96,6 +96,32 @@ async function getUser({ username, password }) {
   }
 }
 
+async function deleteUser(id) {
+  try {
+    const deletedUser = await getUserByUserId(id);
+
+    await client.query(`
+    DELETE FROM reviews
+    WHERE "writerId"=$1;
+    `, [id]);
+
+    await client.query(`
+    DELETE FROM cart
+    WHERE "userId"=$1;
+    `, [id])
+
+    await client.query(`
+    DELETE FROM users
+    WHERE id=$1;
+    `, [id]);
+
+
+
+    return deletedUser;
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   // add your database adapter fns here
@@ -104,5 +130,6 @@ module.exports = {
   getUserByUserId,
   getUserByUsername,
   getUserByEmail,
-  getUser
+  getUser,
+  deleteUser
 };

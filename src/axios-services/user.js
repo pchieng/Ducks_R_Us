@@ -38,4 +38,11 @@ export async function login (userToLogin) {
     }
 }
 
- 
+export async function deleteUser (userId) {
+    try {
+        const { data } = await axios.delete(`/api/users/${userId}`)
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
+}

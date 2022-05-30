@@ -85,4 +85,12 @@ usersRouter.post('/login', async (req, res, next) => {
   });
 
 
+  // DELETE
+  usersRouter.delete('/:userId', async (req, res, next) => {
+    const { userId } = req.params;
+    const deletedUser = await User.deleteUser(userId);
+    deletedUser.success = true;
+    return res.send(deletedUser)
+  })
+
 module.exports = usersRouter
