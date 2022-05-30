@@ -28,7 +28,7 @@ async function createUser({ email, username, password, isAdmin }) {
 async function getAllUsers() {
   try {
     const { rows: users } = await client.query(`
-    SELECT  id, email, username
+    SELECT  id, email, username, "isAdmin"
     FROM users
     `, [])
     return users
@@ -96,6 +96,30 @@ async function getUser({ username, password }) {
   }
 }
 
+async function updateUser(userId, fields = {}) {
+
+  const setString = Object.keys(fields).map(
+      (key, index) => `"${ key }"=$${ index + 1 }`
+    ).join(', ');
+  
+    if (setString.length === 0) {
+      return;
+    }
+
+  try {
+      const { rows: [user] } = await client.query(`
+      UPDATE users
+      SET ${setString}
+      WHERE id=${userId}
+      RETURNING *;
+      `, Object.values(fields))
+      return user;
+  } catch (error) {
+      throw error;
+  }
+}
+
+
 async function deleteUser(id) {
   try {
     const deletedUser = await getUserByUserId(id);
@@ -131,5 +155,6 @@ module.exports = {
   getUserByUsername,
   getUserByEmail,
   getUser,
+  updateUser,
   deleteUser
 };
