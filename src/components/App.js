@@ -28,6 +28,7 @@ import { getAllReviews } from "../axios-services/reviews";
 import { getCartProducts } from "../axios-services/cart";
 
 import "../style/App.css";
+import "../style/theme.css";
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -82,50 +83,53 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <div>
+      <header>
         <Navbar />
-      </div>
-      <p>API Status: {APIHealth} ***We can take this off whenever.***</p>
-      <Router>
-        {/* <div className="navabr">
+      </header>
+      <main>
+        {/* <p>API Status: {APIHealth} ***We can take this off whenever.***</p> */}
+        <Router>
+          {/* <div className="navabr">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
           <Link to="/products">Products</Link>
         </div> */}
-        <Route exact path="/search">
-          <Search />
-        </Route>
-        <Route exact path="/products">
-          <ProductList />
-        </Route>
-        <Route path="/products/:productId">
-          <ProductDetails />
-        </Route>
-        <Route exact path="/login">
-          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
-        <Route exact path="/cart">
-          <ShoppingCart cartProducts={cartProducts} />
-        </Route>
-        <Route path="/allReviews">
-          <ReviewsList reviews={reviews} />
-        </Route>
-        <Route path="/allUsers">
-          <UsersList users={users} />
-        </Route>
-        <Route exact path="/allProducts">
-          <AllProductsList products={products} />
-        </Route>
-        <Route path="/allProducts/add">
-          <AddProduct />
-        </Route>
-        <Route path="/allProducts/edit/:productId">
-          <EditProduct />
-        </Route>
-      </Router>
+          <Route exact path="/search">
+            <Search />
+          </Route>
+          <Route exact path="/products">
+            <ProductList />
+          </Route>
+          <Route path="/products/:productId">
+            <ProductDetails />
+          </Route>
+          <Route exact path="/login">
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <Route exact path="/cart">
+            <ShoppingCart cartProducts={cartProducts} />
+          </Route>
+          <Route path="/allReviews">
+            <ReviewsList reviews={reviews} />
+          </Route>
+          <Route path="/allUsers">
+            <UsersList users={users} />
+          </Route>
+          <Route exact path="/allProducts">
+            <AllProductsList products={products} />
+          </Route>
+          <Route path="/allProducts/add">
+            <AddProduct />
+          </Route>
+          <Route path="/allProducts/edit/:productId">
+            <EditProduct />
+          </Route>
+        </Router>
+      </main>
+      <footer></footer>
     </div>
   );
 };

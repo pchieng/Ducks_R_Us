@@ -5,13 +5,13 @@ export const MenuItems = [
     className: "nav-links",
   },
   {
-    title: "Products",
-    url: "/products",
+    title: "Search",
+    url: "/search",
     className: "nav-links",
   },
   {
-    title: "Search",
-    url: "/search",
+    title: "Products",
+    url: "/products",
     className: "nav-links",
   },
   {
@@ -21,7 +21,7 @@ export const MenuItems = [
   },
   {
     title: "Sign Up",
-    url: "/signup",
+    url: "/register",
     className: "nav-links",
   },
   {
