@@ -70,7 +70,7 @@ const Signup = () => {
           }}
         />
       </label>
-      <button>Signup</button>
+      {/* <button>Signup</button> */}
     </form>
   );
 };

@@ -56,7 +56,7 @@ return (
                 }}
         placeholder={"Enter password"}/>
 
-        <button>Register</button>
+        {/* <button>Register</button> */}
     </form>
     )
 }

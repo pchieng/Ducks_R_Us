@@ -47,7 +47,7 @@ const Login = (props) => {
         placeholder={"Enter password"}
       />
 
-      <button>Login</button>
+      {/* <button>Login</button> */}
     </form>
   );
 };

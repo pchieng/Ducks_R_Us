@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import ProductList from "./products";
@@ -12,6 +12,8 @@ import AllProductsList from "./allProducts";
 import AddProduct from "./addProduct";
 import EditProduct from "./editProduct";
 import Navbar from "./Navbar/Navbar";
+import Search from './Navbar/searchBar';
+import announcer from './Navbar/announcer';
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
