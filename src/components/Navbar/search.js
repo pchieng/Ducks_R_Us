@@ -20,9 +20,8 @@ const filterProducts = (products, query) => {
 const Search = () => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
-    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState(query || '');
-    const filteredProducts = filterProducts(products, searchQuery);
 
     return (
         <Router>
@@ -35,7 +34,7 @@ const Search = () => {
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     onSubmit={async (e) => {
-                        setProducts(await getAllActiveProducts());
+                        setFilteredProducts(filterProducts(await getAllActiveProducts(), searchQuery));
                     }}
                 />
                 <ul>
