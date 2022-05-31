@@ -6,7 +6,7 @@ const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
     const history = useHistory();
 
     return (
-    
+
         <form
             action="/"
             method="get"
@@ -31,7 +31,7 @@ const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
                 name="s"
             />
             <button type="submit">Search</button>
-            </form>
+        </form>
     );
 };
 

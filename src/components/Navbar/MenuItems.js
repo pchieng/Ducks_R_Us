@@ -29,10 +29,14 @@ export const MenuItems = [
     url: "/login",
     className: "nav-links",
   },
-
-  // {
-  //   title: "Sign up",
-  //   url: "#",
-  //   className: "nav-links-mobile",
-  // },
+  {
+    title: "Cart",
+    url: "/cart",
+    className: "nav-links",
+  },
+//   {
+//   title: "Sign up",
+//   url: "#",
+//   className: "nav-links-mobile",
+// },
 ];

@@ -6,6 +6,8 @@ import "./NavStyle.css";
 class Navbar extends Component {
   state = { clicked: false };
 
+  
+
   handleClick = () => {
     this.setState({ clicked: !this.state.clicked });
   };
@@ -32,7 +34,7 @@ class Navbar extends Component {
             );
           })}
         </ul>
-        <Button>Cart</Button>
+        {/* <Button href="./cart">Cart</Button> */}
       </nav>
       
     );
