@@ -12,7 +12,7 @@ import AllProductsList from "./allProducts";
 import AddProduct from "./addProduct";
 import EditProduct from "./editProduct";
 import Navbar from "./Navbar/Navbar";
-import Search from './Navbar/searchBar';
+import Search from './Navbar/search';
 import announcer from './Navbar/announcer';
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -87,12 +87,14 @@ const App = () => {
       </div>
       <p>API Status: {APIHealth} ***We can take this off whenever.***</p>
       <Router>
-        <div className="navabr">
+        {/* <div className="navabr">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
           <Link to="/products">Products</Link>
-          {/* <Link to="/cart">My Cart </Link> */}
-        </div>
+        </div> */}
+        <Route exact path="/search">
+          <Search />
+        </Route>
         <Route exact path="/products">
           <ProductList />
         </Route>

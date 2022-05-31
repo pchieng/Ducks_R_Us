@@ -1,13 +1,9 @@
+import React from "react";
 import { useHistory } from 'react-router-dom';
-import "/searchStyle.css"
-import { getAllActiveProducts } from "../axios-services/products";
+import "./SearchStyle.css"
 
-const searchBar = ({ searchQuery, setSearchQuery }) => {
+const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
     const history = useHistory();
-    const onSubmit = (e) => {
-        history.push(`?s=${searchQuery}`);
-        e.preventDefault();
-    };
 
     return (
     
@@ -15,7 +11,11 @@ const searchBar = ({ searchQuery, setSearchQuery }) => {
             action="/"
             method="get"
             autoComplete="off"
-            onSubmit={onSubmit}
+            onSubmit={async (e) => {
+                history.push(`?s=${searchQuery}`);
+                e.preventDefault();
+                onSubmit(e);
+            }}
         >
             <label htmlFor="header-search">
                 <span className="visually-hidden">

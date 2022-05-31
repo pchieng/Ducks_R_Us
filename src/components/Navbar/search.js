@@ -1,30 +1,26 @@
+import React from "react";
 import { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
-import searchBar from './searchBar';
+import './SearchStyle.css';
+import SearchBar from './searchBar';
 import Announcer from './announcer';
-
-const products = [
-    { id: '1', name: 'This first post is about React' },
-    { id: '2', name: 'This next post is about Preact' },
-    { id: '3', name: 'We have yet another React post!' },
-    { id: '4', name: 'This is the fourth and final post' },
-];
+import { getAllActiveProducts } from "../../axios-services/products";
 
 const filterProducts = (products, query) => {
     if (!query) {
-        return posts;
+        return products;
     }
 
     return products.filter((products) => {
-        const products.Name = products.name.toLowerCase();
-        return productsName.includes(query);
+        products.name = products.name.toLowerCase();
+        return products.name.includes(query);
     });
 };
 
-const App = () => {
+const Search = () => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
+    const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState(query || '');
     const filteredProducts = filterProducts(products, searchQuery);
 
@@ -32,12 +28,15 @@ const App = () => {
         <Router>
             <div className="App">
                 <Announcer
-                    message={`${filteredProducts.length} posts`}
+                    message={`${filteredProducts.length} products`}
                 />
-                <img src={logo} className="App-logo" alt="logo" />
-                <Search
+                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                <SearchBar
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
+                    onSubmit={async (e) => {
+                        setProducts(await getAllActiveProducts());
+                    }}
                 />
                 <ul>
                     {filteredProducts.map((product) => (
@@ -49,4 +48,4 @@ const App = () => {
     );
 };
 
-export default searchApp;
+export default Search;
