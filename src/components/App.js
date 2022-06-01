@@ -89,11 +89,6 @@ const App = () => {
       <main>
         {/* <p>API Status: {APIHealth} ***We can take this off whenever.***</p> */}
         <Router>
-          {/* <div className="navabr">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/products">Products</Link>
-        </div> */}
           <Route exact path="/search">
             <Search />
           </Route>
