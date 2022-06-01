@@ -35,7 +35,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
-    "react-stripe-checkout": "^2.6.3"
+    "react-stripe-checkout": "^2.6.3",
+    "react-toastify": "^9.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
