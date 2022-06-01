@@ -78,15 +78,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1>Ducks 'R' Us</h1>
-      <p>API Status: {APIHealth}</p>
       <Router>
-      <div className="navabr">
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-        <Link to="/products">Products</Link>
-        {/* <Link to="/cart">My Cart </Link> */}
-      </div>
         <Route exact path="/products">
           <ProductList />
         </Route>

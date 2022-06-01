@@ -29,10 +29,29 @@ const ProductList = () => {
 
     return (
         <>
-            <h1>PRODUCTS</h1>
+            <img
+                id="productPageBanner"
+                src="https://cdn.shopify.com/s/files/1/0266/3946/6556/collections/AO_Shop_-_generic_banner_option_A_blue_on_blue_-_full_size_f55e1614-a4bb-4b31-a44d-ceba4f9a3f6c_1500x.png?v=1608243228"
+                style={{
+                    width: '100vw',
+                    height: '50vh',
+                    marginTop: '10px',
+                    objectFit: 'none'
+                }}
+            />
+            <h1
+                style={{
+                    margin: '5px'
+                }}>PRODUCTS</h1>
             <select
                 name='productCategory'
                 id='productCategory'
+                style={{
+                    margin: '30px',
+                    fontSize: '1.1rem',
+                    borderRadius: '10px',
+                    padding: '0.2rem 0.8rem'
+                }}
                 onChange={(event) => {
                     if (event.target.value === 'none') {
                         return;
@@ -43,7 +62,7 @@ const ProductList = () => {
                     }
                 }}
             >
-                <option value='none'>-- Select Product Category --</option>
+                <option value='none'>- Select Product Category -</option>
                 <option value='all'>All Products</option>
                 {categoryList.sort().map((category) =>
                     <option
