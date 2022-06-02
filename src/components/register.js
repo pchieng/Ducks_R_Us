@@ -20,6 +20,7 @@ const Register = () => {
         event.preventDefault()
         const waitRegister = await register(userToRegister)
         if (waitRegister) alert(`Welcome, ${waitRegister.user.username}. ${waitRegister.message}`)
+        console.log('test',waitRegister)
         setRegEmail('');
         setRegUsername('');
         setRegPassword('');
