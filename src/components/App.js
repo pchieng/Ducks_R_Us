@@ -83,6 +83,7 @@ const App = () => {
 
   return (
     <div className="app-container">
+
       <header>
         <Navbar />
       </header>
