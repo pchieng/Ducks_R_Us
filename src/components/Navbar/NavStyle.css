@@ -1,0 +1,8 @@
+.nav-menu {
+    display: none;
+}
+
+.nav-menu.active {
+    display: inline-flex;
+    flex-wrap: wrap;
+}

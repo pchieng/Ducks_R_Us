@@ -1,4 +1,4 @@
-.app-container {
+/* .app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@
 
 .productPicture {
   width: 80%;
-  height: auto
+  height: auto;
 }
 
 .productCard {
@@ -43,7 +43,7 @@
 }
 
 .productDetailsPage {
-  display:flex;
+  display: flex;
   flex-direction: row;
   align-items: center;
 }
@@ -64,6 +64,6 @@
   padding: 5px;
 }
 
-.loginButtons{
+.loginButtons {
   border: 5px solid black;
-}
+} */
