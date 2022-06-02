@@ -4,16 +4,16 @@ import { useState } from 'react';
 import StripeContainer from './StripeContainer';
 
 
-function Stripe() {
+function Stripe(props) {
     const [showItem, setShowItem] = useState(false);
     return (
         <div className='App'>
             <h1>Ducks'R'Us</h1>
             {showItem ? (
-                <StripeContainer />
+                <StripeContainer totalAmount={props.totalAmount} />
             ) : (
                 <>
-                    <h3>$10.00</h3>
+                        <h3>${props.totalAmount }</h3>
                     <img src={''} alt='' />
                         <button onClick={() => setShowItem(true)}>Purchase Product</button>
                 </>

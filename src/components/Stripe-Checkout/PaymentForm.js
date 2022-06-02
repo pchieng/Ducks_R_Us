@@ -24,13 +24,14 @@ const CARD_OPTIONS = {
 }
 
 //Submit Handler
-export default function PaymentForm() {
+export default function PaymentForm(props) {
     const [success, setSuccess] = useState(false)
     const stripe = useStripe()
     const elements = useElements()
 
 
     const handleSubmit = async (e) => {
+        console.log("submitted")
         e.preventDefault()
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: "card",
@@ -40,9 +41,10 @@ export default function PaymentForm() {
 
         if (!error) {
             try {
+                console.log(paymentMethod)
                 const { id } = paymentMethod
-                const response = await axios.post("http://localhost:4000/payment", {
-                    amount: 1000,
+                const response = await axios.post("http://localhost:4000/api/payment", {
+                    amount: props.totalAmount,
                     id
                 })
 
@@ -65,7 +67,7 @@ export default function PaymentForm() {
                 <form onSubmit={handleSubmit}>
                     <fieldset className="FormGroup">
                         <div className="FormRow">
-                            <CardElement options={CARD_OPTIONS} />
+                            <CardElement  />
                         </div>
                     </fieldset>
                     <button>Pay</button>

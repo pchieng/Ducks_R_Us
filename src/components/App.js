@@ -13,13 +13,13 @@ import AddProduct from "./addProduct";
 import EditProduct from "./editProduct";
 import Navbar from "./Navbar/Navbar";
 import Search from './Navbar/search';
-// import announcer from './Navbar/announcer';
-import Stripe from './Stripe-Checkout/Stripe';
+import announcer from './Navbar/announcer';
+import Stripe from './Stripe-Checkout/Stripe'
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-// import { getAPIHealth } from "../axios-services";
+import { getAPIHealth } from "../axios-services";
 import { getAllUsers } from "../axios-services/user";
 import {
   getAllActiveProducts,
@@ -32,7 +32,7 @@ import "../style/App.css";
 import "../style/theme.css";
 
 const App = () => {
-  // const [APIHealth, setAPIHealth] = useState("");
+  const [APIHealth, setAPIHealth] = useState("");
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -84,16 +84,19 @@ const App = () => {
 
   return (
     <div className="app-container">
+
       <header>
         <Navbar />
-        <Stripe />
       </header>
       <main>
         {/* <p>API Status: {APIHealth} ***We can take this off whenever.***</p> */}
         <Router>
           <Route exact path="/search">
             <Search />
-          </Route>
+            </Route>
+          {/* <Route exact path="/cart">
+            <Stripe />
+          </Route> */}
           <Route exact path="/products">
             <ProductList />
           </Route>

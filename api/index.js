@@ -65,5 +65,8 @@ apiRouter.use('/reviews', reviewsRouter)
 const categoriesRouter = require('./categories');
 apiRouter.use('/categories', categoriesRouter)
 
+const paymentRouter = require('./Payments');
+apiRouter.use('/payment', paymentRouter)
+
 
 module.exports = apiRouter;
