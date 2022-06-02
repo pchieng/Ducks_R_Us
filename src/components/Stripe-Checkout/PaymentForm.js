@@ -74,6 +74,7 @@ export default function PaymentForm(props) {
                 </form>
                 :
                 <div>
+                    className="PurchaseMessage"
                     <h2>You just bought a sweet Rubber Ducky product. Congrats this is the best decision of your life!</h2>
                 </div>
             }
