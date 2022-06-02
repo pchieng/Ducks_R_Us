@@ -12,8 +12,9 @@ import AllProductsList from "./allProducts";
 import AddProduct from "./addProduct";
 import EditProduct from "./editProduct";
 import Navbar from "./Navbar/Navbar";
-import Search from './Navbar/search';
-import announcer from './Navbar/announcer';
+import Search from './Search/search';
+import Contact from "./contact";
+import announcer from './Search/announcer';
 
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
@@ -28,7 +29,7 @@ import { getAllReviews } from "../axios-services/reviews";
 import { getCartProducts } from "../axios-services/cart";
 
 import "../style/App.css";
-import "../style/theme.css";
+
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
@@ -103,6 +104,9 @@ const App = () => {
           </Route>
           <Route path="/products/:productId">
             <ProductDetails />
+          </Route>
+          <Route path="/contact">
+            <Contact />
           </Route>
           <Route exact path="/login">
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />

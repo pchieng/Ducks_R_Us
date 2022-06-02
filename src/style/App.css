@@ -1,4 +1,10 @@
-/* .app-container {
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,13 +63,6 @@
   margin: 30px;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-around;
-  background: white;
-  padding: 5px;
-}
-
 .loginButtons {
   border: 5px solid black;
-} */
+}
