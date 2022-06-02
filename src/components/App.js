@@ -85,6 +85,7 @@ const App = () => {
 
   return (
     <div className="app-container">
+      <div class="bg-image" />
       <header>
         <Navbar />
       </header>

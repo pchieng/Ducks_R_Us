@@ -3,7 +3,12 @@ import React from "react";
 const Home = () => {
 
     return (
-        <div class='bg-image'></div>
+        <>
+        <img class='bg-image'>
+
+
+        </img>
+        </>
     )
 }
 

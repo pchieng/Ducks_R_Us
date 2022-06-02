@@ -26,17 +26,7 @@ const ProductList = () => {
 
 
   return (
-    <>
-      <img
-        id="productPageBanner"
-        src="https://cdn.shopify.com/s/files/1/0266/3946/6556/collections/AO_Shop_-_generic_banner_option_A_blue_on_blue_-_full_size_f55e1614-a4bb-4b31-a44d-ceba4f9a3f6c_1500x.png?v=1608243228"
-        style={{
-          width: '100vw',
-          height: '30vh',
-          marginTop: '10px',
-          objectFit: 'none'
-        }}
-      />
+    <div className='productPage'>
       <h1
         style={{
           margin: '5px',
@@ -70,7 +60,7 @@ const ProductList = () => {
           >{`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}</option>
         )}
       </select>
-      <div className='productPage'> {productsToDisplay.map(product =>
+      <div className='productDisplay'> {productsToDisplay.map(product =>
         <div className='productCard' key={product.id}>
           <Link to={`/products/${product.id}`}>
             <div className='productPictureDiv'>
@@ -83,9 +73,10 @@ const ProductList = () => {
         </div>
       )}
       </div>
-    </>
+    </div>
 
-  )}
+  )
+}
 
 
 export default ProductList;
