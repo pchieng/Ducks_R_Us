@@ -13,6 +13,7 @@ import AddProduct from "./addProduct";
 import EditProduct from "./editProduct";
 import Navbar from "./Navbar/Navbar";
 import Search from './Navbar/search';
+import Contact from './contact'
 import announcer from './Navbar/announcer';
 
 // getAPIHealth is defined in our axios-services directory index.js
@@ -36,10 +37,7 @@ const App = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([])
-  const [currUser, setCurrUser] = useState([])
   const [reviews, setReviews] = useState([])
-  const [isAdmin, setAdmin] = useState(false)
-
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -74,15 +72,6 @@ const App = () => {
     const validToken = localStorage.getItem("token");
     if (validToken) setIsLoggedIn(true);
 
-    // still working on this for Admin front end rendering
-
-    // const getUser = async () => {
-    //   const currUser = await getCurrUser()
-    //   setCurrUser(currUser)
-    // }
-
-    // if(currUser.isAdmin === true) setAdmin(true)
-
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getProductList();
@@ -91,7 +80,6 @@ const App = () => {
     getUsersList();
     getProductsList();
     getReviewsList();
-    // getUser()
   }, []);
 
   return (
@@ -103,13 +91,11 @@ const App = () => {
       <main>
         {/* <p>API Status: {APIHealth} ***We can take this off whenever.***</p> */}
         <Router>
-          {/* <div className="navabr">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/products">Products</Link>
-        </div> */}
           <Route exact path="/search">
             <Search />
+          </Route>
+          <Route exact path="/contact">
+            <Contact />
           </Route>
           <Route exact path="/products">
             <ProductList />

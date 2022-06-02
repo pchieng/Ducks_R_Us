@@ -18,7 +18,10 @@ const Login = (props) => {
     setLoginUsername("");
     setLoginPassword("");
   };
-
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("isAdmin")
+    }
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
     // console.log("is user logged in:", getToken)
@@ -26,6 +29,7 @@ const Login = (props) => {
   }, []);
 
   return (
+      
     <form className="loginButtons" onSubmit={handleLogin}>
       <label>Username:</label>
       <input
@@ -48,7 +52,12 @@ const Login = (props) => {
       />
 
       <button>Login</button>
+    <button className="loginButtons" onClick={(event) => {
+            event.preventDefault()
+            logout();
+        }}>Logout</button>
     </form>
+    
   );
 };
 
