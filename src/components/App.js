@@ -69,12 +69,13 @@ const App = () => {
     if(validToken) setIsLoggedIn(true)
 
     // still working on this for Admin front end rendering
-    const getUser = async () => {
-      const currUser = await getCurrUser()
-      setCurrUser(currUser)
-    }
 
-    if(currUser.isAdmin === true) setAdmin(true)
+    // const getUser = async () => {
+    //   const currUser = await getCurrUser()
+    //   setCurrUser(currUser)
+    // }
+
+    // if(currUser.isAdmin === true) setAdmin(true)
 
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
@@ -84,7 +85,7 @@ const App = () => {
     getUsersList();
     getProductsList();
     getReviewsList();
-    getUser()
+    // getUser()
   }, []);
 
   return (
