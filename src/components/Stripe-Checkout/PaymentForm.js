@@ -74,7 +74,7 @@ export default function PaymentForm(props) {
                 </form>
                 :
                 <div>
-                    <h2>You just bought a sweet Rubber Ducky product congrats this is the best decision of your life!</h2>
+                    <h2>You just bought a sweet Rubber Ducky product. Congrats this is the best decision of your life!</h2>
                 </div>
             }
 
