@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+import Home from "./home";
 import ProductList from "./products";
 import ProductDetails from "./productDetails";
 import Login from "./login";
@@ -84,18 +85,14 @@ const App = () => {
 
   return (
     <div className="app-container">
-
       <header>
         <Navbar />
       </header>
       <main>
-        {/* <p>API Status: {APIHealth} ***We can take this off whenever.***</p> */}
         <Router>
-          {/* <div className="navabr">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/products">Products</Link>
-        </div> */}
+        <Route exact path='/'>
+          <Home />
+        </Route>
           <Route exact path="/search">
             <Search />
           </Route>
