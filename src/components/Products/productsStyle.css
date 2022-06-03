@@ -4,6 +4,16 @@
     align-items: center;
   }
   
+.productPage h1 {
+    margin: 5px;
+    text-align: center;
+    font-family: cursive;
+    font-size: 3rem;
+    text-shadow: 1px 1px gray;
+
+}
+
+
   .productDisplay {
     display: flex;
     flex-direction: row;
@@ -26,7 +36,7 @@
     border-style: solid;
     border-radius: 15px;
     border-width: 1px;
-    box-shadow: 3px 3px 2px gray;
+    box-shadow: 2px 2px 2px gray;
     padding: 20px;
     width: 220px;
     margin: 10px;
