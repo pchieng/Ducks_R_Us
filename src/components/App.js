@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import Home from "./home";
+import Home from "./Home/home";
 import ProductList from "./Products/products";
 import ProductDetails from "./Products/productDetails";
 import Login from "./Login/login";
