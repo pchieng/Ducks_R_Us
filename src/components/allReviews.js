@@ -7,8 +7,11 @@ their respective products */
 
 const ReviewsList = (props) => {
     const { reviews } = props
+    const isAdmin = localStorage.getItem("isAdmin")
+
     return(
         <>
+         { isAdmin ? <div>
             <h1>REVIEWS</h1>
             <div> {reviews.map(review =>
                 <div className='reviewCard' key={review.id}>
@@ -17,6 +20,7 @@ const ReviewsList = (props) => {
                 </div>
             )}
             </div>
+            </div> : <p>Administrator Access Required</p>}
         </>
     )
 }

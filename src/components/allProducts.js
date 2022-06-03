@@ -10,7 +10,7 @@ import { getAllProducts, deleteProduct } from '../axios-services/products';
 
 
 const AllProductsList = () => {
-
+    const isAdmin = localStorage.getItem("isAdmin")
     const [products, setProducts] = useState([]);
     const noImageUrl = 'https://media.istockphoto.com/vectors/no-image-available-icon-vector-id1216251206?k=20&m=1216251206&s=170667a&w=0&h=A72dFkHkDdSfmT6iWl6eMN9t_JZmqGeMoAycP-LMAw4=';
 
@@ -26,6 +26,7 @@ const AllProductsList = () => {
 
     return (
         <>
+        { isAdmin ? <div>
             <h1>PRODUCTS (Administrator View)</h1>
             <Link to='/allProducts/add'>
                 <button>Add New Product</button>
@@ -110,6 +111,7 @@ const AllProductsList = () => {
                 </div>
             )}
             </div>
+        </div> : <p>Administrator Access Required</p>}
         </>
 
     )
