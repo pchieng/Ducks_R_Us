@@ -2,8 +2,8 @@ import React, { useState, useEffect, Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Home from "./home";
-import ProductList from "./products";
-import ProductDetails from "./productDetails";
+import ProductList from "./Products/products";
+import ProductDetails from "./Products/productDetails";
 import Login from "./Login/login";
 import Register from "./Login/register";
 import ShoppingCart from "./cart";
