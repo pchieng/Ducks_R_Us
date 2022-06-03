@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { register } from '../axios-services/user'
+import { register } from '../../axios-services/user'
 
 const Register = () => {
     // used reg as a prefix for these in case we need to differentiate them from login stuff

@@ -4,10 +4,7 @@ const Home = () => {
 
     return (
         <>
-        <img class='bg-image'>
 
-
-        </img>
         </>
     )
 }
