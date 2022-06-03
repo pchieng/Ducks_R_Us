@@ -18,36 +18,44 @@ const Register = () => {
 
     const handleRegister = async (event) => {
         event.preventDefault()
+        if (regUsername === '' || regPassword === '' || regEmail === '') {
+            alert('Please complete all fields')
+            return;
+        }
         const waitRegister = await register(userToRegister)
         if (waitRegister) alert(`Welcome, ${waitRegister.user.username}. ${waitRegister.message}`)
-        console.log('test',waitRegister)
         setRegEmail('');
         setRegUsername('');
         setRegPassword('');
     }
 
     return (
-        <form className="loginButtons" onSubmit={handleRegister}>
-
-            <label>Email:</label>
+        <form className="registerPage" onSubmit={handleRegister}>
+            <h2>Create New Account</h2>
+            <label>Email</label>
+            <br />
             <input type={"text"}
                 id='regEmailInput'
                 value={regEmail}
                 onChange={(event) => {
                     setRegEmail(event.target.value)
                 }}
-                placeholder={"Enter email"} />
-
-            <label>Username:</label>
+            />
+            <br />
+            <br />
+            <label>Username</label>
+            <br />
             <input type="text"
                 id='regUsernameInput'
                 value={regUsername}
                 onChange={(event) => {
                     setRegUsername(event.target.value)
                 }}
-                placeholder={"Enter username"} />
-
-            <label>Password:</label>
+            />
+            <br />
+            <br />
+            <label>Password</label>
+            <br />
             <input type="text"
                 id='regPasswordInput'
                 min="8"
@@ -55,7 +63,7 @@ const Register = () => {
                 onChange={(event) => {
                     setRegPassword(event.target.value)
                 }}
-                placeholder={"Enter password"} />
+            />
 
             <button>Register</button>
         </form>

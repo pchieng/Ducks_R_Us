@@ -20,12 +20,7 @@ export const MenuItems = [
     className: "nav-links",
   },
   {
-    title: "Sign Up",
-    url: "/register",
-    className: "nav-links",
-  },
-  {
-    title: "Login",
+    title: "Log In",
     url: "/login",
     className: "nav-links",
   },

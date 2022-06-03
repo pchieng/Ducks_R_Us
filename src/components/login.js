@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { login } from "../axios-services/user";
+import "./loginStyle.css"
+import { Link } from "react-router-dom";
 
 const Login = (props) => {
   const { isLoggedIn, setIsLoggedIn } = props;
@@ -26,29 +28,40 @@ const Login = (props) => {
   }, []);
 
   return (
-    <form className="loginButtons" onSubmit={handleLogin}>
-      <label>Username:</label>
-      <input
-        type={"text"}
-        value={loginUsername}
-        onChange={(event) => {
-          setLoginUsername(event.target.value);
-        }}
-        placeholder={"Enter username"}
-      />
-
-      <label>Password:</label>
-      <input
-        type={"text"}
-        value={loginPassword}
-        onChange={(event) => {
-          setLoginPassword(event.target.value);
-        }}
-        placeholder={"Enter password"}
-      />
-
-      <button>Login</button>
-    </form>
+    <div className="loginPage">
+      <form className="loginSection" onSubmit={handleLogin}>
+        <h2>Log In</h2>
+        <label>Username</label>
+        <br />
+        <input
+          type={"text"}
+          value={loginUsername}
+          onChange={(event) => {
+            setLoginUsername(event.target.value);
+          }}
+        />
+        <br />
+        <br />
+        <label>Password</label>
+        <br />
+        <input
+          type={"password"}
+          value={loginPassword}
+          onChange={(event) => {
+            setLoginPassword(event.target.value);
+          }}
+        />
+        <br />
+        <br />
+        <button id="loginButton">Log In</button>
+      </form>
+      <div className="registerSection">
+        <h2>No Account Yet?</h2>
+        <Link to='/register'>
+        <button id="registerButton">Register New Account</button>
+        </Link>
+      </div>
+    </div>
   );
 };
 

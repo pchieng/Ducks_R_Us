@@ -10,6 +10,7 @@ class Navbar extends Component {
         <h1 className="navbar-logo">
           Ducks 'R' Us
         </h1>
+
         <div className="navbar-links">
           {MenuItems.map((item, index) => {
             return (

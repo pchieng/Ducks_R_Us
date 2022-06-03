@@ -30,7 +30,9 @@ const ProductList = () => {
       <h1
         style={{
           margin: '5px',
-          textAlign: 'center'
+          textAlign: 'center',
+          fontFamily: 'cursive',
+          fontSize: '3rem'
         }}>PRODUCTS</h1>
       <select
         name='productCategory'
