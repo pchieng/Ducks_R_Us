@@ -16,7 +16,7 @@ class Navbar extends Component {
     return (
       <nav className="NavbarItems">
         <h1 className="navbar-logo">
-          Ducks 'R' Us<i className="fab fa-react"></i>
+          <a href="https://imgbb.com/"><img src="https://i.ibb.co/3TYvCMq/8850cbee960349b896d3845ddd45fc32.png" alt="8850cbee960349b896d3845ddd45fc32" border="0" /></a>
         </h1>
         <div className="menu-icon" onClick={this.handleClick}>
           <i

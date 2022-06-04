@@ -8,12 +8,13 @@ function Stripe(props) {
     const [showItem, setShowItem] = useState(false);
     return (
         <div className='App'>
-            <h1>Ducks'R'Us</h1>
+            <div className='duck-logo'><a href="https://imgbb.com/"><img src="https://i.ibb.co/3TYvCMq/8850cbee960349b896d3845ddd45fc32.png" alt="8850cbee960349b896d3845ddd45fc32" border="0"/></a></div>
             {showItem ? (
                 <StripeContainer totalAmount={props.totalAmount} />
             ) : (
                 <>
-                        <h3>${props.totalAmount }</h3>
+                        <h3>${props.totalAmount}</h3>
+                        <div className='shipping'>Free Shipping (Please allow 5-7 business days)</div>
                     <img src={''} alt='' />
                         <button onClick={() => setShowItem(true)}>Purchase Product</button>
                 </>

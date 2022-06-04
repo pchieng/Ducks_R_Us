@@ -59,3 +59,10 @@ h1,
 h3 {
     text-align: center;
 }
+
+.duck-logo, .shipping  {
+
+        display: grid;
+        place-items: center;
+    
+}
