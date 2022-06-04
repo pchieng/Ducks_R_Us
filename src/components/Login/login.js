@@ -24,7 +24,7 @@ const Login = (props) => {
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("isAdmin")
-    }
+  }
 
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
@@ -61,14 +61,14 @@ const Login = (props) => {
         <button id="loginButton">Log In</button>
 
         <button className="loginButtons" onClick={(event) => {
-            event.preventDefault()
-            logout();
+          event.preventDefault()
+          logout();
         }}>Logout</button>
       </form>
       <div className="registerSection">
         <h2>No Account Yet?</h2>
         <Link to='/register'>
-        <button id="registerButton">Register New Account</button>
+          <button id="registerButton">Register New Account</button>
         </Link>
       </div>
     </div>
