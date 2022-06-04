@@ -10,7 +10,8 @@ const Navbar = (props) => {
     return (
       <nav className="NavbarItems">
         <h1 className="navbar-logo">
-          <a href="https://imgbb.com/"><img src="https://i.ibb.co/3TYvCMq/8850cbee960349b896d3845ddd45fc32.png" alt="8850cbee960349b896d3845ddd45fc32" border="0" /></a>
+          {/* <a href="https://imgbb.com/"><img src="https://i.ibb.co/3TYvCMq/8850cbee960349b896d3845ddd45fc32.png" alt="8850cbee960349b896d3845ddd45fc32" border="0" /></a> */}
+        Ducks'R'Us
         </h1>
 
         <div className="navbar-links">
