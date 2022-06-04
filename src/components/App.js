@@ -32,8 +32,8 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [users, setUsers] = useState([])
+  const [reviews, setReviews] = useState([])
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -86,6 +86,9 @@ const App = () => {
         </Route>
           <Route exact path="/search">
             <Search />
+          </Route>
+          <Route exact path="/contact">
+            <Contact />
           </Route>
           <Route exact path="/products">
             <ProductList />

@@ -9,7 +9,6 @@ export async function getAllUsers() {
     }
   }
 
-
 export async function register (userToRegister) {
     try{
         const { data } = await axios.post('/api/users/register',{
@@ -32,6 +31,7 @@ export async function login (userToLogin) {
         })
 
         localStorage.setItem("token", data.token)
+        localStorage.setItem("isAdmin", data.isAdmin)
         return data
     }catch(err){
         console.error(err)   

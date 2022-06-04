@@ -6,11 +6,13 @@ should be able to see it*/
 
 const UsersList = (props) => {
     const { users, setUsers } = props
+    const isAdmin = localStorage.getItem("isAdmin")
 
 
 
     return (
         <>
+        { isAdmin ? <div>
             <h1>USERS</h1>
             <div> {users.map(user =>
                 <div
@@ -65,6 +67,7 @@ const UsersList = (props) => {
                 </div>
             )}
             </div>
+        </div> : <p>Administrator Access Required</p>}
         </>
     )
 }
