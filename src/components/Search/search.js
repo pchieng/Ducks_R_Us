@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import './SearchStyle.css';
 import SearchBar from './searchBar';
 import { getAllActiveProducts } from "../../axios-services/products";
@@ -24,8 +24,8 @@ const Search = () => {
 
     return (
         <Router>
-            <div className="App">
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+            <div className="Search">
+
                 <SearchBar
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
@@ -33,9 +33,12 @@ const Search = () => {
                         setFilteredProducts(filterProducts(await getAllActiveProducts(), searchQuery));
                     }}
                 />
+                <br/>
                 <ul>
                     {filteredProducts.map((product) => (
+                        <Link to={`/products/${product.id}`}>
                         <li key={product.id}>{product.name}</li>
+                        </Link>
                     ))}
                 </ul>
             </div>
