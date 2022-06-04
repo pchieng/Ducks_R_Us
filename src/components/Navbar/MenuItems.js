@@ -33,8 +33,8 @@ export const MenuItems = [
   },
 ];
 
-if(isAdmin) MenuItems.push({
+if(isAdmin === "true") MenuItems.push({
   title: "Admin",
-  url: "/allUsers",
+  url: "/admin",
   className: "nav-links",
 })

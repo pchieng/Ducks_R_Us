@@ -26,8 +26,8 @@ const AllProductsList = () => {
 
     return (
         <>
-        { isAdmin ? <div>
-            <h1>PRODUCTS (Administrator View)</h1>
+        { isAdmin === "true" ? <div>
+            <h1>ALL PRODUCTS</h1>
             <Link to='/allProducts/add'>
                 <button>Add New Product</button>
             </Link>
@@ -111,6 +111,9 @@ const AllProductsList = () => {
                 </div>
             )}
             </div>
+            <Link to='/admin'>
+                <button>Back</button>
+            </Link>
         </div> : <p>Administrator Access Required</p>}
         </>
 

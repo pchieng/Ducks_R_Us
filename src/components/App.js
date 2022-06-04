@@ -15,7 +15,7 @@ import EditProduct from "./Admin/editProduct";
 import Navbar from "./Navbar/Navbar";
 import Search from './Search/search';
 import Contact from "./contact";
-
+import Admin from "./Admin/admin"
 
 import { getAllUsers } from "../axios-services/user";
 import {
@@ -119,6 +119,9 @@ const App = () => {
           </Route>
           <Route path="/allProducts/edit/:productId">
             <EditProduct />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
         </Router>
       </main>
