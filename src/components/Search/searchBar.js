@@ -1,0 +1,36 @@
+import React from "react";
+import { useHistory } from 'react-router-dom';
+import "./SearchStyle.css"
+
+const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
+    const history = useHistory();
+
+    return (
+
+        <form
+            action="/"
+            method="get"
+            autoComplete="off"
+            onSubmit={async (e) => {
+                history.push(`?s=${searchQuery}`);
+                e.preventDefault();
+                onSubmit(e);
+            }}
+        >
+                <h1 className="title">
+                    SEARCH
+                </h1>
+            <input
+                value={searchQuery}
+                onInput={(e) => setSearchQuery(e.target.value)}
+                type="text"
+                id="header-search"
+                placeholder="Products"
+                name="s"
+            />
+            <button type="submit">Search</button>
+        </form>
+    );
+};
+
+export default SearchBar;

@@ -65,7 +65,6 @@ async function createCart({ userId, productId }) {
       // for (let i = 0; i < rows.length; i++) {
       //   rows[i].status === "processing" ? cart.push(rows[i]) : null;
       // }
-    console.log(rows)
 
 
       if (rows.length > 0) {

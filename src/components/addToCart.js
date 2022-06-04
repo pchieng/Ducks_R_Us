@@ -1,5 +1,5 @@
 import React from 'react';
-import { createCart } from '../axios-services';
+import { createCart } from '../axios-services/cart';
 
 const ProductToCart = () => {
  

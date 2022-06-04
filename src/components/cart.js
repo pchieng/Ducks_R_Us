@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getCartProducts, removeFromCart } from '../axios-services';
+import { getCartProducts, removeFromCart } from '../axios-services/cart';
 // import {
 //     getAllProducts
 // } 
