@@ -1,10 +1,11 @@
-import React, { useState, useEffect, Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import ProductList from "./products";
-import ProductDetails from "./productDetails";
-import Login from "./login";
-import Register from "./register";
+import Home from "./Home/home";
+import ProductList from "./Products/products";
+import ProductDetails from "./Products/productDetails";
+import Login from "./Login/login";
+import Register from "./Login/register";
 import ShoppingCart from "./cart";
 import UsersList from "./allUsers";
 import ReviewsList from "./allReviews";
@@ -12,14 +13,10 @@ import AllProductsList from "./allProducts";
 import AddProduct from "./addProduct";
 import EditProduct from "./editProduct";
 import Navbar from "./Navbar/Navbar";
-import Search from './Navbar/search';
-import Contact from './contact'
-import announcer from './Navbar/announcer';
+import Search from './Search/search';
+import Contact from "./contact";
 
-// getAPIHealth is defined in our axios-services directory index.js
-// you can think of that directory as a collection of api adapters
-// where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth } from "../axios-services";
+
 import { getAllUsers } from "../axios-services/user";
 import {
   getAllActiveProducts,
@@ -29,10 +26,9 @@ import { getAllReviews } from "../axios-services/reviews";
 import { getCartProducts } from "../axios-services/cart";
 
 import "../style/App.css";
-import "../style/theme.css";
+
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState("");
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,10 +39,6 @@ const App = () => {
     // follow this pattern inside your useEffect calls:
     // first, create an async function that will wrap your axios service adapter
     // invoke the adapter, await the response, and set the data
-    const getAPIStatus = async () => {
-      const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
-    };
     const getProductList = async () => {
       const products = await getAllActiveProducts();
       setProducts(products);
@@ -76,7 +68,6 @@ const App = () => {
     // invoke it immediately after its declaration, inside the useEffect callback
     getProductList();
     getCart();
-    getAPIStatus();
     getUsersList();
     getProductsList();
     getReviewsList();
@@ -84,13 +75,15 @@ const App = () => {
 
   return (
     <div className="app-container">
-
+      <div className="bg-image" />
       <header>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn}/>
       </header>
       <main>
-        {/* <p>API Status: {APIHealth} ***We can take this off whenever.***</p> */}
         <Router>
+        <Route exact path='/'>
+          <Home />
+        </Route>
           <Route exact path="/search">
             <Search />
           </Route>

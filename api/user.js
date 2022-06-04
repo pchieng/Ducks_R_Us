@@ -25,7 +25,7 @@ usersRouter.post('/register', async (req, res, next) => {
 
   try {
     if (_userByUsername || _userByEmail) {
-      next({
+      return next({
         name: 'UserExistsError',
         message: 'A user with that username/email already exists'
       });
@@ -43,8 +43,8 @@ usersRouter.post('/register', async (req, res, next) => {
       message: "Thank you for signing up",
       token: token
     });
-  } catch (error) {
-    throw error
+  } catch ({name, message}) {
+    return next({ name, message})
   }
 });
 

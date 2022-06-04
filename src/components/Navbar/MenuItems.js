@@ -5,11 +5,6 @@ export const MenuItems = [
     className: "nav-links",
   },
   {
-    title: "Search",
-    url: "/search",
-    className: "nav-links",
-  },
-  {
     title: "Products",
     url: "/products",
     className: "nav-links",
@@ -20,12 +15,12 @@ export const MenuItems = [
     className: "nav-links",
   },
   {
-    title: "Sign Up",
-    url: "/register",
+    title: "Search",
+    url: "/search",
     className: "nav-links",
   },
   {
-    title: "Login",
+    title: "Log In",
     url: "/login",
     className: "nav-links",
   },
@@ -33,10 +28,5 @@ export const MenuItems = [
     title: "Cart",
     url: "/cart",
     className: "nav-links",
-  },
-//   {
-//   title: "Sign up",
-//   url: "#",
-//   className: "nav-links-mobile",
-// },
+  }
 ];
