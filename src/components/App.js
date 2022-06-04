@@ -77,7 +77,7 @@ const App = () => {
     <div className="app-container">
       <div className="bg-image" />
       <header>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn}/>
       </header>
       <main>
         <Router>
@@ -95,9 +95,6 @@ const App = () => {
           </Route>
           <Route path="/products/:productId">
             <ProductDetails />
-          </Route>
-          <Route path="/contact">
-            <Contact />
           </Route>
           <Route exact path="/login">
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
