@@ -2,8 +2,7 @@ const client = require('../client');
 
 module.exports = {
     createCart,
-    // addToCart,
-    // removeFromCart,
+    removeFromCart,
     getCart
 }
 async function createCart({ userId, productId }) {
@@ -19,68 +18,40 @@ async function createCart({ userId, productId }) {
       throw error;
     }
   }
-
-//   async function addToCart({ userId, productId }) {
-//     const cart = await getCart({ userId });
-//     const cartId = cart.id;
-//     const oldProducts = cart.products;
   
-//     const newProducts = [];
-//     if (oldProducts.length > 0) {
-//       for (i = 0; i < oldProducts.length; i++) {
-//         newProducts.push(oldProducts[i].id);
-//       }
-//       newProducts.push(...productId);
-//     } else {
-//       newProducts.push(...productId);
-//     }
+  async function removeFromCart({ userId, productId }) {
+    const cart = await getCart({ userId });
   
-//     try {
-//       const {rows: [updatedCart],} = await client.query(`
-//         UPDATE cart
-//         SET "productId" = $1, status = $2
-//         WHERE "id" = $3
-//         RETURNING *; `,[newProducts, "processing", cartId]
-//       );
+    const oldProducts = cart.products;
+    const idArr = [];
+    try {
+      if (oldProducts.length > 0) {
+        const index = oldProducts.findIndex(
+          (product) => product.id === productId
+        );
   
-//       return updatedCart;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
+        if (index !== -1) {
+          oldProducts.splice(index, 1);
+        }
   
-//   async function removeFromCart({ userId, productId }) {
-//     const cart = await getCart({ userId });
+        for (i = 0; i < oldProducts.length; i++) {
+          idArr.push(oldProducts[i].id);
+        }
   
-//     const oldProducts = cart.products;
-//     const idArr = [];
-//     try {
-//       if (oldProducts.length > 0) {
-//         const index = oldProducts.findIndex(
-//           (product) => product.id === productId
-//         );
+        const {rows: [updatedCart],} = await client.query( `
+          UPDATE cart 
+          SET "productId" = $1, paid = false 
+          WHERE "userId" = ${userId} 
+          RETURNING *;`,[idArr]
+        );
   
-//         if (index !== -1) {
-//           oldProducts.splice(index, 1);
-//         }
-  
-//         for (i = 0; i < oldProducts.length; i++) {
-//           idArr.push(oldProducts[i].id);
-//         }
-  
-//         const {rows: [updatedCart],} = await client.query( `
-//           UPDATE cart 
-//           SET "productId" = $1, status = $2 
-//           WHERE "userId" = ${userId} 
-//           RETURNING *;`,[idArr, "processing"]
-//         );
-  
-//         return updatedCart;
-//       }
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
+        return updatedCart;
+      }
+      console.log(idArr)
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async function getCart({ userId }) {
     try {

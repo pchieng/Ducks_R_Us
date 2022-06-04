@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllActiveProducts, getActiveProductsByCategory } from '../axios-services';
-
+import ProductToCart from './addToCart'
 
 
 const ProductList = () => {
@@ -19,10 +19,10 @@ const ProductList = () => {
     }, [])
 
     // Collect all categories from the current product list
-    const productCategories = products.map((product) => product.category);
+    const productCategories = products?.map((product) => product.category);
 
     // Remove duplicate categories and alphabetize list
-    const productCategoriesList = productCategories.filter(onlyUnique).sort();
+    const productCategoriesList = productCategories?.filter(onlyUnique).sort();
 
     function onlyUnique(value, index, self) {
         return self.indexOf(value) === index;
@@ -53,7 +53,7 @@ const ProductList = () => {
             >
                 <option value=''>-- Select Product Category --</option>
                 <option value='all'>All Products</option>
-                {productCategoriesList.map((category) =>
+                {productCategoriesList?.map((category) =>
                     <option
                         key={category}
                         value={category}
@@ -62,7 +62,7 @@ const ProductList = () => {
                     </option>
                 )}
             </select>
-            <div className='productPage'> {productsToDisplay.map(product =>
+            <div className='productPage'> {productsToDisplay?.map(product =>
                 <div className='productCard' key={product.id}>
                     <Link to={`/products/${product.id}`}>
                     <div className='productPictureDiv'>
@@ -72,6 +72,10 @@ const ProductList = () => {
                     </Link>
                     <p>{`${product.description}`}</p>
                     <p>{`$${product.price/100}`}</p>
+                    <ProductToCart
+                    productId={product.id}
+                    />
+                    
                 </div>
             )}
             </div>

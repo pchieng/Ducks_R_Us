@@ -52,3 +52,64 @@
   box-shadow: 3px 3px 2px gray;
   margin: 30px;
 }
+
+.cartCard {
+  display:flex;
+  flex-direction: row;
+  border: solid;
+  border-radius: 15px;
+  padding: 20px;
+  width: 55%;
+  margin: 1px;
+}
+
+.cartPicture {
+  width: 50%;
+  height: auto
+}
+
+.cartPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width: 150%;
+}
+.cartPictureDiv {
+  display: flex;
+  justify-content: left;
+  width: 50%;
+  height: auto;
+}
+
+.cartDeleteButton{
+  display: flex;
+  justify-content: right, center;
+  margin: 10px;
+ height: 20px;
+}
+
+
+#mainDiv {
+  margin-top:25%;
+  border:1px black solid;
+
+}
+#minus , #plus{
+  height:25px;
+  width:25px;
+  border:1px black solid;
+  border-radius:50%;
+}
+#minus:hover{
+  background-color:red;    
+  border:none;
+}
+#plus:hover{
+  background-color:green;
+  border:none;
+}
+#numberPlace {
+  margin-left:5px;
+  margin-right:5px;
+}
