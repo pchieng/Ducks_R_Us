@@ -1,5 +1,5 @@
 import React from 'react';
-import { deleteUser, updateUser } from '../axios-services/user';
+import { deleteUser, updateUser } from '../../axios-services/user';
 
 /* this will show users on front end but only Admin accounts 
 should be able to see it*/
