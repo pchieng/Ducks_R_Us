@@ -29,7 +29,7 @@ export async function login (userToLogin) {
             username: userToLogin.username,
             password: userToLogin.password
         })
-
+        console.log('data', data)
         localStorage.setItem("token", data.token)
         localStorage.setItem("isAdmin", data.isAdmin)
         return data
