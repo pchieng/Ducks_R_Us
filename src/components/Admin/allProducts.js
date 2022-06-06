@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllProducts, deleteProduct } from '../axios-services/products';
+import { getAllProducts, deleteProduct } from '../../axios-services/products';
 
 
 
@@ -26,30 +26,23 @@ const AllProductsList = () => {
 
     return (
         <>
-        { isAdmin ? <div>
-            <h1>PRODUCTS (Administrator View)</h1>
+        { isAdmin === "true" ? <div>
+            <h1>ALL PRODUCTS</h1>
+            <div className='actionButtons'>
+            <Link to='/admin'>
+                <button>Back</button>
+            </Link>
             <Link to='/allProducts/add'>
                 <button>Add New Product</button>
             </Link>
+            </div>
             <br />
             <div> {products.map(product =>
                 <div
                     key={product.id}
-                    style={{
-                        borderStyle: "solid",
-                        borderWidth: "2px",
-                        borderRadius: "5px",
-                        padding: "10px",
-                        margin: "10px",
-                        maxWidth: "40vw"
-                    }}
+                    className='adminProductCard'
                 >
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-evenly"
-                        }}>
+                    <div className='productCardButtons'>
                         <Link to={`/allProducts/edit/${product.id}`}>
                             <button>Edit</button>
                         </Link>

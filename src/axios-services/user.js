@@ -17,6 +17,8 @@ export async function register (userToRegister) {
             password: userToRegister.password
         })
         localStorage.setItem("token", data.token)
+        localStorage.setItem("isAdmin", data.user.isAdmin)
+        localStorage.setItem("username", data.user.username)
         return data
     }catch(err){
         console.error(err)
@@ -29,9 +31,9 @@ export async function login (userToLogin) {
             username: userToLogin.username,
             password: userToLogin.password
         })
-
         localStorage.setItem("token", data.token)
-        localStorage.setItem("isAdmin", data.isAdmin)
+        localStorage.setItem("isAdmin", data.user.isAdmin)
+        localStorage.setItem("username", data.user.username)
         return data
     }catch(err){
         console.error(err)   

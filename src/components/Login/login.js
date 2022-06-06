@@ -4,7 +4,7 @@ import "./loginStyle.css"
 import { Link } from "react-router-dom";
 
 const Login = (props) => {
-  const { isLoggedIn, setIsLoggedIn } = props;
+  const { setIsLoggedIn } = props;
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -19,16 +19,18 @@ const Login = (props) => {
     if (!waitLogin) alert("Error logging in. Please try again");
     setLoginUsername("");
     setLoginPassword("");
+    window.location.reload(false);
   };
 
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("isAdmin")
-    }
+    localStorage.removeItem("username")
+    window.location.reload(false);
+  }
 
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
-    // console.log("is user logged in:", getToken)
     setIsLoggedIn(getToken);
   }, []);
 
@@ -61,14 +63,14 @@ const Login = (props) => {
         <button id="loginButton">Log In</button>
 
         <button className="loginButtons" onClick={(event) => {
-            event.preventDefault()
-            logout();
+          event.preventDefault()
+          logout();
         }}>Logout</button>
       </form>
       <div className="registerSection">
         <h2>No Account Yet?</h2>
         <Link to='/register'>
-        <button id="registerButton">Register New Account</button>
+          <button id="registerButton">Register New Account</button>
         </Link>
       </div>
     </div>
