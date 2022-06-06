@@ -14,6 +14,11 @@ const ReviewsList = (props) => {
         <>
          { isAdmin === "true" ? <div>
             <h1>REVIEWS</h1>
+            <div className='actionButtons'>
+            <Link to='/admin'>
+                <button>Back</button>
+            </Link>
+            </div>
             <div> {reviews.map(review =>
                 <div className='reviewCard' key={review.id}>
                     <h3>Rating: {`${review.starRating}`}</h3>
@@ -22,9 +27,6 @@ const ReviewsList = (props) => {
                 </div>
             )}
             </div>
-            <Link to='/admin'>
-                <button>Back</button>
-            </Link>
             </div> : <p>Administrator Access Required</p>}
         </>
     )
