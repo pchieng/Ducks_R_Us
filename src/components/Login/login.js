@@ -25,8 +25,9 @@ const Login = (props) => {
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("isAdmin")
+    localStorage.removeItem("username")
     window.location.reload(false);
-    }
+  }
 
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
