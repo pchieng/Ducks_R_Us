@@ -40,6 +40,7 @@ const ProductDetails = () => {
                         null
                     }
                     <p>{`${product.description}`}</p>
+                    <br/>
                     <p>{`$${product.price / 100}`}</p>
                 </div>
 
