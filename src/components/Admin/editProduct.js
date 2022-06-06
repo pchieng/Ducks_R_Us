@@ -51,8 +51,7 @@ const EditProduct = () => {
 
 
     return (
-        <>
-
+        <div className='editProductPage'>
             <h1>Update Product Information</h1>
             <img
                 src={`${originalProduct.picture}`}
@@ -62,7 +61,7 @@ const EditProduct = () => {
                     marginBottom: "30px"
                 }}
             />
-            <form>
+            <form className='productCard'>
                 <label htmlFor="updateProductName">Name: </label>
                 <input
                     type="text"
@@ -77,7 +76,6 @@ const EditProduct = () => {
                     type="text"
                     id="updateProductDescription"
                     name="updateProductDescription"
-                    style={{ height: "4rem", maxWidth: "400px", wordWrap: "break-word" }}
                     defaultValue={originalProduct.description}
                     onChange={(event) => setUpdatedProductDescription(event.target.value)}
                 />
@@ -159,7 +157,7 @@ const EditProduct = () => {
                 </select>
                 <br />
                 <br />
-
+<div style={{textAlign: 'center'}}>
                 <Link to='/allProducts'>
                     <button>Back</button>
                 </Link>
@@ -172,9 +170,9 @@ const EditProduct = () => {
                     }}
                 >Submit Changes</button>
 
-
+</div>
             </form>
-        </>
+        </div>
 
     )
 

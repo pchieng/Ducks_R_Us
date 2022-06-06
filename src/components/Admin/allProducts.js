@@ -28,7 +28,7 @@ const AllProductsList = () => {
         <>
         { isAdmin === "true" ? <div>
             <h1>ALL PRODUCTS</h1>
-            <div className='productActionButtons'>
+            <div className='actionButtons'>
             <Link to='/admin'>
                 <button>Back</button>
             </Link>

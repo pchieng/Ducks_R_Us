@@ -24,14 +24,47 @@ h1 {
     width: 40vw;
 }
 
-
-.productActionButtons button {
-    font-size: 1.2rem;
-    padding: 5px;
+.editProductPage {
+    text-align: center;
 }
 
-.productCardButtons, .productActionButtons {
+.editProductPage button {
+    margin: 0 20px;
+}
+
+.editProductPage form {
+    text-align: left;
+}
+
+#updateProductDescription {
+    width: 95%;
+    height: 4rem;
+    word-wrap: break-word;
+}
+
+#updateProductPicture {
+    width: 95%;
+}
+
+.actionButtons button {
+    font-size: 1.2rem;
+    padding: 5px;
+    margin: 10px;
+}
+
+.productCardButtons,
+.actionButtons {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+
+.userCard {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 40vw;
+    background-color: white;
 }
