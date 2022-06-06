@@ -40,7 +40,7 @@ const AllProductsList = () => {
             <div> {products.map(product =>
                 <div
                     key={product.id}
-                    className='productCard'
+                    className='adminProductCard'
                 >
                     <div className='productCardButtons'>
                         <Link to={`/allProducts/edit/${product.id}`}>

@@ -20,7 +20,7 @@ const ReviewsList = (props) => {
             </Link>
             </div>
             <div> {reviews.map(review =>
-                <div className='reviewCard' key={review.id}>
+                <div className='adminReviewCard' key={review.id}>
                     <h3>Rating: {`${review.starRating}`}</h3>
                     <h3>Product: {`${review.productName}`}</h3>
                     <p>{`${review.body}`}</p>

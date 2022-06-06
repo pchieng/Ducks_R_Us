@@ -61,7 +61,7 @@ const EditProduct = () => {
                     marginBottom: "30px"
                 }}
             />
-            <form className='productCard'>
+            <form className='adminProductCard'>
                 <label htmlFor="updateProductName">Name: </label>
                 <input
                     type="text"
@@ -90,21 +90,21 @@ const EditProduct = () => {
                 >
                     {categoryList.map(category =>
 
-                    category.id === originalProduct.categoryId ?
-                        <option
-                            key={category.id}
-                            value={category.id}
-                            selected
-                        >
-                            {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
-                        </option>
-                        :
-                        <option
-                        key={category.id}
-                        value={category.id}
-                    >
-                        {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
-                    </option>
+                        category.id === originalProduct.categoryId ?
+                            <option
+                                key={category.id}
+                                value={category.id}
+                                selected
+                            >
+                                {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
+                            </option>
+                            :
+                            <option
+                                key={category.id}
+                                value={category.id}
+                            >
+                                {`${category.name.charAt(0).toUpperCase() + category.name.slice(1)}`}
+                            </option>
                     )}
                 </select>
                 <br />
@@ -157,20 +157,20 @@ const EditProduct = () => {
                 </select>
                 <br />
                 <br />
-<div style={{textAlign: 'center'}}>
-                <Link to='/allProducts'>
-                    <button>Back</button>
-                </Link>
+                <div style={{ textAlign: 'center' }}>
+                    <Link to='/allProducts'>
+                        <button>Back</button>
+                    </Link>
 
-                <button
-                    onClick={async (event) => {
-                        event.preventDefault();
-                        const result = await updateProduct(productId, updatedProductValues);
-                        if (result) alert('Product has been updated');
-                    }}
-                >Submit Changes</button>
+                    <button
+                        onClick={async (event) => {
+                            event.preventDefault();
+                            const result = await updateProduct(productId, updatedProductValues);
+                            if (result) alert('Product has been updated');
+                        }}
+                    >Submit Changes</button>
 
-</div>
+                </div>
             </form>
         </div>
 
