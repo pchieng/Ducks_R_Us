@@ -1,0 +1,37 @@
+h1 {
+    text-align: center;
+}
+
+.adminButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.adminButtons button {
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    margin: 0 20px;
+}
+
+.productCard {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 40vw;
+}
+
+
+.productActionButtons button {
+    font-size: 1.2rem;
+    padding: 5px;
+}
+
+.productCardButtons, .productActionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

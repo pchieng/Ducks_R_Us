@@ -4,7 +4,7 @@ import "./loginStyle.css"
 import { Link } from "react-router-dom";
 
 const Login = (props) => {
-  const { isLoggedIn, setIsLoggedIn } = props;
+  const { setIsLoggedIn } = props;
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
