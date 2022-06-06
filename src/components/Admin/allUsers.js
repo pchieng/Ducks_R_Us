@@ -1,5 +1,6 @@
 import React from 'react';
-import { deleteUser, updateUser } from '../axios-services/user';
+import { deleteUser, updateUser } from '../../axios-services/user';
+import { Link } from 'react-router-dom';
 
 /* this will show users on front end but only Admin accounts 
 should be able to see it*/
@@ -12,7 +13,7 @@ const UsersList = (props) => {
 
     return (
         <>
-        { isAdmin ? <div>
+        { isAdmin === "true" ? <div>
             <h1>USERS</h1>
             <div> {users.map(user =>
                 <div
@@ -67,6 +68,9 @@ const UsersList = (props) => {
                 </div>
             )}
             </div>
+            <Link to='/admin'>
+                <button>Back</button>
+            </Link>
         </div> : <p>Administrator Access Required</p>}
         </>
     )
