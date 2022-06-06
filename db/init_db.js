@@ -76,6 +76,7 @@ async function buildTables() {
       id SERIAL PRIMARY KEY,
       "writerId" INTEGER REFERENCES users(id),
       "productId" INTEGER REFERENCES products(id),
+      "productName" VARCHAR(255) REFERENCES products(name),
       "starRating" INTEGER NOT NULL,
       body TEXT NOT NULL
     );
@@ -91,16 +92,6 @@ async function buildTables() {
       "cardName" VARCHAR(255) NOT NULL
     );
     `); console.log("payments")
-
-
-
-    //   CREATE TABLE orders (
-    //     id SERIAL PRIMARY KEY,
-    //     "userId" INTEGER REFERENCES users(id),
-    //     "cartId" INTEGER REFERENCES cart(id)
-    //   );
-
-    // );
 
     console.log("Finished building all tables");
 
@@ -181,10 +172,10 @@ async function populateInitialData() {
     console.log('Starting to create reviews...')
 
     const reviewsToCreate = [
-      { writerId: 1, productId: 1, starRating: 5, body: 'This is literally the best duck ever made.' },
-      { writerId: 2, productId: 2, starRating: 5, body: 'My 57 month old loved it! Would buy again!' },
-      { writerId: 3, productId: 3, starRating: 1, body: 'Honestly so trash do not waste your money on this.' },
-      { writerId: 4, productId: 3, starRating: 3, body: 'A good starting point for duck collectors but not the best.' }
+      { writerId: 1, productId: 1, productName: 'Alpha Ducky', starRating: 5, body: 'This is literally the best duck ever made.' },
+      { writerId: 2, productId: 2, productName: 'Sister Ducky', starRating: 5, body: 'My 57 month old loved it! Would buy again!' },
+      { writerId: 3, productId: 3, productName: 'Baby Ducky', starRating: 1, body: 'Honestly so trash do not waste your money on this.' },
+      { writerId: 4, productId: 3, productName: 'Baby Ducky', starRating: 3, body: 'A good starting point for duck collectors but not the best.' }
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
     console.log('Reviews created:', reviews);

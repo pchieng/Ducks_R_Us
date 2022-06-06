@@ -7,15 +7,15 @@ import ProductDetails from "./Products/productDetails";
 import Login from "./Login/login";
 import Register from "./Login/register";
 import ShoppingCart from "./cart";
-import UsersList from "./allUsers";
-import ReviewsList from "./allReviews";
-import AllProductsList from "./allProducts";
-import AddProduct from "./addProduct";
-import EditProduct from "./editProduct";
+import UsersList from "./Admin/allUsers";
+import ReviewsList from "./Admin/allReviews";
+import AllProductsList from "./Admin/allProducts";
+import AddProduct from "./Admin/addProduct";
+import EditProduct from "./Admin/editProduct";
 import Navbar from "./Navbar/Navbar";
 import Search from './Search/search';
 import Contact from "./contact";
-
+import Admin from "./Admin/admin"
 
 import { getAllUsers } from "../axios-services/user";
 import {
@@ -119,6 +119,9 @@ const App = () => {
           </Route>
           <Route path="/allProducts/edit/:productId">
             <EditProduct />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
         </Router>
       </main>
