@@ -15,7 +15,7 @@ async function createUser({ email, username, password, isAdmin }) {
             "isAdmin" 
         ) VALUES ($1, $2, $3, $4)
         ON CONFLICT (username) DO NOTHING
-        RETURNING id, email, username;
+        RETURNING id, email, username, "isAdmin";
         `, [email, username, hashedPwd, isAdmin]
     );
     return user;

@@ -19,16 +19,17 @@ const Login = (props) => {
     if (!waitLogin) alert("Error logging in. Please try again");
     setLoginUsername("");
     setLoginPassword("");
+    window.location.reload(false);
   };
 
   const logout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("isAdmin")
-  }
+    window.location.reload(false);
+    }
 
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
-    // console.log("is user logged in:", getToken)
     setIsLoggedIn(getToken);
   }, []);
 

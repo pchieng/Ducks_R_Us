@@ -20,8 +20,8 @@ const Home = () => {
         getProductList();
     }, [])
 
-    console.log(products)
-    console.log(featuredProducts)
+    // console.log(products)
+    // console.log(featuredProducts)
 
 
     return (
