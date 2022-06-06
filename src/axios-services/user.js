@@ -17,6 +17,7 @@ export async function register (userToRegister) {
             password: userToRegister.password
         })
         localStorage.setItem("token", data.token)
+        localStorage.setItem("isAdmin", data.user.isAdmin)
         return data
     }catch(err){
         console.error(err)
