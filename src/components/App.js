@@ -109,7 +109,7 @@ const App = () => {
             <ReviewsList reviews={reviews} />
           </Route>
           <Route path="/allUsers">
-            <UsersList users={users} />
+            <UsersList users={users} setUsers={setUsers} />
           </Route>
           <Route exact path="/allProducts">
             <AllProductsList products={products} />
