@@ -112,6 +112,16 @@ async function getActiveProductsByCategory(category) {
 
 async function deleteProduct(productId) {
     try {
+        await client.query(`
+        DELETE FROM reviews
+        WHERE "productId"=$1;
+        `, [productId]);
+
+        await client.query(`
+        DELETE FROM cart
+        WHERE "productId"=$1;
+        `, [productId])
+
         const product = await client.query(`
         DELETE FROM products
         WHERE id=$1;
