@@ -145,7 +145,7 @@ async function populateInitialData() {
       { name: 'Ducky Hat', description: 'White cap with ducky logo', categoryId: 2, quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
       { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', categoryId: 3, quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
       { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', categoryId: 1, quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
-      { name: 'Duck', description: 'Bucephala albeola', categoryId: 5, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck },
+      { name: 'Duck (Mallard)', description: 'Anas platyrhynchos', categoryId: 5, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck },
       { name: 'Lucky Ducks Game', description: 'The Lucky Ducks Game is a fun and engaging activity for children and parents to play together', categoryId: 4, quantity: 40, price: 2499, isActive: true, picture: productPicturesToCreate.LuckyDuck }
     ]
 
