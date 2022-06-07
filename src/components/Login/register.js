@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { register } from '../../axios-services/user'
+import { Link } from "react-router-dom";
 import "./loginStyle.css"
 
 const Register = () => {
@@ -67,6 +68,9 @@ const Register = () => {
             />
 
             <button>Register</button>
+            <Link to='/login'>
+                <button>Back</button>
+            </Link>
         </form>
     )
 }
