@@ -25,7 +25,7 @@ const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
                 onInput={(e) => setSearchQuery(e.target.value)}
                 type="text"
                 id="header-search"
-                placeholder="Products"
+                placeholder="Search Products"
                 name="s"
             />
             <button type="submit">Search</button>
