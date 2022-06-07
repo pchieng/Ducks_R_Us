@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./loginStyle.css"
 
 const Register = () => {
-    // used reg as a prefix for these in case we need to differentiate them from login stuff
     const [regEmail, setRegEmail] = useState("")
     const [regUsername, setRegUsername] = useState("");
     const [regPassword, setRegPassword] = useState("");

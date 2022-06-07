@@ -50,7 +50,5 @@ const Search = () => {
     );
 };
 
-// Whenever the message changes in your Announcer component, screen readers will read out the message.
-// <Announcer message={`List has ${filteredPosts.length} posts`} />
 
 export default Search;

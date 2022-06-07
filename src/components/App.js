@@ -36,9 +36,6 @@ const App = () => {
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
     const getProductList = async () => {
       const products = await getAllActiveProducts();
       setProducts(products);
@@ -64,8 +61,6 @@ const App = () => {
     const validToken = localStorage.getItem("token");
     if (validToken) setIsLoggedIn(true);
 
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
     getProductList();
     getCart();
     getUsersList();
@@ -125,7 +120,6 @@ const App = () => {
           </Route>
         </Router>
       </main>
-      <footer></footer>
     </div>
   );
 };
