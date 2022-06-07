@@ -29,6 +29,7 @@ const Register = () => {
         setRegEmail('');
         setRegUsername('');
         setRegPassword('');
+        window.location.reload(false);
     }
 
     return (
