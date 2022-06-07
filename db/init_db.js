@@ -195,10 +195,10 @@ async function populateInitialData() {
       { writerId: 3, productId: 5, productName: 'Ducky Hat', starRating: 5, body: 'My tyrannosaurus rex loves to play with it.' },
       { writerId: 3, productId: 7, productName: 'Boomer Ducky', starRating: 4, body: 'this rubber duck is perplexed.' },
       { writerId: 4, productId: 7, productName: 'Boomer Ducky', starRating: 1, body: 'talk about fury.' },
-      { writerId: 3, productId: 8, productName: 'Duck', starRating: 5, body: "Bought this duck and now it's my best friend" },
-      { writerId: 1, productId: 8, productName: 'Duck', starRating: 4, body: 'This is a really good duck.' },
-      { writerId: 4, productId: 8, productName: 'Duck', starRating: 1, body: 'Shipping got delayed by 3 weeks!! Box of dead ducks showed up on my doorstep. Lesson learned, do not buy live ducks online' },
-      { writerId: 2, productId: 8, productName: 'Duck', starRating: 4, body: 'My Shih-Tzu loves to play with it.' },
+      { writerId: 3, productId: 8, productName: 'Duck (Mallard)', starRating: 5, body: "Bought this duck and now it's my best friend" },
+      { writerId: 1, productId: 8, productName: 'Duck (Mallard)', starRating: 4, body: 'This is a really good duck.' },
+      { writerId: 4, productId: 8, productName: 'Duck (Mallard)', starRating: 1, body: 'Shipping got delayed by 3 weeks!! Box of dead ducks showed up on my doorstep. Lesson learned, do not buy live ducks online' },
+      { writerId: 2, productId: 8, productName: 'Duck (Mallard)', starRating: 4, body: 'My Shih-Tzu loves to play with it.' },
       { writerId: 3, productId: 9, productName: 'Lucky Ducks Game', starRating: 4, body: 'Love this game! Play it every morning when I wake up' }
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));
