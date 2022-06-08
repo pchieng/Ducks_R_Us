@@ -32,6 +32,7 @@ export async function login (userToLogin) {
 
         localStorage.setItem("token", data.token)
         localStorage.setItem("isAdmin", data.isAdmin)
+        localStorage.setItem("userId", data.user.id)
         return data
     }catch(err){
         console.error(err)   

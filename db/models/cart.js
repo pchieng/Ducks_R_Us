@@ -7,6 +7,7 @@ module.exports = {
 }
 async function createCart({ userId, productId }) {
     try {
+      console.log(userId, productId)
       const {rows: [cart],} = await client.query(`
         INSERT INTO cart("userId", "productId")
         VALUES ($1, $2)
@@ -20,33 +21,32 @@ async function createCart({ userId, productId }) {
   }
   
   async function removeFromCart({ userId, productId }) {
-    const cart = await getCart({ userId });
-  
-    const oldProducts = cart.products;
-    const idArr = [];
+    // const cart = await getCart({ userId });
+  console.log(userId, productId)
+    // const oldProducts = cart.products;
+    // const idArr = [];
     try {
-      if (oldProducts.length > 0) {
-        const index = oldProducts.findIndex(
-          (product) => product.id === productId
-        );
+      // if (oldProducts.length > 0) {
+      //   const index = oldProducts.findIndex(
+      //     (product) => product.id === productId
+      //   );
   
-        if (index !== -1) {
-          oldProducts.splice(index, 1);
-        }
+      //   if (index !== -1) {
+      //     oldProducts.splice(index, 1);
+      //   }
   
-        for (i = 0; i < oldProducts.length; i++) {
-          idArr.push(oldProducts[i].id);
-        }
+      //   for (i = 0; i < oldProducts.length; i++) {
+      //     idArr.push(oldProducts[i].id);
+      //   }
   
         const {rows: [updatedCart],} = await client.query( `
-          UPDATE cart 
-          SET "productId" = $1, paid = false 
-          WHERE "userId" = ${userId} 
-          RETURNING *;`,[idArr]
+          DELETE FROM cart 
+          WHERE "userId" = $1 AND "productId" = $2 AND paid = false
+          RETURNING *;`,[userId, productId]
         );
   
         return updatedCart;
-      }
+      
       console.log(idArr)
     } catch (error) {
       throw error;
@@ -60,36 +60,20 @@ async function createCart({ userId, productId }) {
         SELECT * FROM cart
         WHERE "userId" = $1 AND paid = false`,[userId]
       );
-  
-      const cart = [];
-      // for (let i = 0; i < rows.length; i++) {
-      //   rows[i].status === "processing" ? cart.push(rows[i]) : null;
-      // }
-
+        console.log(rows, "myCart")
 
       if (rows.length > 0) {
         const productArr = [];
-        // if (cart.length > 0) {
-        //   const products = cart[0].productId;
           for (i = 0; i < rows.length; i++) {
             const {rows: [product],} = await client.query(`
               SELECT * FROM products
               WHERE id = ${rows[i].productId}
             `);
-            productArr.push(product);
+            rows[i].product = product;
 
         }
-  
-        // const products = rows[0].productId;
-        // for (i = 0; i < products.length; i++) {
-        //   const {rows: [product],} = await client.query(`
-        //       SELECT * FROM products
-        //       WHERE id = ${products[i]}
-        //     `);
-        //   productArr.push(product);
-        // }
-  
-        return productArr;
+        console.log(rows, "Hello")
+        return rows;
       } else {
         return [];
       }

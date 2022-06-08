@@ -55,9 +55,10 @@ main {
 .cartCard {
   display:flex;
   flex-direction: row;
+  justify-content: center;
   border: solid;
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 1px;
+  padding: 10px;
   width: 55%;
   margin: 1px;
 }
@@ -70,7 +71,6 @@ main {
 .cartPage {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   flex-wrap: wrap;
   width: 150%;
 }
@@ -82,8 +82,7 @@ main {
 }
 
 .cartDeleteButton{
-  display: flex;
-  justify-content: right, center;
+  float: right, center;
   margin: 10px;
  height: 20px;
 }
@@ -94,7 +93,7 @@ main {
   border:1px black solid;
 
 }
-#minus , #plus{
+/* #minus , #plus{
   height:25px;
   width:25px;
   border:1px black solid;
@@ -111,4 +110,12 @@ main {
 #numberPlace {
   margin-left:5px;
   margin-right:5px;
+} */
+.CartTitle {
+display: flex;
+justify-content: center;
+}
+.Checkout {
+  float: right;
+  margin: 50px;
 }
