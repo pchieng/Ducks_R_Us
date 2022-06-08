@@ -33,10 +33,7 @@ const ShoppingCart = () => {
                         </div>
                     </Link>
                     <div id="mainDiv">
-                        {/* <button type='number' id="plus" onClick={() => cart.quantity+1}>+</button> */}
                         <input id='quantity' type={"number"} min={1} max={cart.product.quantity}></input>
-                        {/* <span id='numberPlace'>{cart.quantity}</span>{" "}
-                        <button id="minus" onClick={() => (-1)}>-</button> */}
                     </div>
                     <p>{`${product.description}`}</p>
 
