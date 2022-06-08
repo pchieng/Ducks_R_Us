@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { MenuItems } from "./MenuItems";
 import "./NavStyle.css";
 
 const Navbar = (props) => {
 
-
+const { isLoggedIn } = props;
 
 
     return (
@@ -14,6 +14,10 @@ const Navbar = (props) => {
         </h1>
 
         <div className="navbar-links">
+          {isLoggedIn ? 
+          <p>{`Welcome, ${localStorage.getItem("username")}`}</p>
+          :
+          null}
           {MenuItems.map((item, index) => {
             return (
               <>

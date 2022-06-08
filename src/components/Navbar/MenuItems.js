@@ -1,3 +1,5 @@
+const isAdmin = localStorage.getItem("isAdmin")
+
 export const MenuItems = [
   {
     title: "Home",
@@ -28,5 +30,11 @@ export const MenuItems = [
     title: "Cart",
     url: "/cart",
     className: "nav-links",
-  }
+  },
 ];
+
+if(isAdmin === "true") MenuItems.push({
+  title: "ADMIN",
+  url: "/admin",
+  className: "nav-links",
+})
