@@ -37,7 +37,7 @@ const ShoppingCart = () => {
                     </div>
                     <p>{`${product.description}`}</p>
 
-                    <p>{`$${product.price}`}</p>
+                    <p>{`$${product.price/100}`}</p>
                     <button className='cartDeleteButton' onClick={async () => {
                         // if (window.confirm("Are you sure you want to delete this product from cart") === true) {
                         await removeFromCart(localStorage.getItem('userId'), product.id);
