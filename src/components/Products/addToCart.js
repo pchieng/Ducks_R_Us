@@ -1,5 +1,5 @@
 import React from 'react';
-import { createCart } from '../axios-services/cart';
+import { createCart } from '../../axios-services/cart';
 
 const ProductToCart = (props) => {
  //Ducky on kitty
