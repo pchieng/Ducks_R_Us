@@ -114,7 +114,6 @@ async function populateInitialData() {
       { name: "clothing" },
       { name: "accessories" },
       { name: "games" },
-      { name: "books" },
       { name: "other" }
     ]
     const categories = await Promise.all(categoriesToCreate.map(Categories.createCategory))
@@ -147,7 +146,7 @@ async function populateInitialData() {
       { name: 'Ducky Hat', description: 'White cap with ducky logo', categoryId: 2, quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
       { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', categoryId: 3, quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
       { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', categoryId: 1, quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
-      { name: 'Duck', description: 'Bucephala albeola', categoryId: 6, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck },
+      { name: 'Duck (Mallard)', description: 'Anas platyrhynchos', categoryId: 5, quantity: 20, price: 4999, isActive: true, picture: productPicturesToCreate.Duck },
       { name: 'Lucky Ducks Game', description: 'The Lucky Ducks Game is a fun and engaging activity for children and parents to play together', categoryId: 4, quantity: 40, price: 2499, isActive: true, picture: productPicturesToCreate.LuckyDuck }
     ]
 
@@ -197,10 +196,10 @@ async function populateInitialData() {
       { writerId: 3, productId: 5, productName: 'Ducky Hat', starRating: 5, body: 'My tyrannosaurus rex loves to play with it.' },
       { writerId: 3, productId: 7, productName: 'Boomer Ducky', starRating: 4, body: 'this rubber duck is perplexed.' },
       { writerId: 4, productId: 7, productName: 'Boomer Ducky', starRating: 1, body: 'talk about fury.' },
-      { writerId: 3, productId: 8, productName: 'Duck', starRating: 5, body: "Bought this duck and now it's my best friend" },
-      { writerId: 1, productId: 8, productName: 'Duck', starRating: 4, body: 'This is a really good duck.' },
-      { writerId: 4, productId: 8, productName: 'Duck', starRating: 1, body: 'Shipping got delayed by 3 weeks!! Box of dead ducks showed up on my doorstep. Lesson learned, do not buy live ducks online' },
-      { writerId: 2, productId: 8, productName: 'Duck', starRating: 4, body: 'My Shih-Tzu loves to play with it.' },
+      { writerId: 3, productId: 8, productName: 'Duck (Mallard)', starRating: 5, body: "Bought this duck and now it's my best friend" },
+      { writerId: 1, productId: 8, productName: 'Duck (Mallard)', starRating: 4, body: 'This is a really good duck.' },
+      { writerId: 4, productId: 8, productName: 'Duck (Mallard)', starRating: 1, body: 'Shipping got delayed by 3 weeks!! Box of dead ducks showed up on my doorstep. Lesson learned, do not buy live ducks online' },
+      { writerId: 2, productId: 8, productName: 'Duck (Mallard)', starRating: 4, body: 'My Shih-Tzu loves to play with it.' },
       { writerId: 3, productId: 9, productName: 'Lucky Ducks Game', starRating: 4, body: 'Love this game! Play it every morning when I wake up' }
     ]
     const reviews = await Promise.all(reviewsToCreate.map(Reviews.createReview));

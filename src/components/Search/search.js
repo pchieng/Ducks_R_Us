@@ -34,14 +34,14 @@ const Search = () => {
                         setFilteredProducts(filterProducts(await getAllActiveProducts(), searchQuery));
                     }}
                 />
-                <br/>
+                <br />
                 <Announcer
                     message={`${filteredProducts.length} products`}
                 />
                 <ul>
                     {filteredProducts.map((product) => (
                         <Link to={`/products/${product.id}`}>
-                        <li key={product.id}>{product.name}</li>
+                            <li key={product.id}>{product.name}</li>
                         </Link>
                     ))}
                 </ul>
@@ -50,7 +50,5 @@ const Search = () => {
     );
 };
 
-// Whenever the message changes in your Announcer component, screen readers will read out the message.
-// <Announcer message={`List has ${filteredPosts.length} posts`} />
 
 export default Search;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { register } from '../../axios-services/user'
+import { Link } from "react-router-dom";
 import "./loginStyle.css"
 
 const Register = () => {
-    // used reg as a prefix for these in case we need to differentiate them from login stuff
     const [regEmail, setRegEmail] = useState("")
     const [regUsername, setRegUsername] = useState("");
     const [regPassword, setRegPassword] = useState("");
@@ -28,6 +28,7 @@ const Register = () => {
         setRegEmail('');
         setRegUsername('');
         setRegPassword('');
+        window.location.reload(false);
     }
 
     return (
@@ -67,6 +68,9 @@ const Register = () => {
             />
 
             <button>Register</button>
+            <Link to='/login'>
+                <button>Back</button>
+            </Link>
         </form>
     )
 }
