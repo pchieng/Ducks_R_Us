@@ -24,14 +24,6 @@ const UsersList = (props) => {
                 <div
                     className='userCard'
                     key={user.id}
-                    style={{
-                        borderStyle: "solid",
-                        borderWidth: "2px",
-                        borderRadius: "5px",
-                        padding: "10px",
-                        margin: "10px",
-                        maxWidth: "40vw"
-                    }}
                 >
                     <div
                         style={{

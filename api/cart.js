@@ -1,52 +1,58 @@
 const express = require('express');
-//const jwt = require("jsonwebtoken");
 const cartRouter = express.Router();
 const { Cart } = require('../db');
 
-// function verifyToken(req, res, next) {
-//     const bearerHeader = req.headers["authorization"];
-//     if (typeof bearerHeader !== "undefined") {
-//       const bearer = bearerHeader.split(" ");
-//       const bearerToken = bearer[1];
-//       req.token = bearerToken;
-//       next();
-//     } else {
-//       res.sendStatus(403);
-//     }
-//   }
 
 cartRouter.use((req, res, next) => {
     console.log('A request is being made to /cart');
     next();
 });
-
 cartRouter.get('/', async (req, res, next) => {
+  try {
+      const userId = req.body.userId
+      const cart = await Cart.getCart({ userId })
+      console.log(userId)
+      res.send(cart)
+    } catch (error) {
+      throw error;
+    }
+  });
+
+cartRouter.get('/:userId', async (req, res, next) => {
     try {
-        const cart = await Cart.getCart({ userId: 1})
+        const userId = req.params.userId
+        const cart = await Cart.getCart({ userId })
+        console.log(userId)
         res.send(cart)
       } catch (error) {
         throw error;
       }
     });
 
-//     cartRouter.patch("/cart/remove", verifyToken, async (req, res, next) => {
-//     const { userId, productId } = req.body;
-//     try {
-//       jwt.verify(req.token, "secretkey", async (err, authData) => {
-//         if (err) {
-//           res.send({ error: err, status: 403 });
-//         } else {
-//           const updatedCart = await removeFromCart({ userId, productId });
-  
-//           res.send({ updatedCart });
-//         }
-//       });
-//     } catch (error) {
-//       next(error);
-//     }
-//   });
+    cartRouter.post('/:userId', async (req, res, next) => {
+      try {
+        const userId = req.params.userId
+        const productId = req.body.productId
+        console.log(userId, productId)
+        const cart = await Cart.createCart ({userId, productId})
+        console.log(cart);
+        res.send(cart)
+      }catch (error) {
+        throw error;
+      }
+  });
 
+    cartRouter.delete("/:userId/:productId", async (req, res, next) => {
+      try{
+        const userId = req.params.userId
+        const productId = req.params.productId
+        console.log(userId, productId)
+        const cart = await Cart.removeFromCart ({userId, productId})
+        console.log(cart);
+        res.send(cart)
+      }catch (error) {
+        throw error;
+      }
+    });
 
-
-    
 module.exports = cartRouter;

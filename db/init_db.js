@@ -67,6 +67,7 @@ async function buildTables() {
       id SERIAL PRIMARY KEY,
       "userId" INTEGER REFERENCES users(id),
       "productId" INTEGER REFERENCES products(id),
+      quantity INTEGER NOT NULL DEFAULT 1,
       paid BOOLEAN DEFAULT false
     );
     `); console.log("cart")
@@ -141,7 +142,7 @@ async function populateInitialData() {
       { name: 'Alpha Ducky', description: 'This is the first rubber ducky to ever be created.', categoryId: 1, quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.AlphaDucky },
       { name: 'Sister Ducky', description: 'She is the sister of Alpha Ducky.', categoryId: 1, quantity: 100, price: 999, isActive: true, picture: productPicturesToCreate.SisterDucky },
       { name: 'Baby Ducky', description: 'Baby Duck Doo Doo doo doo doo doo..', categoryId: 1, quantity: 100, price: 799, isActive: true, picture: productPicturesToCreate.BabyDucky },
-      { name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', categoryId: 2, quantity: 0, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt },
+      { name: 'Ducky Shirt', description: 'Crew neck t-shirt with ducky logo', categoryId: 2, quantity: 2, price: 1549, isActive: true, picture: productPicturesToCreate.DuckyShirt },
       { name: 'Ducky Hat', description: 'White cap with ducky logo', categoryId: 2, quantity: 100, price: 1999, isActive: true, picture: productPicturesToCreate.DuckyHat },
       { name: 'Ducky Umbrella', description: 'Large golf umbrella with ducky logos', categoryId: 3, quantity: 50, price: 2399, isActive: true, picture: productPicturesToCreate.DuckyUmbrella },
       { name: 'Boomer Ducky', description: 'This old ducky is no longer active.', categoryId: 1, quantity: 0, price: 999, isActive: false, picture: productPicturesToCreate.BoomerDucky },
@@ -207,8 +208,8 @@ async function populateInitialData() {
   // creating cart
   console.log("creating cart...")
     const cartToCreate = [
-    {userId: 1, productId:2},
-    {userId: 1, productId:1}
+    {userId: 1, productId:2, price: 500, quantity: 5},
+    {userId: 1, productId:1, price: 200, quantity: 7}
  ]
     const cart = await Promise.all(cartToCreate.map(Cart.createCart))
  

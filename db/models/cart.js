@@ -2,12 +2,12 @@ const client = require('../client');
 
 module.exports = {
     createCart,
-    // addToCart,
-    // removeFromCart,
+    removeFromCart,
     getCart
 }
 async function createCart({ userId, productId }) {
     try {
+      console.log(userId, productId)
       const {rows: [cart],} = await client.query(`
         INSERT INTO cart("userId", "productId")
         VALUES ($1, $2)
@@ -19,68 +19,39 @@ async function createCart({ userId, productId }) {
       throw error;
     }
   }
-
-//   async function addToCart({ userId, productId }) {
-//     const cart = await getCart({ userId });
-//     const cartId = cart.id;
-//     const oldProducts = cart.products;
   
-//     const newProducts = [];
-//     if (oldProducts.length > 0) {
-//       for (i = 0; i < oldProducts.length; i++) {
-//         newProducts.push(oldProducts[i].id);
-//       }
-//       newProducts.push(...productId);
-//     } else {
-//       newProducts.push(...productId);
-//     }
+  async function removeFromCart({ userId, productId }) {
+    // const cart = await getCart({ userId });
+  console.log(userId, productId)
+    // const oldProducts = cart.products;
+    // const idArr = [];
+    try {
+      // if (oldProducts.length > 0) {
+      //   const index = oldProducts.findIndex(
+      //     (product) => product.id === productId
+      //   );
   
-//     try {
-//       const {rows: [updatedCart],} = await client.query(`
-//         UPDATE cart
-//         SET "productId" = $1, status = $2
-//         WHERE "id" = $3
-//         RETURNING *; `,[newProducts, "processing", cartId]
-//       );
+      //   if (index !== -1) {
+      //     oldProducts.splice(index, 1);
+      //   }
   
-//       return updatedCart;
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
+      //   for (i = 0; i < oldProducts.length; i++) {
+      //     idArr.push(oldProducts[i].id);
+      //   }
   
-//   async function removeFromCart({ userId, productId }) {
-//     const cart = await getCart({ userId });
+        const {rows: [updatedCart],} = await client.query( `
+          DELETE FROM cart 
+          WHERE "userId" = $1 AND "productId" = $2 AND paid = false
+          RETURNING *;`,[userId, productId]
+        );
   
-//     const oldProducts = cart.products;
-//     const idArr = [];
-//     try {
-//       if (oldProducts.length > 0) {
-//         const index = oldProducts.findIndex(
-//           (product) => product.id === productId
-//         );
-  
-//         if (index !== -1) {
-//           oldProducts.splice(index, 1);
-//         }
-  
-//         for (i = 0; i < oldProducts.length; i++) {
-//           idArr.push(oldProducts[i].id);
-//         }
-  
-//         const {rows: [updatedCart],} = await client.query( `
-//           UPDATE cart 
-//           SET "productId" = $1, status = $2 
-//           WHERE "userId" = ${userId} 
-//           RETURNING *;`,[idArr, "processing"]
-//         );
-  
-//         return updatedCart;
-//       }
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
+        return updatedCart;
+      
+      console.log(idArr)
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async function getCart({ userId }) {
     try {
@@ -89,36 +60,20 @@ async function createCart({ userId, productId }) {
         SELECT * FROM cart
         WHERE "userId" = $1 AND paid = false`,[userId]
       );
-  
-      const cart = [];
-      // for (let i = 0; i < rows.length; i++) {
-      //   rows[i].status === "processing" ? cart.push(rows[i]) : null;
-      // }
-
+        console.log(rows, "myCart")
 
       if (rows.length > 0) {
         const productArr = [];
-        // if (cart.length > 0) {
-        //   const products = cart[0].productId;
           for (i = 0; i < rows.length; i++) {
             const {rows: [product],} = await client.query(`
               SELECT * FROM products
               WHERE id = ${rows[i].productId}
             `);
-            productArr.push(product);
+            rows[i].product = product;
 
         }
-  
-        // const products = rows[0].productId;
-        // for (i = 0; i < products.length; i++) {
-        //   const {rows: [product],} = await client.query(`
-        //       SELECT * FROM products
-        //       WHERE id = ${products[i]}
-        //     `);
-        //   productArr.push(product);
-        // }
-  
-        return productArr;
+        console.log(rows, "Hello")
+        return rows;
       } else {
         return [];
       }
