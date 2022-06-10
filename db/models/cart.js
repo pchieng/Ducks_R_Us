@@ -20,33 +20,14 @@ async function createCart({ userId, productId }) {
   }
   
   async function removeFromCart({ userId, productId }) {
-    // const cart = await getCart({ userId });
-  console.log(userId, productId)
-    // const oldProducts = cart.products;
-    // const idArr = [];
-    try {
-      // if (oldProducts.length > 0) {
-      //   const index = oldProducts.findIndex(
-      //     (product) => product.id === productId
-      //   );
-  
-      //   if (index !== -1) {
-      //     oldProducts.splice(index, 1);
-      //   }
-  
-      //   for (i = 0; i < oldProducts.length; i++) {
-      //     idArr.push(oldProducts[i].id);
-      //   }
-  
+
+    try { 
         const {rows: [updatedCart],} = await client.query( `
           DELETE FROM cart 
           WHERE "userId" = $1 AND "productId" = $2 AND paid = false
           RETURNING *;`,[userId, productId]
         );
-  
         return updatedCart;
-      
-      console.log(idArr)
     } catch (error) {
       throw error;
     }
@@ -61,7 +42,6 @@ async function createCart({ userId, productId }) {
       );
 
       if (rows.length > 0) {
-        const productArr = [];
           for (i = 0; i < rows.length; i++) {
             const {rows: [product],} = await client.query(`
               SELECT * FROM products

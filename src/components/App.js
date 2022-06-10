@@ -18,19 +18,14 @@ import Contact from "./contact";
 import Admin from "./Admin/admin"
 
 import { getAllUsers } from "../axios-services/user";
-import {
-  getAllActiveProducts,
-  getAllProducts,
-} from "../axios-services/products";
+import { getAllActiveProducts, getAllProducts } from "../axios-services/products";
 import { getAllReviews } from "../axios-services/reviews";
-import { getCartProducts } from "../axios-services/cart";
 
 import "../style/App.css";
 
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([])
   const [reviews, setReviews] = useState([])
@@ -40,10 +35,7 @@ const App = () => {
       const products = await getAllActiveProducts();
       setProducts(products);
     };
-    const getCart = async () => {
-      const currentCartProducts = await getCartProducts();
-      setCartProducts(currentCartProducts);
-    };
+
     const getUsersList = async () => {
       const users = await getAllUsers();
       setUsers(users);
@@ -62,7 +54,6 @@ const App = () => {
     if (validToken) setIsLoggedIn(true);
 
     getProductList();
-    getCart();
     getUsersList();
     getProductsList();
     getReviewsList();

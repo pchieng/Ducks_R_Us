@@ -13,11 +13,9 @@ apiRouter.use(async (req, res, next) => {
   //  if auth was set and begins with a Bearer followed by a space (prefix):
 } else if (auth.startsWith(prefix)) {
   const token = auth.slice(prefix.length);
-  console.log(token)
   
   try {
       const { id } = jwt.verify(token, JWT_SECRET);
-      console.log(id)
       
       // if successful verification try to read the user from the database 
       if (id) {

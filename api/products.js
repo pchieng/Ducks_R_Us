@@ -77,7 +77,6 @@ productsRouter.patch('/:productId', async (req, res, next) => {
 
         if (parseInt(originalProduct.id) === parseInt(productId)) {
             const updatedProduct = await Products.updateProduct(productId, updatedProductValues);
-            console.log(updatedProduct)
             return res.send(updatedProduct)
         } else {
             console.error({
