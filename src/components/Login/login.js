@@ -24,6 +24,7 @@ const Login = (props) => {
 
   const logout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("userId")
     localStorage.removeItem("isAdmin")
     localStorage.removeItem("username")
     window.location.reload(false);

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProductById } from '../../axios-services/products';
 import { getReviewsByProductId } from "../../axios-services/reviews";
+import AddToCart from './addToCart'; 
 import "./productsStyle.css"
 
-const ProductDetails = () => {
+const ProductDetails = (props) => {
     const { productId } = useParams();
+    const {isLoggedIn} = props;
     const [product, setProduct] = useState({});
     const [reviews, setReviews] = useState([]);
 
@@ -28,7 +30,7 @@ const ProductDetails = () => {
     return (
         <div className='productDetailsPage'>
             <Link to='/products'>
-                <button>Back</button>
+                <button>Back to Products</button>
             </Link>
             <div className='detailedProductInfo'>
                 <img src={`${product.picture}`} alt={`${product.name}`} />
@@ -42,6 +44,12 @@ const ProductDetails = () => {
                     <p>{`${product.description}`}</p>
                     <br/>
                     <p>{`$${product.price / 100}`}</p>
+                    <br/>
+                    {isLoggedIn ?
+            <AddToCart productId={product.id} isLoggedIn={isLoggedIn} />
+            :
+            null
+          }
                 </div>
 
             </div>

@@ -7,7 +7,6 @@ module.exports = {
 }
 async function createCart({ userId, productId }) {
     try {
-      console.log(userId, productId)
       const {rows: [cart],} = await client.query(`
         INSERT INTO cart("userId", "productId")
         VALUES ($1, $2)
@@ -60,7 +59,6 @@ async function createCart({ userId, productId }) {
         SELECT * FROM cart
         WHERE "userId" = $1 AND paid = false`,[userId]
       );
-        console.log(rows, "myCart")
 
       if (rows.length > 0) {
         const productArr = [];
@@ -72,7 +70,6 @@ async function createCart({ userId, productId }) {
             rows[i].product = product;
 
         }
-        console.log(rows, "Hello")
         return rows;
       } else {
         return [];

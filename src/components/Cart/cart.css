@@ -1,0 +1,45 @@
+.cartCard {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: solid;
+    border-width: 1px;
+    padding: 20px;
+    width: 60vw;
+    margin: 5px;
+}
+
+.cartPicture {
+    height: 50px;
+}
+
+.cartPage {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.cartPictureDiv {
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+
+.cartPictureDiv p {
+    margin: 0 30px;
+   
+}
+
+#cartPrice {
+    margin: 0 20px;
+}
+
+.cartDeleteButton {
+    float: right, center;
+    margin: 0 10px;
+    height: 20px;
+}
+
+

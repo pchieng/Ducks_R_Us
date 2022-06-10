@@ -6,7 +6,7 @@ import ProductList from "./Products/products";
 import ProductDetails from "./Products/productDetails";
 import Login from "./Login/login";
 import Register from "./Login/register";
-import ShoppingCart from "./cart";
+import ShoppingCart from "./Cart/cart";
 import UsersList from "./Admin/allUsers";
 import ReviewsList from "./Admin/allReviews";
 import AllProductsList from "./Admin/allProducts";
@@ -86,10 +86,10 @@ const App = () => {
             <Contact />
           </Route>
           <Route exact path="/products">
-            <ProductList />
+            <ProductList isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/products/:productId">
-            <ProductDetails />
+            <ProductDetails isLoggedIn={isLoggedIn}/>
           </Route>
           <Route exact path="/login">
             <Login setIsLoggedIn={setIsLoggedIn} />
@@ -98,7 +98,7 @@ const App = () => {
             <Register />
           </Route>
           <Route exact path="/cart">
-            <ShoppingCart cartProducts={cartProducts} />
+            <ShoppingCart isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/allReviews">
             <ReviewsList reviews={reviews} />
