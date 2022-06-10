@@ -10,6 +10,8 @@ const ShoppingCart = (props) => {
     const [cartProducts, setCartProducts] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
 
+console.log(cartProducts)
+
     useEffect(() => {
         const getMyCart = async () => {
             const currentCartProducts = await getCart();
@@ -34,7 +36,13 @@ const ShoppingCart = (props) => {
                             </div>
                             <p id='cartPrice'>{`$${product.price / 100}`}</p>
                             <label htmlFor='quantity'>Qty:</label>
-                            <input id='quantity' type="number" min='1' max={cart.product.quantity} required></input>
+                            <select id='quantity'>
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
+                            </select>
                             <button className='cartDeleteButton' onClick={async () => {
                                 await removeFromCart(localStorage.getItem('userId'), product.id);
                                 alert('Product has been removed from Cart')
