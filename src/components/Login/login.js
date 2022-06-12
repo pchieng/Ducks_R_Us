@@ -33,7 +33,7 @@ const Login = (props) => {
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
     setIsLoggedIn(getToken);
-  }, []);
+  }, [setIsLoggedIn]);
 
   return (
     <div className="loginPage">

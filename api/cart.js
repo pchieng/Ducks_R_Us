@@ -40,4 +40,15 @@ cartRouter.get('/:userId', async (req, res, next) => {
       }
     });
 
+
+    cartRouter.delete("/:userId", async (req, res, next) => {
+      try {
+        const { userId } = req.params;
+        await Cart.clearCart({userId});
+        res.send(`Cart for user ${userId} has been cleared`)
+      } catch (error) {
+        throw error;
+      }
+    })
+
 module.exports = cartRouter;

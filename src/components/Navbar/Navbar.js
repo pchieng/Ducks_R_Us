@@ -20,15 +20,11 @@ const { isLoggedIn } = props;
           null}
           {MenuItems.map((item, index) => {
             return (
-              <>
-              <div>
-              </div>
               <li key={index}>
                 <a className={item.cName} href={item.url}>
                   {item.title}
                 </a>
               </li>
-              </>
             );
           })}
         </div>

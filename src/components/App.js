@@ -16,6 +16,7 @@ import Navbar from "./Navbar/Navbar";
 import Search from './Search/search';
 import Contact from "./contact";
 import Admin from "./Admin/admin"
+import Checkout from "./Cart/checkout";
 
 import { getAllUsers } from "../axios-services/user";
 import { getAllActiveProducts, getAllProducts } from "../axios-services/products";
@@ -90,6 +91,9 @@ const App = () => {
           </Route>
           <Route exact path="/cart">
             <ShoppingCart isLoggedIn={isLoggedIn}/>
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
           </Route>
           <Route path="/allReviews">
             <ReviewsList reviews={reviews} />

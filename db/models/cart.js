@@ -3,7 +3,8 @@ const client = require('../client');
 module.exports = {
     createCart,
     removeFromCart,
-    getCart
+    getCart,
+    clearCart
 }
 async function createCart({ userId, productId }) {
     try {
@@ -22,7 +23,7 @@ async function createCart({ userId, productId }) {
   async function removeFromCart({ userId, productId }) {
 
     try { 
-        const {rows: [updatedCart],} = await client.query( `
+        const {rows: [updatedCart]} = await client.query( `
           DELETE FROM cart 
           WHERE "userId" = $1 AND "productId" = $2 AND paid = false
           RETURNING *;`,[userId, productId]
@@ -54,6 +55,19 @@ async function createCart({ userId, productId }) {
       } else {
         return [];
       }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  async function clearCart({userId}) {
+    try {
+      const {rows: [updatedCart]} = await client.query (`
+      DELETE FROM cart
+      WHERE "userId" = $1
+      RETURNING *;
+      `, [userId])
     } catch (error) {
       throw error;
     }
