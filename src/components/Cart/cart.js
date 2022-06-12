@@ -15,7 +15,7 @@ const ShoppingCart = (props) => {
             const currentCartProducts = await getCart();
             setCartProducts(currentCartProducts)
         };
-        getMyCart();
+        getMyCart()
     }, [])
 
 
