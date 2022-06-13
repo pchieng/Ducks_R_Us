@@ -22,7 +22,7 @@ const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
                 </h1>
             <input
                 value={searchQuery}
-                onInput={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 type="text"
                 id="header-search"
                 placeholder="Search Products"

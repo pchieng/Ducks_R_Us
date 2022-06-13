@@ -24,6 +24,7 @@ const Login = (props) => {
 
   const logout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("userId")
     localStorage.removeItem("isAdmin")
     localStorage.removeItem("username")
     window.location.reload(false);
@@ -32,7 +33,7 @@ const Login = (props) => {
   useEffect(() => {
     const getToken = localStorage.getItem("token") ? true : false;
     setIsLoggedIn(getToken);
-  }, []);
+  }, [setIsLoggedIn]);
 
   return (
     <div className="loginPage">
