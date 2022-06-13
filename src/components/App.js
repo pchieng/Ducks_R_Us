@@ -6,7 +6,7 @@ import ProductList from "./Products/products";
 import ProductDetails from "./Products/productDetails";
 import Login from "./Login/login";
 import Register from "./Login/register";
-import ShoppingCart from "./cart";
+import ShoppingCart from "./Cart/cart";
 import UsersList from "./Admin/allUsers";
 import ReviewsList from "./Admin/allReviews";
 import AllProductsList from "./Admin/allProducts";
@@ -16,21 +16,17 @@ import Navbar from "./Navbar/Navbar";
 import Search from './Search/search';
 import Contact from "./contact";
 import Admin from "./Admin/admin"
+import Checkout from "./Cart/checkout";
 
 import { getAllUsers } from "../axios-services/user";
-import {
-  getAllActiveProducts,
-  getAllProducts,
-} from "../axios-services/products";
+import { getAllActiveProducts, getAllProducts } from "../axios-services/products";
 import { getAllReviews } from "../axios-services/reviews";
-import { getCartProducts } from "../axios-services/cart";
 
 import "../style/App.css";
 
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([])
   const [reviews, setReviews] = useState([])
@@ -40,10 +36,7 @@ const App = () => {
       const products = await getAllActiveProducts();
       setProducts(products);
     };
-    const getCart = async () => {
-      const currentCartProducts = await getCartProducts();
-      setCartProducts(currentCartProducts);
-    };
+
     const getUsersList = async () => {
       const users = await getAllUsers();
       setUsers(users);
@@ -62,7 +55,6 @@ const App = () => {
     if (validToken) setIsLoggedIn(true);
 
     getProductList();
-    getCart();
     getUsersList();
     getProductsList();
     getReviewsList();
@@ -86,10 +78,10 @@ const App = () => {
             <Contact />
           </Route>
           <Route exact path="/products">
-            <ProductList />
+            <ProductList isLoggedIn={isLoggedIn}/>
           </Route>
           <Route path="/products/:productId">
-            <ProductDetails />
+            <ProductDetails isLoggedIn={isLoggedIn}/>
           </Route>
           <Route exact path="/login">
             <Login setIsLoggedIn={setIsLoggedIn} />
@@ -98,7 +90,10 @@ const App = () => {
             <Register />
           </Route>
           <Route exact path="/cart">
-            <ShoppingCart cartProducts={cartProducts} />
+            <ShoppingCart isLoggedIn={isLoggedIn}/>
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
           </Route>
           <Route path="/allReviews">
             <ReviewsList reviews={reviews} />

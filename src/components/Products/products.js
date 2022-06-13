@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllActiveProducts } from "../../axios-services/products";
 import { getAllCategories } from "../../axios-services/categories";
-import ProductToCart from './addToCart'
+import AddToCart from './addToCart'
 import "./productsStyle.css"
 
 
-const ProductList = () => {
+const ProductList = (props) => {
+  const { isLoggedIn } = props;
   const [products, setProducts] = useState([]);
   const [productsToDisplay, setProductsToDisplay] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
@@ -69,9 +70,15 @@ const ProductList = () => {
           </Link>
           <p>{`${product.description}`}</p>
           <p>{`$${product.price / 100}`}</p>
-          <ProductToCart
-                    productId={product.id}
-                    />
+
+          {isLoggedIn ?
+          <>
+          <br/>
+            <AddToCart productId={product.id} isLoggedIn={isLoggedIn} />
+          </>
+            :
+            null
+          }
         </div>
       )}
       </div>

@@ -40,8 +40,8 @@ const Search = () => {
                 />
                 <ul>
                     {filteredProducts.map((product) => (
-                        <Link to={`/products/${product.id}`}>
-                            <li key={product.id}>{product.name}</li>
+                        <Link to={`/products/${product.id}`} key={product.id}>
+                            <li >{product.name}</li>
                         </Link>
                     ))}
                 </ul>
