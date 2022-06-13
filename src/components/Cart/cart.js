@@ -76,7 +76,7 @@ const ShoppingCart = (props) => {
 
                 </>
                 :
-                <div>Please log in to view cart</div>
+                <div className='logInMessage'>Please log in to view cart</div>
 
 
 
