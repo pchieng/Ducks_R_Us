@@ -17,7 +17,7 @@ const Home = () => {
 
         getFeaturedProducts();
     }, [])
-
+//comment
 
 
     return (
